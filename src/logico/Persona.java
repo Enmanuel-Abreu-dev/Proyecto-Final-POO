@@ -18,6 +18,7 @@ abstract class Persona {
     protected boolean dispViajar;
     protected boolean dispResidencia;
     protected boolean empleado;
+    protected Usuario usuario;
 
     public Persona(String identificador, String cedula, String nombre, String apellido, String email, String direccion,
             String telefono, LocalDate fechaNacim, ArrayList<Experiencia> experiencia,
@@ -35,6 +36,7 @@ abstract class Persona {
         this.dispViajar = dispViajar;
         this.dispResidencia = dispResidencia;
         this.empleado = empleado;
+        this.usuario = null;
     }
 
     public String getIdentificador() {
@@ -139,6 +141,14 @@ abstract class Persona {
 
     public void setEmpleado(boolean empleado) {
         this.empleado = empleado;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     

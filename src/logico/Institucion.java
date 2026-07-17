@@ -14,6 +14,7 @@ public class Institucion {
     private int cantEmpleado;
     private boolean privado;
     private ArrayList<SolicitudCentro> mySolicitudes;
+    private Usuario usuario;
 
     public Institucion(String identificador, String nombre, String rNC, String pais, String direccion, String telefono,
             String email, int cantEmpleado, boolean privado, ArrayList<SolicitudCentro> mySolicitudes) {
@@ -27,6 +28,7 @@ public class Institucion {
         this.cantEmpleado = cantEmpleado;
         this.privado = privado;
         this.mySolicitudes = mySolicitudes;
+        this.usuario = null;
     }
 
     public String getIdentificador() {
@@ -109,6 +111,15 @@ public class Institucion {
         this.mySolicitudes = mySolicitudes;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    
     
     
 }
