@@ -1,145 +1,166 @@
-		package visual;
-		
-		import java.awt.*;
-		import java.awt.geom.RoundRectangle2D;
-		import java.net.URL;
-		
-		import javax.swing.*;
-		import javax.swing.border.EmptyBorder;
-		import java.awt.event.ActionListener;
-		import java.awt.event.ActionEvent;
-		import javax.swing.border.BevelBorder;
-		import org.eclipse.wb.swing.FocusTraversalOnArray;
-		
-		import java.awt.Color;
-		import java.awt.event.FocusAdapter;
-		import java.awt.event.FocusEvent;
-		
-		public class LoginUsuario extends JDialog {
-		
-		    private static final long serialVersionUID = 1L;
-		
-		    private Image imagenFondo;
-		
-		private final JPanel panelFondo = new JPanel() {
-		    private static final long serialVersionUID = 1L;
-		
-		    @Override
-		    protected void paintComponent(Graphics g) {
-		        super.paintComponent(g);
-		        if (imagenFondo != null) {
-		            g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
-		        }
-		    }
-		};
-		
-		// Panel "tarjeta" que flota encima, con esquinas redondeadas y semitransparente
-		private final JPanel panelTarjeta = new JPanel() {
-		    private static final long serialVersionUID = 1L;
-		
-		};
-		
-		public static void main(String[] args) {
-		    try {
-		        LoginUsuario dialog = new LoginUsuario();
-		        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		        dialog.setVisible(true);
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    }
-		}
-		
-		public LoginUsuario() {
-		
-		    setTitle("Iniciar Sesion");
-		    setSize(574, 507);
-		    setLocationRelativeTo(null);
-		    setResizable(false);
-		   
-		
-		    URL rutaImagen = getClass().getResource("/imagenes/fondoLogin.jpg");
-		    imagenFondo = new ImageIcon(rutaImagen).getImage();
-		  
-		    JLayeredPane layeredPane = new JLayeredPane();
-		    layeredPane.setPreferredSize(new Dimension(500, 400));
-		    setContentPane(layeredPane);
-		    layeredPane.setLayout(null);
-		
-		    panelFondo.setBounds(0, 0, 574, 507);
-		    layeredPane.add(panelFondo, JLayeredPane.DEFAULT_LAYER);
-		    panelFondo.setLayout(null);
-		    panelTarjeta.setBounds(121, 94, 300, 260);
-		    panelFondo.add(panelTarjeta);
-		    panelTarjeta.setBackground(new Color(0, 0, 51));
-		    panelTarjeta.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		    panelTarjeta.setLayout(null);
-		    
-		    JLabel lblTitulo = new JLabel("Iniciar Sesión");
-		    lblTitulo.setBounds(89, 25, 122, 24);
-		    lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 18));
-		    lblTitulo.setForeground(Color.WHITE);
-		    lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
-		    panelTarjeta.add(lblTitulo);
-		
-		    JTextField txtEmail = new JTextField("Correo Electronico");
-		    txtEmail.setText("Correo electrónico");
-		    txtEmail.setForeground(new Color(0, 0, 0));
+package visual;
 
-		    txtEmail.addFocusListener(new FocusAdapter() {
+import java.awt.*;
+import java.net.URL;
 
-		        @Override
-		        public void focusGained(FocusEvent e) {
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.border.BevelBorder;
 
-		            if (txtEmail.getText().equals("Correo electrónico")) {
-		                txtEmail.setText("");
-		                txtEmail.setForeground(Color.BLACK);
-		            }
-		        }
-   
-		        @Override
-		        public void focusLost(FocusEvent e) {
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
-		            if (txtEmail.getText().trim().isEmpty()) {
-		                txtEmail.setText("Correo electrónico");
-		                txtEmail.setForeground(Color.BLACK);
-		            }
-		        }
-		    });
-		    txtEmail.setBounds(25, 67, 250, 30);
-		    txtEmail.setMaximumSize(new Dimension(250, 30));
-		    txtEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
-		    panelTarjeta.add(txtEmail);
-		        
-		        JPasswordField txtPassword = new JPasswordField();
-		                txtPassword.setToolTipText("");
-		                txtPassword.setBounds(25, 107, 250, 30);
-		                txtPassword.setMaximumSize(new Dimension(250, 30));
-		                txtPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
-		                panelTarjeta.add(txtPassword);
-		                
-		                        JButton okButton = new JButton("Ingresar");
-		                        okButton.setBounds(102, 160, 96, 21);
-		                        okButton.setForeground(Color.WHITE);
-		                        okButton.setBackground(new Color(0, 0, 153)); // verde azulado #0F8B8D
-		                        okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		                        okButton.setFocusPainted(false);
-		                        panelTarjeta.add(okButton);
-		                        
-		                                JButton cancelButton = new JButton("Cancelar");
-		                                cancelButton.setBounds(102, 191, 96, 21);
-		                                cancelButton.setForeground(Color.WHITE);
-		                                cancelButton.setBackground(new Color(0, 0, 153)); // azul principal #2563A6
-		                                                cancelButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		                                                cancelButton.setFocusPainted(false);
-		                                                cancelButton.addActionListener(new ActionListener() {
-		                                                    public void actionPerformed(ActionEvent arg0) {
-		                                                        dispose();
-		                                                    }
-		                                                });
-		                                                panelTarjeta.add(cancelButton);
-		                                                
-		                                                        getRootPane().setDefaultButton(okButton);
-		                                                        panelTarjeta.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblTitulo, txtEmail, txtPassword, okButton, cancelButton}));
-		
-		    }
-		}
+public class LoginUsuario extends JDialog {
+
+    private static final long serialVersionUID = 1L;
+
+    private Image imagenFondo;
+
+    private final JPanel panelFondo = new JPanel() {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+
+            if (imagenFondo != null) {
+                g.drawImage(
+                    imagenFondo,
+                    0,
+                    0,
+                    getWidth(),
+                    getHeight(),
+                    this
+                );
+            }
+        }
+    };
+
+    private final JPanel panelTarjeta = new JPanel() {
+
+        private static final long serialVersionUID = 1L;
+    };
+
+    public static void main(String[] args) {
+
+        try {
+            LoginUsuario dialog = new LoginUsuario();
+            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            dialog.setVisible(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public LoginUsuario() {
+
+        setTitle("Iniciar Sesion");
+        setSize(574, 507);
+        setLocationRelativeTo(null);
+        setResizable(false);
+
+        URL rutaImagen = getClass().getResource("/imagenes/fondoLogin.jpg");
+
+        if (rutaImagen != null) {
+            imagenFondo = new ImageIcon(rutaImagen).getImage();
+        }
+
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setPreferredSize(new Dimension(500, 400));
+
+        setContentPane(layeredPane);
+        layeredPane.setLayout(null);
+
+        panelFondo.setBounds(0, 0, 574, 507);
+        layeredPane.add(panelFondo, JLayeredPane.DEFAULT_LAYER);
+        panelFondo.setLayout(null);
+
+        panelTarjeta.setBounds(121, 94, 300, 260);
+        panelFondo.add(panelTarjeta);
+        panelTarjeta.setBackground(new Color(0, 0, 51));
+        panelTarjeta.setBorder(
+            new BevelBorder(
+                BevelBorder.LOWERED,
+                null,
+                null,
+                null,
+                null
+            )
+        );
+        panelTarjeta.setLayout(null);
+
+        JLabel lblTitulo = new JLabel("Iniciar Sesión");
+        lblTitulo.setBounds(89, 25, 122, 24);
+        lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 18));
+        lblTitulo.setForeground(Color.WHITE);
+        lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panelTarjeta.add(lblTitulo);
+
+        JTextField txtEmail = new JTextField("Correo Electronico");
+        txtEmail.setText("Correo electrónico");
+        txtEmail.setForeground(new Color(0, 0, 0));
+
+        txtEmail.addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+
+                if (txtEmail.getText().equals("Correo electrónico")) {
+                    txtEmail.setText("");
+                    txtEmail.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+
+                if (txtEmail.getText().trim().isEmpty()) {
+                    txtEmail.setText("Correo electrónico");
+                    txtEmail.setForeground(Color.BLACK);
+                }
+            }
+        });
+
+        txtEmail.setBounds(25, 67, 250, 30);
+        txtEmail.setMaximumSize(new Dimension(250, 30));
+        txtEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panelTarjeta.add(txtEmail);
+
+        JPasswordField txtPassword = new JPasswordField();
+        txtPassword.setToolTipText("");
+        txtPassword.setBounds(25, 107, 250, 30);
+        txtPassword.setMaximumSize(new Dimension(250, 30));
+        txtPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panelTarjeta.add(txtPassword);
+
+        JButton okButton = new JButton("Ingresar");
+        okButton.setBounds(102, 160, 96, 21);
+        okButton.setForeground(Color.WHITE);
+        okButton.setBackground(new Color(0, 0, 153));
+        okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        okButton.setFocusPainted(false);
+        panelTarjeta.add(okButton);
+
+        JButton cancelButton = new JButton("Cancelar");
+        cancelButton.setBounds(102, 191, 96, 21);
+        cancelButton.setForeground(Color.WHITE);
+        cancelButton.setBackground(new Color(0, 0, 153));
+        cancelButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cancelButton.setFocusPainted(false);
+
+        cancelButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent arg0) {
+                dispose();
+            }
+        });
+
+        panelTarjeta.add(cancelButton);
+
+        getRootPane().setDefaultButton(okButton);
+    }
+}
