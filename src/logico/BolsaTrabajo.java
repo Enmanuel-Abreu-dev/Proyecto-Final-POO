@@ -180,4 +180,38 @@ public class BolsaTrabajo {
 
 		return institucion;
 	}
+	
+	/*
+	 @param Recibe un string con el siguiente formato: "campo: dato"
+	 Se encarga de filtrar las ofertas en base a una consigna.
+	 @return Un arreglo con las ofertas filtradas. 
+	*/
+	public ArrayList<Oferta> buscarOfertas(String filtro) {
+		boolean modalidad = false, salario = false, requisitos = false, puesto = false;
+		if (filtro.contains("modalidad"))
+			modalidad = true;
+		if (filtro.contains("salario"))
+			salario = true;
+		if (filtro.contains("requisitos"))
+			requisitos = true;
+		if (filtro.contains("puesto"))
+			puesto = true;
+		
+		int pos = filtro.indexOf(":") + 2;
+		String buscado = filtro.substring(pos);
+		
+		ArrayList<Oferta> result = new ArrayList<Oferta>();
+		for (Oferta ofertaActual : this.ofertas) {
+			if (modalidad && ofertaActual.getModalidad().equalsIgnoreCase(buscado)) 
+				result.add(ofertaActual);
+			if (salario && ("" + ofertaActual.getSalario()).equalsIgnoreCase(buscado))
+				result.add(ofertaActual);
+			if (requisitos && ofertaActual.getRequisitos().equalsIgnoreCase(buscado))
+				result.add(ofertaActual);
+			if (puesto && ofertaActual.getPuesto().equalsIgnoreCase(buscado))
+				result.add(ofertaActual);
+		}
+		
+		return result;
+	}
 }
