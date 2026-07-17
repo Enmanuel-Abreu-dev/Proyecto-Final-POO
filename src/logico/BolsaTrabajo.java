@@ -137,7 +137,7 @@ public class BolsaTrabajo {
 		
 		while (!encontrado && contador < this.usuarios.size()) {
 			actual = this.usuarios.get(contador);
-			if (actual.getNombre().equalsIgnoreCase(usuario) && actual.getPassword().equalsIgnoreCase(pass))
+			if (actual.getNombre().equals(usuario) && actual.getPassword().equals(pass))
 				encontrado = true;
 			
 			contador++;
