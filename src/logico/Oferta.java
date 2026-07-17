@@ -15,10 +15,12 @@ public class Oferta {
     private LocalDate fechaFinalizacion;
     private float conincidencia;
     private boolean estado;
-
+    private String tipoContrato;
+    private int cantVacante;
+    
     public Oferta(String identificador, Institucion myEmpresa, String puesto, String descripcion, float salario,
             String modalidad, String requisitos, LocalDate fechaPublicacion, LocalDate fechaFinalizacion,
-            float conincidencia, boolean estado) {
+            float conincidencia, boolean estado, String tipoContrato, int cantVacante) {
         this.identificador = identificador;
         this.myEmpresa = myEmpresa;
         this.puesto = puesto;
@@ -30,6 +32,8 @@ public class Oferta {
         this.fechaFinalizacion = fechaFinalizacion;
         this.conincidencia = conincidencia;
         this.estado = estado;
+        this.tipoContrato = tipoContrato;
+        this.cantVacante = cantVacante;
     }
 
     public String getIdentificador() {
@@ -118,6 +122,22 @@ public class Oferta {
 
     public void setEstado(boolean estado) {
         this.estado = estado;
+    }
+
+    public String getTipoContrato() {
+        return tipoContrato;
+    }
+
+    public void setTipoContrato(String tipoContrato) {
+        this.tipoContrato = tipoContrato;
+    }
+
+    public int getCantVacante() {
+        return cantVacante;
+    }
+
+    public void setCantVacante(int cantVacante) {
+        this.cantVacante = cantVacante;
     }
 
     

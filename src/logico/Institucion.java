@@ -14,10 +14,11 @@ public class Institucion {
     private int cantEmpleado;
     private boolean privado;
     private ArrayList<SolicitudCentro> mySolicitudes;
+    private ArrayList<Oferta> myOfertas;
     private Usuario usuario;
-
+    
     public Institucion(String identificador, String nombre, String rNC, String pais, String direccion, String telefono,
-            String email, int cantEmpleado, boolean privado, ArrayList<SolicitudCentro> mySolicitudes) {
+            String email, int cantEmpleado, boolean privado) { 
         this.identificador = identificador;
         this.nombre = nombre;
         RNC = rNC;
@@ -27,8 +28,8 @@ public class Institucion {
         this.email = email;
         this.cantEmpleado = cantEmpleado;
         this.privado = privado;
-        this.mySolicitudes = mySolicitudes;
-        this.usuario = null;
+        mySolicitudes = new ArrayList<>();
+        myOfertas = new ArrayList<>();
     }
 
     public String getIdentificador() {
@@ -111,6 +112,14 @@ public class Institucion {
         this.mySolicitudes = mySolicitudes;
     }
 
+    public ArrayList<Oferta> getMyOfertas() {
+        return myOfertas;
+    }
+
+    public void setMyOfertas(ArrayList<Oferta> myOfertas) {
+        this.myOfertas = myOfertas;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -119,6 +128,7 @@ public class Institucion {
         this.usuario = usuario;
     }
 
+    
     
     
     

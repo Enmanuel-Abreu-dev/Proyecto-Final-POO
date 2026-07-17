@@ -5,13 +5,10 @@ import java.time.LocalDate;
 public class SolicitudEmp extends Solicitud{
 
     private Persona persona;
-    private Institucion empresa;
 
-    public SolicitudEmp(String identificador, boolean estado, Oferta oferta, Persona persona,
-            Institucion empresa) {
+    public SolicitudEmp(String identificador, boolean estado, Oferta oferta, Persona persona) {
         super(identificador, estado, oferta);
         this.persona = persona;
-        this.empresa = empresa;
     }
 
     public Persona getPersona() {
@@ -21,17 +18,5 @@ public class SolicitudEmp extends Solicitud{
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
-
-    public Institucion getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Institucion empresa) {
-        this.empresa = empresa;
-    }
-
-    
-
-    
 
 }
