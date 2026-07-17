@@ -11,10 +11,10 @@ public class SolicitudCentro extends Solicitud {
     private int cantVacante;
     private String urgencia;
 
-    public SolicitudCentro(String identificador, LocalDate fecha, boolean estado, Oferta oferta,
+    public SolicitudCentro(String identificador, boolean estado, Oferta oferta,
             ArrayList<SolicitudEmp> solicitudEmps, Institucion centro, String perfil, int cantVacante,
             String urgencia) {
-        super(identificador, fecha, estado, oferta);
+        super(identificador, estado, oferta);
         this.solicitudEmps = solicitudEmps;
         this.centro = centro;
         this.perfil = perfil;

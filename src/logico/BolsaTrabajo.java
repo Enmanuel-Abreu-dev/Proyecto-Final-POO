@@ -1,6 +1,7 @@
 package logico;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class BolsaTrabajo {
 	public static int generadorIdPersona = 1;
@@ -93,22 +94,27 @@ public class BolsaTrabajo {
 	
 	// Managment:
 	public String generarIdOferta() {
+		generadorIdOferta++;
 		return "OFF-" + generadorIdOferta;  
 	}
 	
 	public String generarIdPersona() {
+		generadorIdPersona++;
 		return "PER-" + generadorIdPersona; 
 	}
 	
 	public String generarIdUsuario() {
+		generadorIdUsuario++;
 		return "USU-" + generadorIdUsuario;
 	}
 	
 	public String generarIdInstitucion() {
+		generadorIdInstitucion++;
 		return "INS-" + generadorIdInstitucion;
 	}
 	
 	public String generarIdSolicitud() {
+		generadorIdSolicitud++;
 		return "SOL-" + generadorIdSolicitud;
 	}
 	
@@ -120,6 +126,10 @@ public class BolsaTrabajo {
 		this.instituciones.add(i);
 	}
 	
+	/*
+	 Se encarga de verificar que existe un usuario que concuerde con los datos recibidos.
+	 @return null si no se encontro, o el usuario encontrado si lo encontro. 
+	*/
 	public Usuario iniciarSesion(String usuario, String pass) {
 		Usuario actual = null;
 		int contador = 0;
@@ -136,6 +146,10 @@ public class BolsaTrabajo {
 		return actual;
 	}
 	
+	/*
+	 Se encarga de listar las solicitudes segun si referencian a la persona recibida.
+ 	 @return un arreglo con dichas solicitudes
+	*/
 	public ArrayList<SolicitudEmp> listarSolicitudesPorPersona(Persona p) {
 		ArrayList<SolicitudEmp> result = new ArrayList<SolicitudEmp>();
 		
@@ -149,23 +163,4 @@ public class BolsaTrabajo {
 		
 		return result;
 	}
-
-	/*
-		!Buscamos la Empresa que ha iniciado la seccion, asi optenemos la empresa que esta loggeada.
-	 */
-	private Institucion obtenerEmpresaSeccion ( String usuario, String pass )
-	{
-		Usuario user = iniciarSesion(usuario, pass);
-		Institucion institucion = null;
-
-		for ( Usuario users : usuarios )
-		{
-			if ( users.getMyInstitucion().getNombre().equalsIgnoreCase(user.getMyInstitucion().getNombre()) )
-				institucion = users.getMyInstitucion();
-		}
-
-		return institucion;
-	}
-
-	
 }

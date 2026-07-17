@@ -7,9 +7,9 @@ public class SolicitudEmp extends Solicitud{
     private Persona persona;
     private Institucion empresa;
 
-    public SolicitudEmp(String identificador, LocalDate fecha, boolean estado, Oferta oferta, Persona persona,
+    public SolicitudEmp(String identificador, boolean estado, Oferta oferta, Persona persona,
             Institucion empresa) {
-        super(identificador, fecha, estado, oferta);
+        super(identificador, estado, oferta);
         this.persona = persona;
         this.empresa = empresa;
     }
