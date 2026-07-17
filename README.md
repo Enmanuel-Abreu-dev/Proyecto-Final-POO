@@ -2,6 +2,6 @@
 **Laburo-search** bolsa de empleo
 
 **Contribuidores:**
-- Emanuel de Jesus Abreu Santos
-- Jean Robert Rojas
-- José Rafael Tineo Garcia
+- Enmanuel de Jesús Abreu Santos
+- Jean Robert Rojas José
+- José Rafael Tineo García
