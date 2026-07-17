@@ -149,4 +149,23 @@ public class BolsaTrabajo {
 		
 		return result;
 	}
+
+	/*
+		!Buscamos la Empresa que ha iniciado la seccion, asi optenemos la empresa que esta loggeada.
+	 */
+	private Institucion obtenerEmpresaSeccion ( String usuario, String pass )
+	{
+		Usuario user = iniciarSesion(usuario, pass);
+		Institucion institucion = null;
+
+		for ( Usuario users : usuarios )
+		{
+			if ( users.getMyInstitucion().getNombre().equalsIgnoreCase(user.getMyInstitucion().getNombre()) )
+				institucion = users.getMyInstitucion();
+		}
+
+		return institucion;
+	}
+
+	
 }
