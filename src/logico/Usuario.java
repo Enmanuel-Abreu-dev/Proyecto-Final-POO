@@ -62,5 +62,18 @@ public class Usuario {
 	public String getId() {
         return id;
     }
+	
+	// Managment:
+	public boolean autenticar(String pass) {
+		return this.password.equals(pass);
+	}
+	
+	public boolean cambiarPassword(String actual, String nueva) {
+		if (!this.password.equals(actual) || !this.password.equals(nueva))
+			return false;
+		
+		this.password = nueva;
+		return true;
+	}
 
 }
