@@ -1,19 +1,17 @@
 package logico;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Universitario extends Persona{
     
     private String carrera;
     private String universidad;
-
+    
     public Universitario(String identificador, String cedula, String nombre, String apellido, String email,
-            String direccion, String telefono, LocalDate fechaNacim, ArrayList<Experiencia> experiencia,
-            ArrayList<SolicitudEmp> solicitudEmps, boolean dispViajar, boolean dispResidencia, boolean empleado,
-            String carrera, String universidad) {
-        super(identificador, cedula, nombre, apellido, email, direccion, telefono, fechaNacim, experiencia,
-                solicitudEmps, dispViajar, dispResidencia, empleado);
+            String direccion, String sexo, String telefono, String pais, LocalDate fechaNacim, boolean dispViajar,
+            boolean dispResidencia, boolean empleado, Usuario usuario, String carrera, String universidad) {
+        super(identificador, cedula, nombre, apellido, email, direccion, sexo, telefono, pais, fechaNacim, dispViajar,
+                dispResidencia, empleado, usuario);
         this.carrera = carrera;
         this.universidad = universidad;
     }
@@ -33,6 +31,8 @@ public class Universitario extends Persona{
     public void setUniversidad(String universidad) {
         this.universidad = universidad;
     }
+
+   
 
     
 

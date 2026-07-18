@@ -8,6 +8,7 @@ public class Institucion {
     private String nombre;
     private String RNC; 
     private String pais;
+    private String registroSocial;
     private String direccion;
     private String telefono;
     private String email;
@@ -17,19 +18,21 @@ public class Institucion {
     private ArrayList<Oferta> myOfertas;
     private Usuario usuario;
     
-    public Institucion(String identificador, String nombre, String rNC, String pais, String direccion, String telefono,
-            String email, int cantEmpleado, boolean privado) { 
+    
+
+    public Institucion(String identificador, String nombre, String rNC, String pais, String registroSocial,
+            String direccion, String telefono, String email, int cantEmpleado, boolean privado, Usuario usuario) {
         this.identificador = identificador;
         this.nombre = nombre;
         RNC = rNC;
         this.pais = pais;
+        this.registroSocial = registroSocial;
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
         this.cantEmpleado = cantEmpleado;
         this.privado = privado;
-        mySolicitudes = new ArrayList<>();
-        myOfertas = new ArrayList<>();
+        this.usuario = usuario;
     }
 
     public String getIdentificador() {
@@ -128,8 +131,14 @@ public class Institucion {
         this.usuario = usuario;
     }
 
-    
-    
+    public String getRegistroSocial() {
+        return registroSocial;
+    }
+
+    public void setRegistroSocial(String registroSocial) {
+        this.registroSocial = registroSocial;
+    }
+
     
     
 }
