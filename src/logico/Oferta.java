@@ -1,6 +1,7 @@
 package logico;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Oferta {
     
@@ -11,16 +12,23 @@ public class Oferta {
     private float salario;
     private String modalidad; 
     private String requisitos;
+    private int aniosExperiencia;
+    private int edad;
+    private String ubicacion;
+    private String pais;
+    private String sexo; 
     private LocalDate fechaPublicacion;
     private LocalDate fechaFinalizacion;
+    private ArrayList<SolicitudEmp> solicitudEmps;
     private float conincidencia;
     private boolean estado;
     private String tipoContrato;
     private int cantVacante;
     
     public Oferta(String identificador, Institucion myEmpresa, String puesto, String descripcion, float salario,
-            String modalidad, String requisitos, LocalDate fechaPublicacion, LocalDate fechaFinalizacion,
-            float conincidencia, boolean estado, String tipoContrato, int cantVacante) {
+            String modalidad, String requisitos, int aniosExperiencia, int edad, String ubicacion, String pais,
+            String sexo, LocalDate fechaPublicacion, LocalDate fechaFinalizacion, float conincidencia, boolean estado,
+            String tipoContrato, int cantVacante) {
         this.identificador = identificador;
         this.myEmpresa = myEmpresa;
         this.puesto = puesto;
@@ -28,20 +36,17 @@ public class Oferta {
         this.salario = salario;
         this.modalidad = modalidad;
         this.requisitos = requisitos;
+        this.aniosExperiencia = aniosExperiencia;
+        this.edad = edad;
+        this.ubicacion = ubicacion;
+        this.pais = pais;
+        this.sexo = sexo;
         this.fechaPublicacion = fechaPublicacion;
         this.fechaFinalizacion = fechaFinalizacion;
         this.conincidencia = conincidencia;
         this.estado = estado;
         this.tipoContrato = tipoContrato;
         this.cantVacante = cantVacante;
-    }
-
-    public String getIdentificador() {
-        return identificador;
-    }
-
-    public void setIdentificador(String identificador) {
-        this.identificador = identificador;
     }
 
     public Institucion getMyEmpresa() {
@@ -92,6 +97,46 @@ public class Oferta {
         this.requisitos = requisitos;
     }
 
+    public int getAniosExperiencia() {
+        return aniosExperiencia;
+    }
+
+    public void setAniosExperiencia(int aniosExperiencia) {
+        this.aniosExperiencia = aniosExperiencia;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
     public LocalDate getFechaPublicacion() {
         return fechaPublicacion;
     }
@@ -106,6 +151,14 @@ public class Oferta {
 
     public void setFechaFinalizacion(LocalDate fechaFinalizacion) {
         this.fechaFinalizacion = fechaFinalizacion;
+    }
+
+    public ArrayList<SolicitudEmp> getSolicitudEmps() {
+        return solicitudEmps;
+    }
+
+    public void setSolicitudEmps(ArrayList<SolicitudEmp> solicitudEmps) {
+        this.solicitudEmps = solicitudEmps;
     }
 
     public float getConincidencia() {
@@ -140,6 +193,13 @@ public class Oferta {
         this.cantVacante = cantVacante;
     }
 
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    
+    
+    
     
     
 }
