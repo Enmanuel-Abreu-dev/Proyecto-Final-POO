@@ -4,12 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="regEmpresa Class Created.">
-      <change afterPath="$PROJECT_DIR$/src/imagenes/fondoRegPersona.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="RegPersona Class Created.">
+      <change afterPath="$PROJECT_DIR$/src/imagenes/a899a7489d4cf51f5db54738d802bf31.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoEmpresa.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoFecha.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoInicioSesion.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoModalidad.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoProfesion.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoPuesto.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoSalario.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/LoginUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/LoginUsuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/Principal.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logico/Oferta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logico/Oferta.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,35 +46,49 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.LoginUsuario.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegEmpresa (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegEmpresa.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegPersona.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jeanr/Documents/WorkSpacePUCMM/Proyecto-Final-POO/src/imagenes&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ListOfertas.executor": "Run",
+    "Application.LoginUsuario.executor": "Run",
+    "Application.RegEmpresa (1).executor": "Run",
+    "Application.RegEmpresa.executor": "Run",
+    "Application.RegPersona.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/jeanr/Documents/WorkSpacePUCMM/Proyecto-Final-POO/src/imagenes",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jeanr\Documents\WorkSpacePUCMM\Proyecto-Final-POO\src\imagenes" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.RegPersona">
+  <component name="RunManager" selected="Application.ListOfertas">
+    <configuration name="ListOfertas" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.ListOfertas" />
+      <module name="POOProyectoFinal" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="visual.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="LoginUsuario" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="visual.LoginUsuario" />
       <module name="POOProyectoFinal" />
@@ -123,9 +143,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.RegPersona" />
-        <item itemvalue="Application.RegEmpresa" />
+        <item itemvalue="Application.ListOfertas" />
         <item itemvalue="Application.LoginUsuario" />
+        <item itemvalue="Application.RegEmpresa" />
+        <item itemvalue="Application.RegPersona" />
         <item itemvalue="Application.RegEmpresa (1)" />
       </list>
     </recent_temporary>
@@ -181,7 +202,23 @@
       <option name="project" value="LOCAL" />
       <updated>1784389944275</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="LoginUsuario Class Updated.">
+      <option name="closed" value="true" />
+      <created>1784403458822</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1784403458822</updated>
+    </task>
+    <task id="LOCAL-00006" summary="RegPersona Class Created.">
+      <option name="closed" value="true" />
+      <created>1784403532086</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1784403532086</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -192,6 +229,8 @@
     <MESSAGE value="LoginUsuario class Finished." />
     <MESSAGE value="LoginUsuario Debugged" />
     <MESSAGE value="regEmpresa Class Created." />
-    <option name="LAST_COMMIT_MESSAGE" value="regEmpresa Class Created." />
+    <MESSAGE value="LoginUsuario Class Updated." />
+    <MESSAGE value="RegPersona Class Created." />
+    <option name="LAST_COMMIT_MESSAGE" value="RegPersona Class Created." />
   </component>
 </project>

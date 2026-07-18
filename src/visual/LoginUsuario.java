@@ -57,6 +57,7 @@ public class LoginUsuario extends JDialog {
     } 
 
     public LoginUsuario() {
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(LoginUsuario.class.getResource("/imagenes/iconoInicioSesion.png")));
 
         setTitle("Iniciar Sesion");
         setSize(574, 507);
