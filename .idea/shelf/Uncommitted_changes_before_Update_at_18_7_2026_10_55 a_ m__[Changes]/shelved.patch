@@ -1,0 +1,298 @@
+Index: src/visual/LoginUsuario.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package visual;\r\n\r\nimport java.awt.*;\r\nimport java.net.URL;\r\n\r\nimport javax.swing.*;\r\nimport java.awt.event.ActionListener;\r\nimport java.awt.event.ActionEvent;\r\nimport javax.swing.border.BevelBorder;\r\n\r\nimport java.awt.Color;\r\nimport java.awt.event.FocusAdapter;\r\nimport java.awt.event.FocusEvent;\r\n\r\npublic class LoginUsuario extends JDialog {\r\n\r\n    private static final long serialVersionUID = 1L;\r\n\r\n    private Image imagenFondo;\r\n\r\n    private final JPanel panelFondo = new JPanel() {\r\n\r\n        private static final long serialVersionUID = 1L;\r\n\r\n        @Override\r\n        protected void paintComponent(Graphics g) {\r\n            super.paintComponent(g);\r\n\r\n            if (imagenFondo != null) {\r\n                g.drawImage(\r\n                    imagenFondo,\r\n                    0,\r\n                    0,\r\n                    getWidth(),\r\n                    getHeight(),\r\n                    this\r\n                );\r\n            }\r\n        }\r\n    };\r\n\r\n    private final JPanel panelTarjeta = new JPanel() {\r\n\r\n        private static final long serialVersionUID = 1L;\r\n    };\r\n\r\n    public static void main(String[] args) {\r\n\r\n        try {\r\n            LoginUsuario dialog = new LoginUsuario();\r\n            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);\r\n            dialog.setVisible(true);\r\n\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    public LoginUsuario() {\r\n\r\n        setTitle(\"Iniciar Sesion\");\r\n        setSize(574, 507);\r\n        setLocationRelativeTo(null);\r\n        setResizable(false);\r\n\r\n        URL rutaImagen = getClass().getResource(\"/imagenes/fondoLogin.jpg\");\r\n\r\n        if (rutaImagen != null) {\r\n            imagenFondo = new ImageIcon(rutaImagen).getImage();\r\n        }\r\n\r\n        JLayeredPane layeredPane = new JLayeredPane();\r\n        layeredPane.setPreferredSize(new Dimension(500, 400));\r\n\r\n        setContentPane(layeredPane);\r\n        layeredPane.setLayout(null);\r\n\r\n        panelFondo.setBounds(0, 0, 574, 507);\r\n        layeredPane.add(panelFondo, JLayeredPane.DEFAULT_LAYER);\r\n        panelFondo.setLayout(null);\r\n\r\n        panelTarjeta.setBounds(121, 94, 300, 260);\r\n        panelFondo.add(panelTarjeta);\r\n        panelTarjeta.setBackground(new Color(0, 0, 51));\r\n        panelTarjeta.setBorder(\r\n            new BevelBorder(\r\n                BevelBorder.LOWERED,\r\n                null,\r\n                null,\r\n                null,\r\n                null\r\n            )\r\n        );\r\n        panelTarjeta.setLayout(null);\r\n\r\n        JLabel lblTitulo = new JLabel(\"Iniciar Sesión\");\r\n        lblTitulo.setBounds(89, 25, 122, 24);\r\n        lblTitulo.setFont(new Font(\"SansSerif\", Font.BOLD, 18));\r\n        lblTitulo.setForeground(Color.WHITE);\r\n        lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);\r\n        panelTarjeta.add(lblTitulo);\r\n\r\n        JTextField txtEmail = new JTextField(\"Correo Electronico\");\r\n        txtEmail.setText(\"Correo electrónico\");\r\n        txtEmail.setForeground(new Color(0, 0, 0));\r\n\r\n        txtEmail.addFocusListener(new FocusAdapter() {\r\n\r\n            @Override\r\n            public void focusGained(FocusEvent e) {\r\n\r\n                if (txtEmail.getText().equals(\"Correo electrónico\")) {\r\n                    txtEmail.setText(\"\");\r\n                    txtEmail.setForeground(Color.BLACK);\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void focusLost(FocusEvent e) {\r\n\r\n                if (txtEmail.getText().trim().isEmpty()) {\r\n                    txtEmail.setText(\"Correo electrónico\");\r\n                    txtEmail.setForeground(Color.BLACK);\r\n                }\r\n            }\r\n        });\r\n\r\n        txtEmail.setBounds(25, 67, 250, 30);\r\n        txtEmail.setMaximumSize(new Dimension(250, 30));\r\n        txtEmail.setAlignmentX(Component.CENTER_ALIGNMENT);\r\n        panelTarjeta.add(txtEmail);\r\n\r\n        JPasswordField txtPassword = new JPasswordField();\r\n        txtPassword.setToolTipText(\"\");\r\n        txtPassword.setBounds(25, 107, 250, 30);\r\n        txtPassword.setMaximumSize(new Dimension(250, 30));\r\n        txtPassword.setAlignmentX(Component.CENTER_ALIGNMENT);\r\n        panelTarjeta.add(txtPassword);\r\n\r\n        JButton okButton = new JButton(\"Ingresar\");\r\n        okButton.setBounds(102, 160, 96, 21);\r\n        okButton.setForeground(Color.WHITE);\r\n        okButton.setBackground(new Color(0, 0, 153));\r\n        okButton.setAlignmentX(Component.CENTER_ALIGNMENT);\r\n        okButton.setFocusPainted(false);\r\n        panelTarjeta.add(okButton);\r\n\r\n        JButton cancelButton = new JButton(\"Cancelar\");\r\n        cancelButton.setBounds(102, 191, 96, 21);\r\n        cancelButton.setForeground(Color.WHITE);\r\n        cancelButton.setBackground(new Color(0, 0, 153));\r\n        cancelButton.setAlignmentX(Component.CENTER_ALIGNMENT);\r\n        cancelButton.setFocusPainted(false);\r\n\r\n        cancelButton.addActionListener(new ActionListener() {\r\n\r\n            public void actionPerformed(ActionEvent arg0) {\r\n                dispose();\r\n            }\r\n        });\r\n\r\n        panelTarjeta.add(cancelButton);\r\n\r\n        getRootPane().setDefaultButton(okButton);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/visual/LoginUsuario.java b/src/visual/LoginUsuario.java
+--- a/src/visual/LoginUsuario.java	(revision 841fbaabea83c31db2529e764d15be2aecc87423)
++++ b/src/visual/LoginUsuario.java	(date 1784327344258)
+@@ -54,7 +54,7 @@
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+-    }
++    } 
+ 
+     public LoginUsuario() {
+ 
+@@ -69,6 +69,7 @@
+             imagenFondo = new ImageIcon(rutaImagen).getImage();
+         }
+ 
++       
+         JLayeredPane layeredPane = new JLayeredPane();
+         layeredPane.setPreferredSize(new Dimension(500, 400));
+ 
+Index: src/visual/Principal.java
+===================================================================
+diff --git a/src/visual/Principal.java b/src/visual/Principal.java
+deleted file mode 100644
+--- a/src/visual/Principal.java	(revision 841fbaabea83c31db2529e764d15be2aecc87423)
++++ /dev/null	(revision 841fbaabea83c31db2529e764d15be2aecc87423)
+@@ -1,35 +0,0 @@
+-package visual;
+-
+-import java.awt.BorderLayout;
+-import java.awt.FlowLayout;
+-
+-import javax.swing.JButton;
+-import javax.swing.JDialog;
+-import javax.swing.JPanel;
+-import javax.swing.border.EmptyBorder;
+-import javax.swing.JLayeredPane;
+-
+-public class Principal extends JDialog {
+-
+-	private static final long serialVersionUID = 1L;
+-
+-	/**
+-	 * Launch the application.
+-	 */
+-	public static void main(String[] args) {
+-		try {
+-			Principal dialog = new Principal();
+-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+-			dialog.setVisible(true);
+-		} catch (Exception e) {
+-			e.printStackTrace();
+-		}
+-	}
+-
+-	/**
+-	 * Create the dialog.
+-	 */
+-	public Principal() {
+-	}
+-
+-}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3\" name=\"Changes\" comment=\"Creating Usuario class.\">\r\n      <change beforePath=\"$PROJECT_DIR$/src/visual/Principal.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/visual/Principal.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\"><![CDATA[{\r\n  \"lastFilter\": {\r\n    \"state\": \"OPEN\",\r\n    \"assignee\": \"JeanRobertRojas\"\r\n  }\r\n}]]></component>\r\n  <component name=\"GithubPullRequestsUISettings\"><![CDATA[{\r\n  \"selectedUrlAndAccountId\": {\r\n    \"url\": \"https://github.com/Enmanuel-Abreu-dev/Proyecto-Final-POO.git\",\r\n    \"accountId\": \"78397620-324d-4747-ab33-93c4fa989984\"\r\n  }\r\n}]]></component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 0,\r\n  &quot;fromUser&quot;: false\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"3GPdMs4VszariSbBXimquNULvdi\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"ModuleVcsDetector.initialDetectionPerformed\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"RunOnceActivity.typescript.service.memoryLimit.init\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"codeWithMe.voiceChat.enabledByDefault\": \"false\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/Admin/git/Proyecto-Final-POO\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3\" name=\"Changes\" comment=\"\" />\r\n      <created>1783877092920</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1783877092920</updated>\r\n      <workItem from=\"1783877094233\" duration=\"41000\" />\r\n      <workItem from=\"1784138440028\" duration=\"662000\" />\r\n      <workItem from=\"1784238394941\" duration=\"543000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Creating Usuario class.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1784319856345</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1784319856345</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Creating Usuario class.\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Creating Usuario class.\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 841fbaabea83c31db2529e764d15be2aecc87423)
++++ b/.idea/workspace.xml	(date 1784386519945)
+@@ -4,8 +4,14 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="Creating Usuario class.">
+-      <change beforePath="$PROJECT_DIR$/src/visual/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/Principal.java" afterDir="false" />
++    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="LoginUsuario Debugged">
++      <change afterPath="$PROJECT_DIR$/src/imagenes/fondoRegEmpresa.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/imagenes/fondoRegPersona.png" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoRegistrar.png" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/visual/LoginUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/LoginUsuario.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/visual/Principal.java" beforeDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -15,18 +21,18 @@
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+-  "lastFilter": {
+-    "state": "OPEN",
+-    "assignee": "JeanRobertRojas"
++  <component name="GitHubPullRequestSearchHistory">{
++  &quot;lastFilter&quot;: {
++    &quot;state&quot;: &quot;OPEN&quot;,
++    &quot;assignee&quot;: &quot;JeanRobertRojas&quot;
+   }
+-}]]></component>
+-  <component name="GithubPullRequestsUISettings"><![CDATA[{
+-  "selectedUrlAndAccountId": {
+-    "url": "https://github.com/Enmanuel-Abreu-dev/Proyecto-Final-POO.git",
+-    "accountId": "78397620-324d-4747-ab33-93c4fa989984"
++}</component>
++  <component name="GithubPullRequestsUISettings">{
++  &quot;selectedUrlAndAccountId&quot;: {
++    &quot;url&quot;: &quot;https://github.com/Enmanuel-Abreu-dev/Proyecto-Final-POO.git&quot;,
++    &quot;accountId&quot;: &quot;78397620-324d-4747-ab33-93c4fa989984&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 0,
+   &quot;fromUser&quot;: false
+@@ -36,25 +42,96 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "ModuleVcsDetector.initialDetectionPerformed": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.git.unshallow": "true",
+-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "codeWithMe.voiceChat.enabledByDefault": "false",
+-    "git-widget-placeholder": "master",
+-    "kotlin-language-version-configured": "true",
+-    "last_opened_file_path": "C:/Users/Admin/git/Proyecto-Final-POO",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "vue.rearranger.settings.migration": "true"
+-  }
+-}]]></component>
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Application.LoginUsuario.executor&quot;: &quot;Run&quot;,
++    &quot;Application.RegEmpresa (1).executor&quot;: &quot;Run&quot;,
++    &quot;Application.RegEmpresa.executor&quot;: &quot;Run&quot;,
++    &quot;Application.RegPersona.executor&quot;: &quot;Run&quot;,
++    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/jeanr/Documents/WorkSpacePUCMM/Proyecto-Final-POO/src/imagenes&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  }
++}</component>
++  <component name="RecentsManager">
++    <key name="CopyFile.RECENT_KEYS">
++      <recent name="C:\Users\jeanr\Documents\WorkSpacePUCMM\Proyecto-Final-POO\src\imagenes" />
++    </key>
++  </component>
++  <component name="RunManager" selected="Application.RegEmpresa">
++    <configuration name="LoginUsuario" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="visual.LoginUsuario" />
++      <module name="POOProyectoFinal" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="visual.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="RegEmpresa (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="visual.RegEmpresa" />
++      <module name="POOProyectoFinal" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="visual.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="RegEmpresa" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="visual.RegEmpresa" />
++      <module name="POOProyectoFinal" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="visual.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="RegPersona" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="visual.RegPersona" />
++      <module name="POOProyectoFinal" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="visual.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <recent_temporary>
++      <list>
++        <item itemvalue="Application.RegEmpresa" />
++        <item itemvalue="Application.RegPersona" />
++        <item itemvalue="Application.LoginUsuario" />
++        <item itemvalue="Application.RegEmpresa (1)" />
++      </list>
++    </recent_temporary>
++  </component>
+   <component name="SharedIndexes">
+     <attachedChunks>
+       <set>
+@@ -82,7 +159,23 @@
+       <option name="project" value="LOCAL" />
+       <updated>1784319856345</updated>
+     </task>
+-    <option name="localTasksCounter" value="2" />
++    <task id="LOCAL-00002" summary="LoginUsuario class Finished.">
++      <option name="closed" value="true" />
++      <created>1784325615920</created>
++      <option name="number" value="00002" />
++      <option name="presentableId" value="LOCAL-00002" />
++      <option name="project" value="LOCAL" />
++      <updated>1784325615920</updated>
++    </task>
++    <task id="LOCAL-00003" summary="LoginUsuario Debugged">
++      <option name="closed" value="true" />
++      <created>1784326379497</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1784326379497</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -90,6 +183,8 @@
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="Creating Usuario class." />
+-    <option name="LAST_COMMIT_MESSAGE" value="Creating Usuario class." />
++    <MESSAGE value="LoginUsuario class Finished." />
++    <MESSAGE value="LoginUsuario Debugged" />
++    <option name="LAST_COMMIT_MESSAGE" value="LoginUsuario Debugged" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/material_theme_project_new.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"MaterialThemeProjectNewConfig\">\r\n    <option name=\"metadata\">\r\n      <MTProjectMetadataState>\r\n        <option name=\"userId\" value=\"1b0549c0:19f714f40db:-7fed\" />\r\n      </MTProjectMetadataState>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/material_theme_project_new.xml b/.idea/material_theme_project_new.xml
+--- a/.idea/material_theme_project_new.xml	(revision 841fbaabea83c31db2529e764d15be2aecc87423)
++++ b/.idea/material_theme_project_new.xml	(date 1784341399455)
+@@ -3,7 +3,9 @@
+   <component name="MaterialThemeProjectNewConfig">
+     <option name="metadata">
+       <MTProjectMetadataState>
+-        <option name="userId" value="1b0549c0:19f714f40db:-7fed" />
++        <option name="migrated" value="true" />
++        <option name="pristineConfig" value="false" />
++        <option name="userId" value="-501cd8fa:19ea84384e3:-7ffe" />
+       </MTProjectMetadataState>
+     </option>
+   </component>
