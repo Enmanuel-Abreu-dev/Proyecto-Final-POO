@@ -54,7 +54,7 @@ public class LoginUsuario extends JDialog {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    } 
 
     public LoginUsuario() {
 
@@ -69,6 +69,7 @@ public class LoginUsuario extends JDialog {
             imagenFondo = new ImageIcon(rutaImagen).getImage();
         }
 
+       
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(500, 400));
 
@@ -100,8 +101,8 @@ public class LoginUsuario extends JDialog {
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelTarjeta.add(lblTitulo);
 
-        JTextField txtEmail = new JTextField("Correo Electronico");
-        txtEmail.setText("Correo electrónico");
+        JTextField txtEmail = new JTextField("Usuario");
+        txtEmail.setText("Usuario");
         txtEmail.setForeground(new Color(0, 0, 0));
 
         txtEmail.addFocusListener(new FocusAdapter() {
@@ -109,7 +110,7 @@ public class LoginUsuario extends JDialog {
             @Override
             public void focusGained(FocusEvent e) {
 
-                if (txtEmail.getText().equals("Correo electrónico")) {
+                if (txtEmail.getText().equals("Usuario")) {
                     txtEmail.setText("");
                     txtEmail.setForeground(Color.BLACK);
                 }
@@ -119,7 +120,7 @@ public class LoginUsuario extends JDialog {
             public void focusLost(FocusEvent e) {
 
                 if (txtEmail.getText().trim().isEmpty()) {
-                    txtEmail.setText("Correo electrónico");
+                    txtEmail.setText("Usuario");
                     txtEmail.setForeground(Color.BLACK);
                 }
             }
