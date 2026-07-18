@@ -1,6 +1,7 @@
 package logico;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class BolsaTrabajo {
@@ -198,7 +199,7 @@ public class BolsaTrabajo {
 				listaMacheo.add(coincidencia);
 			}
 		}
-
+		listaMacheo.sort(Comparator.comparing(Coincidencia::getPorcentaje).reversed());
 		return listaMacheo;
 	}
 
