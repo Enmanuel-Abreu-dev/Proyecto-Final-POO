@@ -180,6 +180,63 @@ public class BolsaTrabajo {
 
 		return institucion;
 	}
+
+	public ArrayList<Coincidencia> calcularCoincidencia( String usuario, String pass, String nombreOferta )
+	{
+		Institucion institucion = obtenerEmpresaSeccion(usuario, pass);
+		ArrayList<Coincidencia> listaMacheo = new ArrayList<>();
+
+		if ( institucion != null && estadoOferta(nombreOferta, institucion) )
+		{
+			Oferta oferta = buscarOfertabyNombre(institucion.getMyOfertas(), nombreOferta);
+			
+			for ( SolicitudEmp emp : oferta.getSolicitudEmps() )
+			{
+				int cantidadCoincidencias = sumaCoincidencia(emp, oferta);
+				float totalCoincidencia = (cantidadCoincidencias * 100f) / 10;
+				Coincidencia coincidencia = new Coincidencia(emp, totalCoincidencia);
+				listaMacheo.add(coincidencia);
+			}
+		}
+
+		return listaMacheo;
+	}
+
+	/*
+		!Revisamos que la oferta exista y que siga abierta para poder calcular su
+		!coincidencia, con respecto a los postulantes
+	*/
+	private boolean estadoOferta ( String nombreOferta, Institucion institucion )
+	{
+		for( Oferta o : institucion.getMyOfertas() )
+			if ( o.getPuesto().equalsIgnoreCase(nombreOferta) && o.isEstado() )
+				return true;
+		return false;
+	}
+
+	private Oferta buscarOfertabyNombre ( ArrayList<Oferta> listOferta, String nombreOferta )
+	{
+		for ( Oferta o : listOferta )
+			if( o.getPuesto().equalsIgnoreCase(nombreOferta) )
+				return o;
+		return null;
+	} 
+
+	private int sumaCoincidencia ( SolicitudEmp emp, Oferta oferta )
+	{
+		int cantidadCoincidencias = 0;
+
+		if ( emp.getModalidad().equalsIgnoreCase(oferta.getModalidad()) )	 cantidadCoincidencias++;
+		if ( emp.getPersona().getSexo().equalsIgnoreCase(oferta.getSexo()) ) cantidadCoincidencias++;
+		if ( emp.getPersona().isDispResidencia() )							 cantidadCoincidencias++;
+		if ( emp.getPersona().isDispViajar() )                               cantidadCoincidencias++;
+		if ( emp.getPersona().getPais().equalsIgnoreCase(oferta.getPais()))  cantidadCoincidencias++;
+		if ( emp.getPersona().calcularEdad() <= oferta.getEdad() )			 cantidadCoincidencias++;
+		if ( emp.getPersona().calcularAniosExperiencia() >= oferta.getAniosExperiencia() ) cantidadCoincidencias++;
+		if ( emp.getPersona().getDireccion().equalsIgnoreCase(oferta.getUbicacion()) ) cantidadCoincidencias++;
+
+		return cantidadCoincidencias;
+	}
 	
 	/*
 	 @param Recibe un string con el siguiente formato: "campo: dato"

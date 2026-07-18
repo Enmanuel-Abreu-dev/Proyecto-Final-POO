@@ -1,6 +1,7 @@
 package logico;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 abstract class Persona {
@@ -141,7 +142,18 @@ abstract class Persona {
         return identificador;
     }
 
-    
+    public int calcularEdad()
+    {
+        return Period.between(fechaNacim, LocalDate.now()).getYears();
+    }
+
+    public int calcularAniosExperiencia()
+    {
+        int aniosTotales = 0;
+        for ( Experiencia e : experiencia )
+            aniosTotales += Period.between(e.getFechaInicio(), e.getFechaFinalizacion()).getYears();
+        return aniosTotales;
+    }
     
     
     

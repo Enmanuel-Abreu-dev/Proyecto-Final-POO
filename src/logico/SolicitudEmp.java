@@ -4,14 +4,15 @@ public class SolicitudEmp extends Solicitud{
 
     private Persona persona;
     private String rangoSalarial;
-    private String Modalidad;
+    private String modalidad;
 
     public SolicitudEmp(String identificador, boolean estado, Oferta oferta, Persona persona, String rangoSalarial,
             String modalidad) {
         super(identificador, estado, oferta);
         this.persona = persona;
         this.rangoSalarial = rangoSalarial;
-        Modalidad = modalidad;
+        this.modalidad = modalidad;
+
     }
 
     public Persona getPersona() {
@@ -31,13 +32,11 @@ public class SolicitudEmp extends Solicitud{
     }
 
     public String getModalidad() {
-        return Modalidad;
+        return modalidad;
     }
 
     public void setModalidad(String modalidad) {
-        Modalidad = modalidad;
+        this.modalidad = modalidad;
     }
-
     
-   
 }
