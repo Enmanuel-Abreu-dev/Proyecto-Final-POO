@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="profesion added to Oferta class.">
+    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="RegPersona class Updated [herencia].">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logico/Persona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logico/Persona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logico/Solicitud.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logico/Solicitud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/RegPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegPersona.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logico/BolsaTrabajo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logico/BolsaTrabajo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/RegEmpresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegEmpresa.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +44,7 @@
     "Application.LoginUsuario.executor": "Run",
     "Application.RegEmpresa (1).executor": "Run",
     "Application.RegEmpresa.executor": "Run",
+    "Application.RegOferta.executor": "Run",
     "Application.RegPersona (1).executor": "Run",
     "Application.RegPersona.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -69,7 +69,7 @@
       <recent name="C:\Users\jeanr\Documents\WorkSpacePUCMM\Proyecto-Final-POO\src\imagenes" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.RegPersona (1)">
+  <component name="RunManager" selected="Application.RegOferta">
     <configuration name="ListOfertas" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="visual.ListOfertas" />
       <module name="POOProyectoFinal" />
@@ -83,8 +83,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginUsuario" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.LoginUsuario" />
+    <configuration name="RegEmpresa" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.RegEmpresa" />
       <module name="POOProyectoFinal" />
       <extension name="coverage">
         <pattern>
@@ -96,8 +96,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RegEmpresa" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.RegEmpresa" />
+    <configuration name="RegOferta" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.RegOferta" />
       <module name="POOProyectoFinal" />
       <extension name="coverage">
         <pattern>
@@ -137,11 +137,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.RegOferta" />
         <item itemvalue="Application.RegPersona (1)" />
         <item itemvalue="Application.RegPersona" />
         <item itemvalue="Application.ListOfertas" />
         <item itemvalue="Application.RegEmpresa" />
-        <item itemvalue="Application.LoginUsuario" />
       </list>
     </recent_temporary>
   </component>
@@ -228,7 +228,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784428435837</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="RegPersona class Updated [herencia].">
+      <option name="closed" value="true" />
+      <created>1784429337839</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1784429337839</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -243,6 +251,7 @@
     <MESSAGE value="RegPersona Class Created." />
     <MESSAGE value="listOferta Class Created." />
     <MESSAGE value="profesion added to Oferta class." />
-    <option name="LAST_COMMIT_MESSAGE" value="profesion added to Oferta class." />
+    <MESSAGE value="RegPersona class Updated [herencia]." />
+    <option name="LAST_COMMIT_MESSAGE" value="RegPersona class Updated [herencia]." />
   </component>
 </project>

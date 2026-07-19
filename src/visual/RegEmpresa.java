@@ -93,6 +93,7 @@ public class RegEmpresa extends JDialog {
     public RegEmpresa() {
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistrar.png")).getImage());
         setTitle("REGISTRAR NUEVA EMPRESA");
+        URL rutaImagen = getClass().getResource("/imagenes/fondoRegEmpresa.png");
 
         setBounds(100, 100, 450, 300);
 
@@ -100,9 +101,6 @@ public class RegEmpresa extends JDialog {
 
         setSize(dim.width, dim.height - 38);
         setLocationRelativeTo(null);
-
-        URL rutaImagen =
-                getClass().getResource("/imagenes/fondoRegEmpresa.png");
 
         if (rutaImagen != null) {
             imagenFondo = new ImageIcon(rutaImagen).getImage();

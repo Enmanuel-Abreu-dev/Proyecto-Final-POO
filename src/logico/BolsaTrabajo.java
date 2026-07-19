@@ -10,6 +10,7 @@ public class BolsaTrabajo {
 	public static int generadorIdOferta = 1;
 	public static int generadorIdInstitucion = 1;
 	public static int generadorIdUsuario = 1;
+	private Usuario usuarioActual;
 	private ArrayList<Persona> personas;
 	private ArrayList<Solicitud> solicitudes;
 	private ArrayList<Oferta> ofertas;
@@ -33,6 +34,13 @@ public class BolsaTrabajo {
 		return instance;
 	}
 
+	public Usuario getUsuarioActual() {
+		return usuarioActual;
+	}
+
+	public void setUsuarioActual(Usuario usuarioActual) {
+		this.usuarioActual = usuarioActual;
+	}
 
 	public ArrayList<Persona> getPersonas() {
 		return personas;
