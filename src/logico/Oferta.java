@@ -204,6 +204,19 @@ public class Oferta {
     }
     
     
-    
+    // Managment
+    public SolicitudEmp getSolicitudById(String id) {
+    	SolicitudEmp solicitudActual = null;
+    	int indice = 0;
+    	boolean encontrado = false;
+    	
+    	while (!encontrado && indice < this.solicitudEmps.size()) {
+    		solicitudActual = this.solicitudEmps.get(indice);
+    		if (solicitudActual.getIdentificador().equalsIgnoreCase(id))
+    			encontrado = true;
+    		indice++;
+    	}
+    	return solicitudActual;
+    }
     
 }
