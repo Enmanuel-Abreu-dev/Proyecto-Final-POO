@@ -190,6 +190,10 @@ public class BolsaTrabajo {
 		return institucion;
 	}
 
+	/*
+		!Calculamos la coincidencia con de las solicitudes enviadas a la oferta dada devolviendo
+		!un arreglo de la lista de las coincidencia de mayor a menor 
+	*/
 	public ArrayList<Coincidencia> calcularCoincidencia( String usuario, String pass, String nombreOferta )
 	{
 		Institucion institucion = obtenerEmpresaSeccion(usuario, pass);
@@ -202,7 +206,7 @@ public class BolsaTrabajo {
 			for ( SolicitudEmp emp : oferta.getSolicitudEmps() )
 			{
 				int cantidadCoincidencias = sumaCoincidencia(emp, oferta);
-				float totalCoincidencia = (cantidadCoincidencias * 100f) / 10;
+				float totalCoincidencia = (cantidadCoincidencias * 100f) / 9;
 				Coincidencia coincidencia = new Coincidencia(emp, totalCoincidencia);
 				listaMacheo.add(coincidencia);
 			}
@@ -223,6 +227,9 @@ public class BolsaTrabajo {
 		return false;
 	}
 
+	/*
+		!BUscamos la oferta especifica que se va a calcular la coincidencia
+	 */
 	private Oferta buscarOfertabyNombre ( ArrayList<Oferta> listOferta, String nombreOferta )
 	{
 		for ( Oferta o : listOferta )
@@ -231,6 +238,9 @@ public class BolsaTrabajo {
 		return null;
 	} 
 
+	/*
+		!Sumamos todas laas coincidencia que se a encontrado en ese solicitante y la oferta realizada 
+	*/
 	private int sumaCoincidencia ( SolicitudEmp emp, Oferta oferta )
 	{
 		int cantidadCoincidencias = 0;
@@ -239,12 +249,24 @@ public class BolsaTrabajo {
 		if ( emp.getPersona().getSexo().equalsIgnoreCase(oferta.getSexo()) ) cantidadCoincidencias++;
 		if ( emp.getPersona().isDispResidencia() )							 cantidadCoincidencias++;
 		if ( emp.getPersona().isDispViajar() )                               cantidadCoincidencias++;
-		if ( emp.getPersona().getPais().equalsIgnoreCase(oferta.getPais()))  cantidadCoincidencias++;
+		if ( emp.getPersona().getPais().equalsIgnoreCase(oferta.getPais()) ) cantidadCoincidencias++;
 		if ( emp.getPersona().calcularEdad() <= oferta.getEdad() )			 cantidadCoincidencias++;
 		if ( emp.getPersona().calcularAniosExperiencia() >= oferta.getAniosExperiencia() ) cantidadCoincidencias++;
 		if ( emp.getPersona().getDireccion().equalsIgnoreCase(oferta.getUbicacion()) ) cantidadCoincidencias++;
+		if ( oferta.getPuesto().equalsIgnoreCase(puestoEmpSolicitante(emp)) ) cantidadCoincidencias++;
 
 		return cantidadCoincidencias;
+	}
+
+	/*
+		!Verificamos que clase es la persona que esta solicitando y devolvemos y String para comparar con la oferta 
+	*/
+	private String puestoEmpSolicitante ( SolicitudEmp emp )
+	{
+		if ( emp.getPersona() instanceof Universitario ) return "Universitario";
+		if ( emp.getPersona() instanceof Tecnico )	return "Tecnico";
+		if ( emp.getPersona() instanceof Obrero ) return "Obrero";
+		return null;
 	}
 	
 	/*
