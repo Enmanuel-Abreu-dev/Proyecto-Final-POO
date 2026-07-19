@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 
-abstract class Persona {
+public abstract class Persona {
 
     protected String identificador;
     protected String cedula;

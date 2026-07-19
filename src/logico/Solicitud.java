@@ -2,7 +2,7 @@ package logico;
 
 import java.time.LocalDate;
 
-abstract class Solicitud {
+public abstract class Solicitud {
     
     protected String identificador;
     protected LocalDate fecha;

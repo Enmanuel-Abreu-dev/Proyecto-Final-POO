@@ -23,6 +23,13 @@ import javax.swing.text.PlainDocument;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
+import logico.Persona;
+import logico.Universitario;
+import logico.Tecnico;
+import logico.Obrero;
+import logico.Usuario;
+import logico.BolsaTrabajo;
+
 public class RegPersona extends JDialog {
 
 	private static final long serialVersionUID = 1L;
@@ -57,6 +64,29 @@ public class RegPersona extends JDialog {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JPasswordField passwordField;
+	private JComboBox paisComboBox;
+	private JSpinner fechaSpinner;
+	private JComboBox paisComboBox_1;
+	private JComboBox paisComboBox_1_1;
+	private JComboBox paisComboBox_1_1_1;
+	private JButton registrarBtn;
+
+	private JRadioButton rbUniversitario;
+	private JRadioButton rbTecnico;
+	private JRadioButton rbObrero;
+
+	private JPanel pnUniversitario;
+	private JTextField carreraField;
+	private JTextField universidadField;
+
+	private JPanel pnTecnico;
+	private JTextField especialidadField;
+	private JTextField politecnicoField;
+
+	private JPanel pnObrero;
+	private JTextField profesionField;
+
+	private Persona myPersona = null;
 
 	/**
 	 * Launch the application.
@@ -64,7 +94,7 @@ public class RegPersona extends JDialog {
 	public static void main(String[] args) {
 
 		try {
-			RegPersona dialog = new RegPersona();
+			RegPersona dialog = new RegPersona(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 
@@ -76,9 +106,17 @@ public class RegPersona extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public RegPersona() {
+	public RegPersona(Persona persona) {
+
+		myPersona = persona;
+
 		setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistrar.png")).getImage());
-		setTitle("REGISTRAR NUEVA PERSONA");
+
+		if (myPersona == null) {
+			setTitle("REGISTRAR NUEVA PERSONA");
+		} else {
+			setTitle("MODIFICAR PERSONA");
+		}
 
 		setBounds(100, 100, 450, 300);
 
@@ -103,19 +141,23 @@ public class RegPersona extends JDialog {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(0, 0, 51));
-		panel.setBounds(0, 0, 741, 1000);
+		panel.setBounds(0, 0, 741, 1150);
 		panelFondo.add(panel);
 		panel.setLayout(null);
 
-		JButton registrarBtn = new JButton("REGISTRAR");
+		registrarBtn = new JButton("REGISTRAR");
+		if (myPersona != null) {
+			registrarBtn.setText("MODIFICAR");
+		}
 		registrarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				guardar();
 			}
 		});
 		registrarBtn.setBackground(new Color(255, 153, 51));
 		registrarBtn.setForeground(new Color(255, 255, 255));
 		registrarBtn.setFont(new Font("Tahoma", Font.BOLD, 20));
-		registrarBtn.setBounds(140, 800, 166, 49);
+		registrarBtn.setBounds(140, 900, 166, 49);
 		panel.add(registrarBtn);
 
 		JButton cancelarBtn = new JButton("CANCELAR");
@@ -127,7 +169,7 @@ public class RegPersona extends JDialog {
 		cancelarBtn.setBackground(new Color(255, 0, 0));
 		cancelarBtn.setForeground(new Color(255, 255, 255));
 		cancelarBtn.setFont(new Font("Tahoma", Font.BOLD, 20));
-		cancelarBtn.setBounds(425, 800, 166, 49);
+		cancelarBtn.setBounds(425, 900, 166, 49);
 		panel.add(cancelarBtn);
 
 		JLabel lblNombresYApellidos = new JLabel("NOMBRE(S):");
@@ -201,14 +243,14 @@ public class RegPersona extends JDialog {
 		lblPais.setBounds(408, 285, 166, 19);
 		panel.add(lblPais);
 
-		JComboBox paisComboBox = new JComboBox();
+		paisComboBox = new JComboBox();
 		paisComboBox.setModel(new DefaultComboBoxModel(new String[] {"Republica Dominicana", "Estados Unidos"}));
 		paisComboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		paisComboBox.setBackground(new Color(102, 255, 255));
 		paisComboBox.setBounds(408, 314, 271, 42);
 		panel.add(paisComboBox);
 
-		JSpinner fechaSpinner = new JSpinner();
+		fechaSpinner = new JSpinner();
 		fechaSpinner.setBackground(new Color(102, 255, 255));
 		fechaSpinner.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		SpinnerDateModel modeloFecha = new SpinnerDateModel();
@@ -243,7 +285,7 @@ public class RegPersona extends JDialog {
 		lblpuedeViajar.setBounds(42, 498, 271, 19);
 		panel.add(lblpuedeViajar);
 
-		JComboBox paisComboBox_1 = new JComboBox();
+		paisComboBox_1 = new JComboBox();
 		paisComboBox_1.setModel(new DefaultComboBoxModel(new String[] {"SI", "NO"}));
 		paisComboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		paisComboBox_1.setBackground(new Color(102, 255, 255));
@@ -256,7 +298,7 @@ public class RegPersona extends JDialog {
 		lblpuedeMudarse.setBounds(42, 595, 166, 19);
 		panel.add(lblpuedeMudarse);
 
-		JComboBox paisComboBox_1_1 = new JComboBox();
+		paisComboBox_1_1 = new JComboBox();
 		paisComboBox_1_1.setModel(new DefaultComboBoxModel(new String[] {"SI", "NO"}));
 		paisComboBox_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		paisComboBox_1_1.setBackground(new Color(102, 255, 255));
@@ -269,7 +311,7 @@ public class RegPersona extends JDialog {
 		lblestaEmpleado.setBounds(277, 595, 166, 19);
 		panel.add(lblestaEmpleado);
 
-		JComboBox paisComboBox_1_1_1 = new JComboBox();
+		paisComboBox_1_1_1 = new JComboBox();
 		paisComboBox_1_1_1.setModel(new DefaultComboBoxModel(new String[] {"NO", "SI"}));
 		paisComboBox_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		paisComboBox_1_1_1.setBackground(new Color(102, 255, 255));
@@ -287,9 +329,321 @@ public class RegPersona extends JDialog {
 		passwordField.setBounds(420, 420, 259, 42);
 		panel.add(passwordField);
 
+		// --- Seleccion de tipo de candidato (mismo patron que RegQueso) ---
+
+		JLabel lblTipoCandidato = new JLabel("TIPO DE CANDIDATO:");
+		lblTipoCandidato.setForeground(Color.WHITE);
+		lblTipoCandidato.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTipoCandidato.setBounds(42, 690, 271, 19);
+		panel.add(lblTipoCandidato);
+
+		rbUniversitario = new JRadioButton("UNIVERSITARIO");
+		rbUniversitario.setForeground(Color.WHITE);
+		rbUniversitario.setBackground(new Color(0, 0, 51));
+		rbUniversitario.setFont(new Font("Tahoma", Font.PLAIN, 16));
+
+		rbTecnico = new JRadioButton("TECNICO");
+		rbTecnico.setForeground(Color.WHITE);
+		rbTecnico.setBackground(new Color(0, 0, 51));
+		rbTecnico.setFont(new Font("Tahoma", Font.PLAIN, 16));
+
+		rbObrero = new JRadioButton("OBRERO");
+		rbObrero.setForeground(Color.WHITE);
+		rbObrero.setBackground(new Color(0, 0, 51));
+		rbObrero.setFont(new Font("Tahoma", Font.PLAIN, 16));
+
+		ButtonGroup btnGrupoTipo = new ButtonGroup();
+		btnGrupoTipo.add(rbUniversitario);
+		btnGrupoTipo.add(rbTecnico);
+		btnGrupoTipo.add(rbObrero);
+
+		rbUniversitario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (rbUniversitario.isSelected()) {
+					pnUniversitario.setVisible(true);
+					pnTecnico.setVisible(false);
+					pnObrero.setVisible(false);
+				}
+			}
+		});
+		rbUniversitario.setBounds(42, 719, 190, 20);
+		panel.add(rbUniversitario);
+
+		rbTecnico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (rbTecnico.isSelected()) {
+					pnTecnico.setVisible(true);
+					pnUniversitario.setVisible(false);
+					pnObrero.setVisible(false);
+				}
+			}
+		});
+		rbTecnico.setBounds(260, 719, 150, 20);
+		panel.add(rbTecnico);
+
+		rbObrero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (rbObrero.isSelected()) {
+					pnObrero.setVisible(true);
+					pnUniversitario.setVisible(false);
+					pnTecnico.setVisible(false);
+				}
+			}
+		});
+		rbObrero.setBounds(440, 719, 150, 20);
+		panel.add(rbObrero);
+
+		pnUniversitario = new JPanel();
+		pnUniversitario.setBackground(new Color(0, 0, 51));
+		pnUniversitario.setBounds(42, 755, 640, 100);
+		panel.add(pnUniversitario);
+		pnUniversitario.setLayout(null);
+
+		JLabel lblCarrera = new JLabel("CARRERA:");
+		lblCarrera.setForeground(Color.WHITE);
+		lblCarrera.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblCarrera.setBounds(0, 10, 150, 19);
+		pnUniversitario.add(lblCarrera);
+
+		carreraField = new JTextField();
+		carreraField.setBackground(new Color(153, 255, 255));
+		carreraField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		carreraField.setBounds(0, 35, 280, 38);
+		pnUniversitario.add(carreraField);
+
+		JLabel lblUniversidad = new JLabel("UNIVERSIDAD:");
+		lblUniversidad.setForeground(Color.WHITE);
+		lblUniversidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblUniversidad.setBounds(320, 10, 150, 19);
+		pnUniversitario.add(lblUniversidad);
+
+		universidadField = new JTextField();
+		universidadField.setBackground(new Color(153, 255, 255));
+		universidadField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		universidadField.setBounds(320, 35, 280, 38);
+		pnUniversitario.add(universidadField);
+
+		pnTecnico = new JPanel();
+		pnTecnico.setBackground(new Color(0, 0, 51));
+		pnTecnico.setBounds(42, 755, 640, 100);
+		panel.add(pnTecnico);
+		pnTecnico.setLayout(null);
+
+		JLabel lblEspecialidad = new JLabel("ESPECIALIDAD:");
+		lblEspecialidad.setForeground(Color.WHITE);
+		lblEspecialidad.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblEspecialidad.setBounds(0, 10, 150, 19);
+		pnTecnico.add(lblEspecialidad);
+
+		especialidadField = new JTextField();
+		especialidadField.setBackground(new Color(153, 255, 255));
+		especialidadField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		especialidadField.setBounds(0, 35, 280, 38);
+		pnTecnico.add(especialidadField);
+
+		JLabel lblPolitecnico = new JLabel("POLITECNICO:");
+		lblPolitecnico.setForeground(Color.WHITE);
+		lblPolitecnico.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblPolitecnico.setBounds(320, 10, 150, 19);
+		pnTecnico.add(lblPolitecnico);
+
+		politecnicoField = new JTextField();
+		politecnicoField.setBackground(new Color(153, 255, 255));
+		politecnicoField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		politecnicoField.setBounds(320, 35, 280, 38);
+		pnTecnico.add(politecnicoField);
+
+		pnObrero = new JPanel();
+		pnObrero.setBackground(new Color(0, 0, 51));
+		pnObrero.setBounds(42, 755, 640, 100);
+		panel.add(pnObrero);
+		pnObrero.setLayout(null);
+
+		JLabel lblProfesion = new JLabel("PROFESION U OFICIO:");
+		lblProfesion.setForeground(Color.WHITE);
+		lblProfesion.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblProfesion.setBounds(0, 10, 200, 19);
+		pnObrero.add(lblProfesion);
+
+		profesionField = new JTextField();
+		profesionField.setBackground(new Color(153, 255, 255));
+		profesionField.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		profesionField.setBounds(0, 35, 280, 38);
+		pnObrero.add(profesionField);
+
 		aplicarMascaraCedula(cedulaField);
 		aplicarMascaraTelefono(telefonoField);
 		aplicarPlaceholder(textField_5, "ejemplo@correo.com");
+
+		inicializarVentana();
+		cargarDatos();
+	}
+
+	private void inicializarVentana() {
+		rbUniversitario.setSelected(true);
+		pnUniversitario.setVisible(true);
+		pnTecnico.setVisible(false);
+		pnObrero.setVisible(false);
+	}
+
+	private void cargarDatos() {
+		if (myPersona != null) {
+
+			nombreField.setText(myPersona.getNombre());
+			apellidoField.setText(myPersona.getApellido());
+			cedulaField.setText(myPersona.getCedula());
+			cedulaField.setEditable(false);
+			cedulaField.setBackground(new Color(192, 192, 192));
+			telefonoField.setText(myPersona.getTelefono());
+			textField_4.setText(myPersona.getDireccion());
+			textField_5.setText(myPersona.getEmail());
+			textField_5.setForeground(Color.BLACK);
+			paisComboBox.setSelectedItem(myPersona.getPais());
+
+			if (myPersona.getFechaNacim() != null) {
+				Date fecha = Date.from(
+						myPersona.getFechaNacim()
+								.atStartOfDay(ZoneId.systemDefault())
+								.toInstant()
+				);
+				fechaSpinner.setValue(fecha);
+			}
+
+			paisComboBox_1.setSelectedItem(myPersona.isDispViajar() ? "SI" : "NO");
+			paisComboBox_1_1.setSelectedItem(myPersona.isDispResidencia() ? "SI" : "NO");
+			paisComboBox_1_1_1.setSelectedItem(myPersona.isEmpleado() ? "SI" : "NO");
+
+			if (myPersona.getUsuario() != null) {
+				passwordField.setText(myPersona.getUsuario().getPassword());
+			}
+
+			if (myPersona instanceof Universitario) {
+				rbUniversitario.setSelected(true);
+				carreraField.setText(((Universitario) myPersona).getCarrera());
+				universidadField.setText(((Universitario) myPersona).getUniversidad());
+				pnUniversitario.setVisible(true);
+				pnTecnico.setVisible(false);
+				pnObrero.setVisible(false);
+			}
+			if (myPersona instanceof Tecnico) {
+				rbTecnico.setSelected(true);
+				especialidadField.setText(((Tecnico) myPersona).getEspecialidad());
+				politecnicoField.setText(((Tecnico) myPersona).getPolitecnico());
+				pnTecnico.setVisible(true);
+				pnUniversitario.setVisible(false);
+				pnObrero.setVisible(false);
+			}
+			if (myPersona instanceof Obrero) {
+				rbObrero.setSelected(true);
+				profesionField.setText(((Obrero) myPersona).getProfesion());
+				pnObrero.setVisible(true);
+				pnUniversitario.setVisible(false);
+				pnTecnico.setVisible(false);
+			}
+
+			rbUniversitario.setEnabled(false);
+			rbTecnico.setEnabled(false);
+			rbObrero.setEnabled(false);
+		}
+	}
+
+	private void guardar() {
+
+		if (nombreField.getText().trim().isEmpty() || cedulaField.getText().trim().isEmpty()) {
+			JOptionPane.showMessageDialog(null,
+					"El nombre y la cedula no pueden estar vacios.",
+					"Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		if (myPersona == null) {
+
+			String identificador = BolsaTrabajo.getInstance().generarIdPersona();
+			String cedula = cedulaField.getText();
+			String nombre = nombreField.getText();
+			String apellido = apellidoField.getText();
+			String email = textField_5.getText();
+			String direccion = textField_4.getText();
+			String telefono = telefonoField.getText();
+			String pais = (String) paisComboBox.getSelectedItem();
+			LocalDate fechaNacim = ((Date) fechaSpinner.getValue())
+					.toInstant()
+					.atZone(ZoneId.systemDefault())
+					.toLocalDate();
+			boolean dispViajar = "SI".equals(paisComboBox_1.getSelectedItem());
+			boolean dispResidencia = "SI".equals(paisComboBox_1_1.getSelectedItem());
+			boolean empleado = "SI".equals(paisComboBox_1_1_1.getSelectedItem());
+
+			Usuario usuario = new Usuario(
+					BolsaTrabajo.getInstance().generarIdUsuario(),
+					nombre,
+					email,
+					new String(passwordField.getPassword()),
+					null,
+					null
+			);
+
+			Persona nuevo = null;
+
+			if (rbUniversitario.isSelected()) {
+				nuevo = new Universitario(identificador, cedula, nombre, apellido, email, direccion, null,
+						telefono, pais, fechaNacim, dispViajar, dispResidencia, empleado, usuario,
+						carreraField.getText(), universidadField.getText());
+			}
+			if (rbTecnico.isSelected()) {
+				nuevo = new Tecnico(identificador, cedula, nombre, apellido, email, direccion, null,
+						telefono, pais, fechaNacim, dispViajar, dispResidencia, empleado, usuario,
+						especialidadField.getText(), politecnicoField.getText());
+			}
+			if (rbObrero.isSelected()) {
+				nuevo = new Obrero(identificador, cedula, nombre, apellido, email, direccion, null,
+						telefono, pais, fechaNacim, dispViajar, dispResidencia, empleado, usuario,
+						profesionField.getText());
+			}
+
+			usuario.setMyPersona(nuevo);
+			BolsaTrabajo.getInstance().registrarPersona(nuevo);
+
+			JOptionPane.showMessageDialog(null, "Candidato Registrado Exitosamente",
+					"Registro", JOptionPane.INFORMATION_MESSAGE);
+
+		} else {
+
+			myPersona.setNombre(nombreField.getText());
+			myPersona.setApellido(apellidoField.getText());
+			myPersona.setTelefono(telefonoField.getText());
+			myPersona.setDireccion(textField_4.getText());
+			myPersona.setEmail(textField_5.getText());
+			myPersona.setPais((String) paisComboBox.getSelectedItem());
+			myPersona.setFechaNacim(
+					((Date) fechaSpinner.getValue())
+							.toInstant()
+							.atZone(ZoneId.systemDefault())
+							.toLocalDate()
+			);
+			myPersona.setDispViajar("SI".equals(paisComboBox_1.getSelectedItem()));
+			myPersona.setDispResidencia("SI".equals(paisComboBox_1_1.getSelectedItem()));
+			myPersona.setEmpleado("SI".equals(paisComboBox_1_1_1.getSelectedItem()));
+
+			if (myPersona.getUsuario() != null) {
+				myPersona.getUsuario().setPassword(new String(passwordField.getPassword()));
+			}
+
+			if (myPersona instanceof Universitario) {
+				((Universitario) myPersona).setCarrera(carreraField.getText());
+				((Universitario) myPersona).setUniversidad(universidadField.getText());
+			} else if (myPersona instanceof Tecnico) {
+				((Tecnico) myPersona).setEspecialidad(especialidadField.getText());
+				((Tecnico) myPersona).setPolitecnico(politecnicoField.getText());
+			} else if (myPersona instanceof Obrero) {
+				((Obrero) myPersona).setProfesion(profesionField.getText());
+			}
+
+			JOptionPane.showMessageDialog(null, "Candidato Modificado Exitosamente",
+					"Modificacion", JOptionPane.INFORMATION_MESSAGE);
+		}
+
+		dispose();
 	}
 
 	private void aplicarMascaraCedula(JTextField campo) {

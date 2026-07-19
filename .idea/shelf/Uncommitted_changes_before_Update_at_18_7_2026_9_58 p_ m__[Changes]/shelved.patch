@@ -1,0 +1,413 @@
+Index: src/visual/RegPersona.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package visual;\r\n\r\nimport java.awt.BorderLayout;\r\nimport java.awt.Dimension;\r\nimport java.awt.Graphics;\r\nimport java.awt.Image;\r\nimport java.net.URL;\r\n\r\nimport javax.swing.*;\r\nimport java.awt.Color;\r\nimport java.awt.Font;\r\nimport java.awt.event.ActionListener;\r\nimport java.awt.event.ActionEvent;\r\n\r\nimport java.util.Date;\r\nimport java.time.LocalDate;\r\nimport java.time.ZoneId;\r\n\r\nimport javax.swing.text.AttributeSet;\r\nimport javax.swing.text.BadLocationException;\r\nimport javax.swing.text.DocumentFilter;\r\nimport javax.swing.text.PlainDocument;\r\nimport java.awt.event.FocusAdapter;\r\nimport java.awt.event.FocusEvent;\r\n\r\npublic class RegPersona extends JDialog {\r\n\r\n\tprivate static final long serialVersionUID = 1L;\r\n\r\n\tprivate Image imagenFondo;\r\n\r\n\tprivate final JPanel panelFondo = new JPanel() {\r\n\r\n\t\tprivate static final long serialVersionUID = 1L;\r\n\r\n\t\t@Override\r\n\t\tprotected void paintComponent(Graphics g) {\r\n\t\t\tsuper.paintComponent(g);\r\n\r\n\t\t\tif (imagenFondo != null) {\r\n\t\t\t\tg.drawImage(\r\n\t\t\t\t\t\timagenFondo,\r\n\t\t\t\t\t\t0,\r\n\t\t\t\t\t\t0,\r\n\t\t\t\t\t\tgetWidth(),\r\n\t\t\t\t\t\tgetHeight(),\r\n\t\t\t\t\t\tthis\r\n\t\t\t\t);\r\n\t\t\t}\r\n\t\t}\r\n\t};\r\n\r\n\tprivate JTextField nombreField;\r\n\tprivate JTextField apellidoField;\r\n\tprivate JTextField cedulaField;\r\n\tprivate JTextField telefonoField;\r\n\tprivate JTextField textField_4;\r\n\tprivate JTextField textField_5;\r\n\tprivate JPasswordField passwordField;\r\n\r\n\t/**\r\n\t * Launch the application.\r\n\t */\r\n\tpublic static void main(String[] args) {\r\n\r\n\t\ttry {\r\n\t\t\tRegPersona dialog = new RegPersona();\r\n\t\t\tdialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);\r\n\t\t\tdialog.setVisible(true);\r\n\r\n\t\t} catch (Exception e) {\r\n\t\t\te.printStackTrace();\r\n\t\t}\r\n\t}\r\n\r\n\t/**\r\n\t * Create the dialog.\r\n\t */\r\n\tpublic RegPersona() {\r\n\t\tsetIconImage(new ImageIcon(getClass().getResource(\"/imagenes/iconoRegistrar.png\")).getImage());\r\n\t\tsetTitle(\"REGISTRAR NUEVA PERSONA\");\r\n\r\n\t\tsetBounds(100, 100, 450, 300);\r\n\r\n\t\tDimension dim = getToolkit().getScreenSize();\r\n\r\n\t\tsetSize(dim.width, dim.height - 38);\r\n\t\tsetLocationRelativeTo(null);\r\n\r\n\t\tURL rutaImagen = getClass().getResource(\"/imagenes/fondoRegPersona.png\");\r\n\r\n\t\tif (rutaImagen != null) {\r\n\t\t\timagenFondo = new ImageIcon(rutaImagen).getImage();\r\n\t\t}\r\n\r\n\t\tJLayeredPane layeredPane = new JLayeredPane();\r\n\t\tgetContentPane().add(layeredPane, BorderLayout.CENTER);\r\n\t\tlayeredPane.setLayout(null);\r\n\r\n\t\tpanelFondo.setBounds(0, 0, dim.width, dim.height - 38);\r\n\t\tlayeredPane.add(panelFondo, JLayeredPane.DEFAULT_LAYER);\r\n\t\tpanelFondo.setLayout(null);\r\n\r\n\t\tJPanel panel = new JPanel();\r\n\t\tpanel.setBackground(new Color(0, 0, 51));\r\n\t\tpanel.setBounds(0, 0, 741, 1000);\r\n\t\tpanelFondo.add(panel);\r\n\t\tpanel.setLayout(null);\r\n\r\n\t\tJButton registrarBtn = new JButton(\"REGISTRAR\");\r\n\t\tregistrarBtn.addActionListener(new ActionListener() {\r\n\t\t\tpublic void actionPerformed(ActionEvent arg0) {\r\n\t\t\t}\r\n\t\t});\r\n\t\tregistrarBtn.setBackground(new Color(255, 153, 51));\r\n\t\tregistrarBtn.setForeground(new Color(255, 255, 255));\r\n\t\tregistrarBtn.setFont(new Font(\"Tahoma\", Font.BOLD, 20));\r\n\t\tregistrarBtn.setBounds(140, 800, 166, 49);\r\n\t\tpanel.add(registrarBtn);\r\n\r\n\t\tJButton cancelarBtn = new JButton(\"CANCELAR\");\r\n\t\tcancelarBtn.addActionListener(new ActionListener() {\r\n\t\t\tpublic void actionPerformed(ActionEvent arg0) {\r\n\t\t\t\tdispose();\r\n\t\t\t}\r\n\t\t});\r\n\t\tcancelarBtn.setBackground(new Color(255, 0, 0));\r\n\t\tcancelarBtn.setForeground(new Color(255, 255, 255));\r\n\t\tcancelarBtn.setFont(new Font(\"Tahoma\", Font.BOLD, 20));\r\n\t\tcancelarBtn.setBounds(425, 800, 166, 49);\r\n\t\tpanel.add(cancelarBtn);\r\n\r\n\t\tJLabel lblNombresYApellidos = new JLabel(\"NOMBRE(S):\");\r\n\t\tlblNombresYApellidos.setForeground(Color.WHITE);\r\n\t\tlblNombresYApellidos.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tlblNombresYApellidos.setBounds(42, 86, 226, 19);\r\n\t\tpanel.add(lblNombresYApellidos);\r\n\r\n\t\tnombreField = new JTextField();\r\n\t\tnombreField.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tnombreField.setColumns(10);\r\n\t\tnombreField.setBackground(new Color(153, 255, 255));\r\n\t\tnombreField.setBounds(42, 115, 271, 42);\r\n\t\tpanel.add(nombreField);\r\n\r\n\t\tJLabel lblApellidos = new JLabel(\"APELLIDO(S):\");\r\n\t\tlblApellidos.setForeground(Color.WHITE);\r\n\t\tlblApellidos.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tlblApellidos.setBounds(408, 86, 226, 19);\r\n\t\tpanel.add(lblApellidos);\r\n\r\n\t\tapellidoField = new JTextField();\r\n\t\tapellidoField.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tapellidoField.setColumns(10);\r\n\t\tapellidoField.setBackground(new Color(153, 255, 255));\r\n\t\tapellidoField.setBounds(408, 115, 271, 42);\r\n\t\tpanel.add(apellidoField);\r\n\r\n\t\tJLabel lblNombres = new JLabel(\"CEDULA:\");\r\n\t\tlblNombres.setForeground(Color.WHITE);\r\n\t\tlblNombres.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tlblNombres.setBounds(42, 187, 226, 19);\r\n\t\tpanel.add(lblNombres);\r\n\r\n\t\tcedulaField = new JTextField();\r\n\t\tcedulaField.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tcedulaField.setColumns(10);\r\n\t\tcedulaField.setBackground(new Color(153, 255, 255));\r\n\t\tcedulaField.setBounds(42, 216, 271, 42);\r\n\t\tpanel.add(cedulaField);\r\n\r\n\t\tJLabel lblTelefono = new JLabel(\"TELEFONO:\");\r\n\t\tlblTelefono.setForeground(Color.WHITE);\r\n\t\tlblTelefono.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tlblTelefono.setBounds(408, 187, 226, 19);\r\n\t\tpanel.add(lblTelefono);\r\n\r\n\t\ttelefonoField = new JTextField();\r\n\t\ttelefonoField.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\ttelefonoField.setColumns(10);\r\n\t\ttelefonoField.setBackground(new Color(153, 255, 255));\r\n\t\ttelefonoField.setBounds(408, 216, 271, 42);\r\n\t\tpanel.add(telefonoField);\r\n\r\n\t\tJLabel lblDireccion = new JLabel(\"DIRECCION:\");\r\n\t\tlblDireccion.setForeground(Color.WHITE);\r\n\t\tlblDireccion.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tlblDireccion.setBounds(42, 285, 226, 19);\r\n\t\tpanel.add(lblDireccion);\r\n\r\n\t\ttextField_4 = new JTextField();\r\n\t\ttextField_4.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\ttextField_4.setColumns(10);\r\n\t\ttextField_4.setBackground(new Color(153, 255, 255));\r\n\t\ttextField_4.setBounds(42, 314, 271, 42);\r\n\t\tpanel.add(textField_4);\r\n\r\n\t\tJLabel lblPais = new JLabel(\"PAIS:\");\r\n\t\tlblPais.setForeground(Color.WHITE);\r\n\t\tlblPais.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tlblPais.setBounds(408, 285, 166, 19);\r\n\t\tpanel.add(lblPais);\r\n\r\n\t\tJComboBox paisComboBox = new JComboBox();\r\n\t\tpaisComboBox.setModel(new DefaultComboBoxModel(new String[] {\"Republica Dominicana\", \"Estados Unidos\"}));\r\n\t\tpaisComboBox.setFont(new Font(\"Tahoma\", Font.PLAIN, 16));\r\n\t\tpaisComboBox.setBackground(new Color(102, 255, 255));\r\n\t\tpaisComboBox.setBounds(408, 314, 271, 42);\r\n\t\tpanel.add(paisComboBox);\r\n\r\n\t\tJSpinner fechaSpinner = new JSpinner();\r\n\t\tfechaSpinner.setBackground(new Color(102, 255, 255));\r\n\t\tfechaSpinner.setFont(new Font(\"Tahoma\", Font.PLAIN, 20));\r\n\t\tSpinnerDateModel modeloFecha = new SpinnerDateModel();\r\n\t\tfechaSpinner.setModel(modeloFecha);\r\n\t\tJSpinner.DateEditor editor = new JSpinner.DateEditor(fechaSpinner, \"dd/MM/yyyy\");\r\n\t\tfechaSpinner.setEditor(editor);\r\n\t\tfechaSpinner.setBounds(408, 527, 271, 42);\r\n\t\tpanel.add(fechaSpinner);\r\n\r\n\t\tJLabel lblDechaDeNacimiento = new JLabel(\"FECHA DE NACIMIENTO:\");\r\n\t\tlblDechaDeNacimiento.setForeground(Color.WHITE);\r\n\t\tlblDechaDeNacimiento.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tlblDechaDeNacimiento.setBounds(408, 502, 226, 19);\r\n\t\tpanel.add(lblDechaDeNacimiento);\r\n\r\n\t\tJLabel lblCorreoElectronico = new JLabel(\"CORREO ELECTRONICO:\");\r\n\t\tlblCorreoElectronico.setForeground(Color.WHITE);\r\n\t\tlblCorreoElectronico.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tlblCorreoElectronico.setBounds(42, 391, 226, 19);\r\n\t\tpanel.add(lblCorreoElectronico);\r\n\r\n\t\ttextField_5 = new JTextField();\r\n\t\ttextField_5.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\ttextField_5.setColumns(10);\r\n\t\ttextField_5.setBackground(new Color(153, 255, 255));\r\n\t\ttextField_5.setBounds(42, 420, 334, 42);\r\n\t\tpanel.add(textField_5);\r\n\r\n\t\tJLabel lblpuedeViajar = new JLabel(\"DISPONIBILIDAD DE VIAJE:\");\r\n\t\tlblpuedeViajar.setForeground(Color.WHITE);\r\n\t\tlblpuedeViajar.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tlblpuedeViajar.setBounds(42, 498, 271, 19);\r\n\t\tpanel.add(lblpuedeViajar);\r\n\r\n\t\tJComboBox paisComboBox_1 = new JComboBox();\r\n\t\tpaisComboBox_1.setModel(new DefaultComboBoxModel(new String[] {\"SI\", \"NO\"}));\r\n\t\tpaisComboBox_1.setFont(new Font(\"Tahoma\", Font.PLAIN, 16));\r\n\t\tpaisComboBox_1.setBackground(new Color(102, 255, 255));\r\n\t\tpaisComboBox_1.setBounds(42, 527, 244, 42);\r\n\t\tpanel.add(paisComboBox_1);\r\n\r\n\t\tJLabel lblpuedeMudarse = new JLabel(\"¿PUEDE MUDARSE?\");\r\n\t\tlblpuedeMudarse.setForeground(Color.WHITE);\r\n\t\tlblpuedeMudarse.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tlblpuedeMudarse.setBounds(42, 595, 166, 19);\r\n\t\tpanel.add(lblpuedeMudarse);\r\n\r\n\t\tJComboBox paisComboBox_1_1 = new JComboBox();\r\n\t\tpaisComboBox_1_1.setModel(new DefaultComboBoxModel(new String[] {\"SI\", \"NO\"}));\r\n\t\tpaisComboBox_1_1.setFont(new Font(\"Tahoma\", Font.PLAIN, 16));\r\n\t\tpaisComboBox_1_1.setBackground(new Color(102, 255, 255));\r\n\t\tpaisComboBox_1_1.setBounds(42, 624, 190, 42);\r\n\t\tpanel.add(paisComboBox_1_1);\r\n\r\n\t\tJLabel lblestaEmpleado = new JLabel(\"¿ESTA EMPLEADO?\");\r\n\t\tlblestaEmpleado.setForeground(Color.WHITE);\r\n\t\tlblestaEmpleado.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tlblestaEmpleado.setBounds(277, 595, 166, 19);\r\n\t\tpanel.add(lblestaEmpleado);\r\n\r\n\t\tJComboBox paisComboBox_1_1_1 = new JComboBox();\r\n\t\tpaisComboBox_1_1_1.setModel(new DefaultComboBoxModel(new String[] {\"NO\", \"SI\"}));\r\n\t\tpaisComboBox_1_1_1.setFont(new Font(\"Tahoma\", Font.PLAIN, 16));\r\n\t\tpaisComboBox_1_1_1.setBackground(new Color(102, 255, 255));\r\n\t\tpaisComboBox_1_1_1.setBounds(277, 624, 190, 42);\r\n\t\tpanel.add(paisComboBox_1_1_1);\r\n\r\n\t\tJLabel lblContrasea = new JLabel(\"CONTRASEÑA:\");\r\n\t\tlblContrasea.setForeground(Color.WHITE);\r\n\t\tlblContrasea.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n\t\tlblContrasea.setBounds(420, 379, 166, 42);\r\n\t\tpanel.add(lblContrasea);\r\n\r\n\t\tpasswordField = new JPasswordField();\r\n\t\tpasswordField.setBackground(new Color(102, 255, 255));\r\n\t\tpasswordField.setBounds(420, 420, 259, 42);\r\n\t\tpanel.add(passwordField);\r\n\r\n\t\taplicarMascaraCedula(cedulaField);\r\n\t\taplicarMascaraTelefono(telefonoField);\r\n\t\taplicarPlaceholder(textField_5, \"ejemplo@correo.com\");\r\n\t}\r\n\r\n\tprivate void aplicarMascaraCedula(JTextField campo) {\r\n\t\taplicarMascaraNumerica(campo, 11, 3, 10);\r\n\t}\r\n\r\n\tprivate void aplicarMascaraTelefono(JTextField campo) {\r\n\t\taplicarMascaraNumerica(campo, 10, 3, 6);\r\n\t}\r\n\r\n\tprivate void aplicarMascaraNumerica(\r\n\t\t\tJTextField campo,\r\n\t\t\tint maxDigitos,\r\n\t\t\tint... posicionesGuion) {\r\n\r\n\t\tPlainDocument documento = (PlainDocument) campo.getDocument();\r\n\r\n\t\tdocumento.setDocumentFilter(new DocumentFilter() {\r\n\r\n\t\t\tprivate String formatear(String texto) {\r\n\r\n\t\t\t\tString digitos = texto.replaceAll(\"\\\\D\", \"\");\r\n\r\n\t\t\t\tif (digitos.length() > maxDigitos) {\r\n\t\t\t\t\tdigitos = digitos.substring(0, maxDigitos);\r\n\t\t\t\t}\r\n\r\n\t\t\t\tStringBuilder resultado = new StringBuilder(digitos);\r\n\t\t\t\tint guionesAgregados = 0;\r\n\r\n\t\t\t\tfor (int posicion : posicionesGuion) {\r\n\r\n\t\t\t\t\tif (digitos.length() > posicion) {\r\n\t\t\t\t\t\tresultado.insert(\r\n\t\t\t\t\t\t\t\tposicion + guionesAgregados,\r\n\t\t\t\t\t\t\t\t\"-\"\r\n\t\t\t\t\t\t);\r\n\r\n\t\t\t\t\t\tguionesAgregados++;\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\r\n\t\t\t\treturn resultado.toString();\r\n\t\t\t}\r\n\r\n\t\t\t@Override\r\n\t\t\tpublic void insertString(\r\n\t\t\t\t\tFilterBypass fb,\r\n\t\t\t\t\tint offset,\r\n\t\t\t\t\tString texto,\r\n\t\t\t\t\tAttributeSet atributos)\r\n\t\t\t\t\tthrows BadLocationException {\r\n\r\n\t\t\t\treplace(\r\n\t\t\t\t\t\tfb,\r\n\t\t\t\t\t\toffset,\r\n\t\t\t\t\t\t0,\r\n\t\t\t\t\t\ttexto,\r\n\t\t\t\t\t\tatributos\r\n\t\t\t\t);\r\n\t\t\t}\r\n\r\n\t\t\t@Override\r\n\t\t\tpublic void replace(\r\n\t\t\t\t\tFilterBypass fb,\r\n\t\t\t\t\tint offset,\r\n\t\t\t\t\tint length,\r\n\t\t\t\t\tString texto,\r\n\t\t\t\t\tAttributeSet atributos)\r\n\t\t\t\t\tthrows BadLocationException {\r\n\r\n\t\t\t\tString actual = fb.getDocument().getText(\r\n\t\t\t\t\t\t0,\r\n\t\t\t\t\t\tfb.getDocument().getLength()\r\n\t\t\t\t);\r\n\r\n\t\t\t\tStringBuilder nuevoTexto = new StringBuilder(actual);\r\n\r\n\t\t\t\tnuevoTexto.replace(\r\n\t\t\t\t\t\toffset,\r\n\t\t\t\t\t\toffset + length,\r\n\t\t\t\t\t\ttexto == null ? \"\" : texto\r\n\t\t\t\t);\r\n\r\n\t\t\t\tString textoFormateado =\r\n\t\t\t\t\t\tformatear(nuevoTexto.toString());\r\n\r\n\t\t\t\tfb.replace(\r\n\t\t\t\t\t\t0,\r\n\t\t\t\t\t\tfb.getDocument().getLength(),\r\n\t\t\t\t\t\ttextoFormateado,\r\n\t\t\t\t\t\tatributos\r\n\t\t\t\t);\r\n\t\t\t}\r\n\r\n\t\t\t@Override\r\n\t\t\tpublic void remove(\r\n\t\t\t\t\tFilterBypass fb,\r\n\t\t\t\t\tint offset,\r\n\t\t\t\t\tint length)\r\n\t\t\t\t\tthrows BadLocationException {\r\n\r\n\t\t\t\treplace(\r\n\t\t\t\t\t\tfb,\r\n\t\t\t\t\t\toffset,\r\n\t\t\t\t\t\tlength,\r\n\t\t\t\t\t\t\"\",\r\n\t\t\t\t\t\tnull\r\n\t\t\t\t);\r\n\t\t\t}\r\n\t\t});\r\n\t}\r\n\r\n\tprivate void aplicarPlaceholder(\r\n\t\t\tJTextField campo,\r\n\t\t\tString textoEjemplo) {\r\n\r\n\t\tColor colorNormal = campo.getForeground();\r\n\t\tColor colorPlaceholder = Color.BLACK;\r\n\r\n\t\tcampo.setText(textoEjemplo);\r\n\t\tcampo.setForeground(colorPlaceholder);\r\n\r\n\t\tcampo.addFocusListener(new FocusAdapter() {\r\n\r\n\t\t\t@Override\r\n\t\t\tpublic void focusGained(FocusEvent e) {\r\n\r\n\t\t\t\tif (campo.getText().equals(textoEjemplo)) {\r\n\t\t\t\t\tcampo.setText(\"\");\r\n\t\t\t\t\tcampo.setForeground(colorNormal);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\t@Override\r\n\t\t\tpublic void focusLost(FocusEvent e) {\r\n\r\n\t\t\t\tif (campo.getText().isEmpty()) {\r\n\t\t\t\t\tcampo.setText(textoEjemplo);\r\n\t\t\t\t\tcampo.setForeground(colorPlaceholder);\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t});\r\n\t}\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/visual/RegPersona.java b/src/visual/RegPersona.java
+--- a/src/visual/RegPersona.java	(revision 63c3504383ec273e2905bbf4820972cd680ae976)
++++ b/src/visual/RegPersona.java	(date 1784425517385)
+@@ -23,6 +23,8 @@
+ import java.awt.event.FocusAdapter;
+ import java.awt.event.FocusEvent;
+ 
++import logico.Persona;
++
+ public class RegPersona extends JDialog {
+ 
+ 	private static final long serialVersionUID = 1L;
+@@ -57,6 +59,14 @@
+ 	private JTextField textField_4;
+ 	private JTextField textField_5;
+ 	private JPasswordField passwordField;
++	private JComboBox paisComboBox;
++	private JSpinner fechaSpinner;
++	private JComboBox paisComboBox_1;
++	private JComboBox paisComboBox_1_1;
++	private JComboBox paisComboBox_1_1_1;
++	private JButton registrarBtn;
++
++	private Persona myPersona = null;
+ 
+ 	/**
+ 	 * Launch the application.
+@@ -64,7 +74,7 @@
+ 	public static void main(String[] args) {
+ 
+ 		try {
+-			RegPersona dialog = new RegPersona();
++			RegPersona dialog = new RegPersona(null);
+ 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+ 			dialog.setVisible(true);
+ 
+@@ -76,9 +86,17 @@
+ 	/**
+ 	 * Create the dialog.
+ 	 */
+-	public RegPersona() {
++	public RegPersona(Persona persona) {
++
++		myPersona = persona;
++
+ 		setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistrar.png")).getImage());
+-		setTitle("REGISTRAR NUEVA PERSONA");
++
++		if (myPersona == null) {
++			setTitle("REGISTRAR NUEVA PERSONA");
++		} else {
++			setTitle("MODIFICAR PERSONA");
++		}
+ 
+ 		setBounds(100, 100, 450, 300);
+ 
+@@ -107,7 +125,10 @@
+ 		panelFondo.add(panel);
+ 		panel.setLayout(null);
+ 
+-		JButton registrarBtn = new JButton("REGISTRAR");
++		registrarBtn = new JButton("REGISTRAR");
++		if (myPersona != null) {
++			registrarBtn.setText("MODIFICAR");
++		}
+ 		registrarBtn.addActionListener(new ActionListener() {
+ 			public void actionPerformed(ActionEvent arg0) {
+ 			}
+@@ -201,14 +222,14 @@
+ 		lblPais.setBounds(408, 285, 166, 19);
+ 		panel.add(lblPais);
+ 
+-		JComboBox paisComboBox = new JComboBox();
++		paisComboBox = new JComboBox();
+ 		paisComboBox.setModel(new DefaultComboBoxModel(new String[] {"Republica Dominicana", "Estados Unidos"}));
+ 		paisComboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
+ 		paisComboBox.setBackground(new Color(102, 255, 255));
+ 		paisComboBox.setBounds(408, 314, 271, 42);
+ 		panel.add(paisComboBox);
+ 
+-		JSpinner fechaSpinner = new JSpinner();
++		fechaSpinner = new JSpinner();
+ 		fechaSpinner.setBackground(new Color(102, 255, 255));
+ 		fechaSpinner.setFont(new Font("Tahoma", Font.PLAIN, 20));
+ 		SpinnerDateModel modeloFecha = new SpinnerDateModel();
+@@ -243,7 +264,7 @@
+ 		lblpuedeViajar.setBounds(42, 498, 271, 19);
+ 		panel.add(lblpuedeViajar);
+ 
+-		JComboBox paisComboBox_1 = new JComboBox();
++		paisComboBox_1 = new JComboBox();
+ 		paisComboBox_1.setModel(new DefaultComboBoxModel(new String[] {"SI", "NO"}));
+ 		paisComboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+ 		paisComboBox_1.setBackground(new Color(102, 255, 255));
+@@ -256,7 +277,7 @@
+ 		lblpuedeMudarse.setBounds(42, 595, 166, 19);
+ 		panel.add(lblpuedeMudarse);
+ 
+-		JComboBox paisComboBox_1_1 = new JComboBox();
++		paisComboBox_1_1 = new JComboBox();
+ 		paisComboBox_1_1.setModel(new DefaultComboBoxModel(new String[] {"SI", "NO"}));
+ 		paisComboBox_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+ 		paisComboBox_1_1.setBackground(new Color(102, 255, 255));
+@@ -269,7 +290,7 @@
+ 		lblestaEmpleado.setBounds(277, 595, 166, 19);
+ 		panel.add(lblestaEmpleado);
+ 
+-		JComboBox paisComboBox_1_1_1 = new JComboBox();
++		paisComboBox_1_1_1 = new JComboBox();
+ 		paisComboBox_1_1_1.setModel(new DefaultComboBoxModel(new String[] {"NO", "SI"}));
+ 		paisComboBox_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+ 		paisComboBox_1_1_1.setBackground(new Color(102, 255, 255));
+@@ -290,6 +311,41 @@
+ 		aplicarMascaraCedula(cedulaField);
+ 		aplicarMascaraTelefono(telefonoField);
+ 		aplicarPlaceholder(textField_5, "ejemplo@correo.com");
++
++		cargarDatos();
++	}
++
++	private void cargarDatos() {
++		if (myPersona != null) {
++
++			nombreField.setText(myPersona.getNombre());
++			apellidoField.setText(myPersona.getApellido());
++			cedulaField.setText(myPersona.getCedula());
++			cedulaField.setEditable(false);
++			cedulaField.setBackground(new Color(192, 192, 192));
++			telefonoField.setText(myPersona.getTelefono());
++			textField_4.setText(myPersona.getDireccion());
++			textField_5.setText(myPersona.getEmail());
++			textField_5.setForeground(Color.BLACK);
++			paisComboBox.setSelectedItem(myPersona.getPais());
++
++			if (myPersona.getFechaNacim() != null) {
++				Date fecha = Date.from(
++						myPersona.getFechaNacim()
++								.atStartOfDay(ZoneId.systemDefault())
++								.toInstant()
++				);
++				fechaSpinner.setValue(fecha);
++			}
++
++			paisComboBox_1.setSelectedItem(myPersona.isDispViajar() ? "SI" : "NO");
++			paisComboBox_1_1.setSelectedItem(myPersona.isDispResidencia() ? "SI" : "NO");
++			paisComboBox_1_1_1.setSelectedItem(myPersona.isEmpleado() ? "SI" : "NO");
++
++			if (myPersona.getUsuario() != null) {
++				passwordField.setText(myPersona.getUsuario().getPassword());
++			}
++		}
+ 	}
+ 
+ 	private void aplicarMascaraCedula(JTextField campo) {
+Index: src/visual/RegEmpresa.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package visual;\r\n\r\nimport java.awt.BorderLayout;\r\nimport java.awt.Dimension;\r\nimport java.awt.Graphics;\r\nimport java.awt.Image;\r\nimport java.net.URL;\r\n\r\nimport javax.swing.ImageIcon;\r\nimport javax.swing.JDialog;\r\nimport javax.swing.JLayeredPane;\r\nimport javax.swing.JPanel;\r\nimport java.awt.Color;\r\nimport java.awt.Font;\r\nimport javax.swing.JButton;\r\nimport java.awt.event.ActionListener;\r\nimport java.awt.event.ActionEvent;\r\nimport javax.swing.JLabel;\r\nimport javax.swing.JTextField;\r\nimport javax.swing.JComboBox;\r\nimport javax.swing.DefaultComboBoxModel;\r\nimport javax.swing.JSpinner;\r\nimport javax.swing.SpinnerNumberModel;\r\nimport java.awt.Toolkit;\r\nimport javax.swing.JPasswordField;\r\n\r\n// --- Nuevos imports agregados SOLO para dar formato visual a los campos ---\r\nimport javax.swing.text.AttributeSet;\r\nimport javax.swing.text.BadLocationException;\r\nimport javax.swing.text.DocumentFilter;\r\nimport javax.swing.text.PlainDocument;\r\nimport java.awt.event.FocusAdapter;\r\nimport java.awt.event.FocusEvent;\r\n\r\npublic class RegEmpresa extends JDialog {\r\n\r\n    private static final long serialVersionUID = 1L;\r\n\r\n    private Image imagenFondo;\r\n\r\n    private final JPanel panelFondo = new JPanel() {\r\n\r\n        private static final long serialVersionUID = 1L;\r\n\r\n        @Override\r\n        protected void paintComponent(Graphics g) {\r\n            super.paintComponent(g);\r\n\r\n            if (imagenFondo != null) {\r\n                g.drawImage(\r\n                    imagenFondo,\r\n                    0,\r\n                    0,\r\n                    getWidth(),\r\n                    getHeight(),\r\n                    this\r\n                );\r\n            }\r\n        }\r\n    };\r\n\r\n    private JTextField nombreField;\r\n    private JTextField postalField;\r\n    private JTextField telefonoField;\r\n    private JTextField correoField;\r\n    private JTextField direccionField;\r\n    private JTextField razonSocialField;\r\n    private JTextField registroSocialField;\r\n    private JSpinner cantVacantesSpinner;\r\n    private JSpinner cantTrabsSpinner;\r\n    private JComboBox sectorComboBox;\r\n    private JComboBox paisComboBox;\r\n    private JPasswordField passwordField;\r\n\r\n    /**\r\n     * Launch the application.\r\n     */\r\n    public static void main(String[] args) {\r\n\r\n        try {\r\n            RegEmpresa dialog = new RegEmpresa();\r\n            dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);\r\n            dialog.setVisible(true);\r\n\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n    }\r\n\r\n    /**\r\n     * Create the dialog.\r\n     */\r\n    public RegEmpresa() {\r\n        setIconImage(new ImageIcon(getClass().getResource(\"/imagenes/iconoRegistrar.png\")).getImage());\r\n        setTitle(\"REGISTRAR NUEVA EMPRESA\");\r\n\r\n        setBounds(100, 100, 450, 300);\r\n\r\n        Dimension dim = getToolkit().getScreenSize();\r\n\r\n        setSize(dim.width, dim.height - 38);\r\n        setLocationRelativeTo(null);\r\n\r\n        URL rutaImagen =\r\n                getClass().getResource(\"/imagenes/fondoRegEmpresa.png\");\r\n\r\n        if (rutaImagen != null) {\r\n            imagenFondo = new ImageIcon(rutaImagen).getImage();\r\n        }\r\n\r\n        JLayeredPane layeredPane = new JLayeredPane();\r\n        getContentPane().add(layeredPane, BorderLayout.CENTER);\r\n        layeredPane.setLayout(null);\r\n\r\n        panelFondo.setBounds(0, 0, dim.width, dim.height - 38);\r\n        layeredPane.add(panelFondo, JLayeredPane.DEFAULT_LAYER);\r\n        panelFondo.setLayout(null);\r\n\r\n        JPanel panel = new JPanel();\r\n        panel.setBackground(new Color(0, 0, 51));\r\n        panel.setBounds(0, 0, 741, 1000);\r\n        panelFondo.add(panel);\r\n        panel.setLayout(null);\r\n\r\n        JButton registrarBtn = new JButton(\"CREAR CUENTA\");\r\n        registrarBtn.addActionListener(new ActionListener() {\r\n            public void actionPerformed(ActionEvent arg0) {\r\n            }\r\n        });\r\n\r\n        registrarBtn.setBackground(new Color(255, 153, 51));\r\n        registrarBtn.setForeground(new Color(255, 255, 255));\r\n        registrarBtn.setFont(new Font(\"Tahoma\", Font.BOLD, 20));\r\n        registrarBtn.setBounds(125, 800, 199, 49);\r\n        panel.add(registrarBtn);\r\n\r\n        JButton cancelarBtn = new JButton(\"CANCELAR\");\r\n        cancelarBtn.addActionListener(new ActionListener() {\r\n            public void actionPerformed(ActionEvent arg0) {\r\n                dispose();\r\n            }\r\n        });\r\n\r\n        cancelarBtn.setBackground(new Color(255, 0, 0));\r\n        cancelarBtn.setForeground(new Color(255, 255, 255));\r\n        cancelarBtn.setFont(new Font(\"Tahoma\", Font.BOLD, 20));\r\n        cancelarBtn.setBounds(449, 800, 166, 49);\r\n        panel.add(cancelarBtn);\r\n\r\n        JLabel lblNewLabel = new JLabel(\"NOMBRE DE EMPRESA:\");\r\n        lblNewLabel.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        lblNewLabel.setForeground(new Color(255, 255, 255));\r\n        lblNewLabel.setBounds(44, 82, 226, 19);\r\n        panel.add(lblNewLabel);\r\n\r\n        nombreField = new JTextField();\r\n        nombreField.setBackground(new Color(153, 255, 255));\r\n        nombreField.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        nombreField.setBounds(44, 111, 332, 42);\r\n        panel.add(nombreField);\r\n        nombreField.setColumns(10);\r\n\r\n        JLabel lblTelefono = new JLabel(\"TELEFONO:\");\r\n        lblTelefono.setForeground(Color.WHITE);\r\n        lblTelefono.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        lblTelefono.setBounds(438, 82, 166, 19);\r\n        panel.add(lblTelefono);\r\n\r\n        JLabel lblCorreoElectronico = new JLabel(\"CORREO ELECTRONICO:\");\r\n        lblCorreoElectronico.setForeground(Color.WHITE);\r\n        lblCorreoElectronico.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        lblCorreoElectronico.setBounds(44, 187, 201, 20);\r\n        panel.add(lblCorreoElectronico);\r\n\r\n        JLabel lblContrasea = new JLabel(\"CONTRASEÑA:\");\r\n        lblContrasea.setForeground(Color.WHITE);\r\n        lblContrasea.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        lblContrasea.setBounds(438, 176, 166, 42);\r\n        panel.add(lblContrasea);\r\n\r\n        JLabel lblNombreDeEmpresa = new JLabel(\"DIRECCION:\");\r\n        lblNombreDeEmpresa.setForeground(Color.WHITE);\r\n        lblNombreDeEmpresa.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        lblNombreDeEmpresa.setBounds(44, 287, 201, 29);\r\n        panel.add(lblNombreDeEmpresa);\r\n\r\n        JLabel lblRazonSocial = new JLabel(\"RAZON SOCIAL:\");\r\n        lblRazonSocial.setForeground(Color.WHITE);\r\n        lblRazonSocial.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        lblRazonSocial.setBounds(438, 287, 166, 29);\r\n        panel.add(lblRazonSocial);\r\n\r\n        JLabel lblCodigoPostal = new JLabel(\"CODIGO POSTAL:\");\r\n        lblCodigoPostal.setForeground(Color.WHITE);\r\n        lblCodigoPostal.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        lblCodigoPostal.setBounds(44, 390, 166, 19);\r\n        panel.add(lblCodigoPostal);\r\n\r\n        postalField = new JTextField();\r\n        postalField.setBackground(new Color(102, 255, 255));\r\n        postalField.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        postalField.setColumns(10);\r\n        postalField.setBounds(44, 419, 182, 42);\r\n        panel.add(postalField);\r\n\r\n        paisComboBox = new JComboBox();\r\n        paisComboBox.setBackground(new Color(102, 255, 255));\r\n        paisComboBox.setFont(new Font(\"Tahoma\", Font.PLAIN, 16));\r\n        paisComboBox.setModel(new DefaultComboBoxModel(new String[] {\r\n                \"REPUBLICA DOMINICANA\",\r\n                \"ESTADOS UNIDOS\"\r\n        }));\r\n        paisComboBox.setBounds(462, 419, 235, 42);\r\n        panel.add(paisComboBox);\r\n\r\n        JLabel lblRegistroSocial = new JLabel(\"REGISTRO SOCIAL:\");\r\n        lblRegistroSocial.setForeground(Color.WHITE);\r\n        lblRegistroSocial.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        lblRegistroSocial.setBounds(255, 390, 166, 19);\r\n        panel.add(lblRegistroSocial);\r\n\r\n        JLabel lblPais = new JLabel(\"PAIS:\");\r\n        lblPais.setForeground(Color.WHITE);\r\n        lblPais.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        lblPais.setBounds(462, 390, 166, 19);\r\n        panel.add(lblPais);\r\n\r\n        telefonoField = new JTextField();\r\n        telefonoField.setBackground(new Color(102, 255, 255));\r\n        telefonoField.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        telefonoField.setColumns(10);\r\n        telefonoField.setBounds(438, 111, 259, 42);\r\n        panel.add(telefonoField);\r\n\r\n        correoField = new JTextField();\r\n        correoField.setBackground(new Color(102, 255, 255));\r\n        correoField.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        correoField.setColumns(10);\r\n        correoField.setBounds(44, 217, 332, 42);\r\n        panel.add(correoField);\r\n\r\n        direccionField = new JTextField();\r\n        direccionField.setBackground(new Color(102, 255, 255));\r\n        direccionField.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        direccionField.setColumns(10);\r\n        direccionField.setBounds(44, 320, 332, 42);\r\n        panel.add(direccionField);\r\n\r\n        razonSocialField = new JTextField();\r\n        razonSocialField.setBackground(new Color(102, 255, 255));\r\n        razonSocialField.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        razonSocialField.setColumns(10);\r\n        razonSocialField.setBounds(438, 320, 259, 42);\r\n        panel.add(razonSocialField);\r\n\r\n        registroSocialField = new JTextField();\r\n        registroSocialField.setBackground(new Color(102, 255, 255));\r\n        registroSocialField.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        registroSocialField.setColumns(10);\r\n        registroSocialField.setBounds(255, 419, 174, 42);\r\n        panel.add(registroSocialField);\r\n\r\n        JLabel lblSector = new JLabel(\"SECTOR:\");\r\n        lblSector.setForeground(Color.WHITE);\r\n        lblSector.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        lblSector.setBounds(44, 491, 166, 19);\r\n        panel.add(lblSector);\r\n\r\n        sectorComboBox = new JComboBox();\r\n        sectorComboBox.setBackground(new Color(102, 255, 255));\r\n        sectorComboBox.setModel(new DefaultComboBoxModel(new String[] {\r\n                \"OTROS\",\r\n                \"PUBLICO\",\r\n                \"PRIVADO\"\r\n        }));\r\n        sectorComboBox.setFont(new Font(\"Tahoma\", Font.PLAIN, 16));\r\n        sectorComboBox.setBounds(44, 520, 280, 42);\r\n        panel.add(sectorComboBox);\r\n\r\n        JLabel lblCantidadDeTrabajadores = new JLabel(\"CANTIDAD DE TRABAJADORES:\");\r\n        lblCantidadDeTrabajadores.setForeground(Color.WHITE);\r\n        lblCantidadDeTrabajadores.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        lblCantidadDeTrabajadores.setBounds(388, 497, 262, 19);\r\n        panel.add(lblCantidadDeTrabajadores);\r\n\r\n        cantTrabsSpinner = new JSpinner();\r\n        cantTrabsSpinner.setBackground(new Color(102, 255, 255));\r\n        cantTrabsSpinner.setModel(new SpinnerNumberModel(\r\n                Integer.valueOf(1),\r\n                Integer.valueOf(1),\r\n                null,\r\n                Integer.valueOf(1)\r\n        ));\r\n        cantTrabsSpinner.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        cantTrabsSpinner.setBounds(392, 523, 305, 42);\r\n        panel.add(cantTrabsSpinner);\r\n\r\n        JLabel lblCantidadDeVacantes = new JLabel(\"CANTIDAD DE VACANTES:\");\r\n        lblCantidadDeVacantes.setForeground(Color.WHITE);\r\n        lblCantidadDeVacantes.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        lblCantidadDeVacantes.setBounds(44, 592, 262, 19);\r\n        panel.add(lblCantidadDeVacantes);\r\n\r\n        cantVacantesSpinner = new JSpinner();\r\n        cantVacantesSpinner.setBackground(new Color(102, 255, 255));\r\n        cantVacantesSpinner.setModel(new SpinnerNumberModel(\r\n                Integer.valueOf(0),\r\n                Integer.valueOf(0),\r\n                null,\r\n                Integer.valueOf(1)\r\n        ));\r\n        cantVacantesSpinner.setFont(new Font(\"Tahoma\", Font.PLAIN, 18));\r\n        cantVacantesSpinner.setBounds(44, 618, 305, 42);\r\n        panel.add(cantVacantesSpinner);\r\n\r\n        passwordField = new JPasswordField();\r\n        passwordField.setBackground(new Color(102, 255, 255));\r\n        passwordField.setBounds(438, 217, 259, 42);\r\n        panel.add(passwordField);\r\n\r\n        aplicarMascaraTelefono(telefonoField);\r\n        aplicarMascaraRNC(registroSocialField);\r\n        aplicarSoloDigitos(postalField, 5);\r\n        aplicarPlaceholder(correoField, \"ejemplo@correo.com\");\r\n    }\r\n\r\n    private void aplicarMascaraTelefono(JTextField campo) {\r\n        aplicarMascaraNumerica(campo, 10, 3, 6);\r\n    }\r\n\r\n    private void aplicarMascaraRNC(JTextField campo) {\r\n        aplicarMascaraNumerica(campo, 9, 3, 8);\r\n    }\r\n\r\n    private void aplicarMascaraNumerica(\r\n            JTextField campo,\r\n            int maxDigitos,\r\n            int... posicionesGuion) {\r\n\r\n        PlainDocument documento = (PlainDocument) campo.getDocument();\r\n\r\n        documento.setDocumentFilter(new DocumentFilter() {\r\n\r\n            private String formatear(String texto) {\r\n\r\n                String digitos = texto.replaceAll(\"\\\\D\", \"\");\r\n\r\n                if (digitos.length() > maxDigitos) {\r\n                    digitos = digitos.substring(0, maxDigitos);\r\n                }\r\n\r\n                StringBuilder resultado = new StringBuilder(digitos);\r\n                int guionesAgregados = 0;\r\n\r\n                for (int posicion : posicionesGuion) {\r\n\r\n                    if (digitos.length() > posicion) {\r\n                        resultado.insert(\r\n                                posicion + guionesAgregados,\r\n                                \"-\"\r\n                        );\r\n\r\n                        guionesAgregados++;\r\n                    }\r\n                }\r\n\r\n                return resultado.toString();\r\n            }\r\n\r\n            @Override\r\n            public void insertString(\r\n                    FilterBypass fb,\r\n                    int offset,\r\n                    String texto,\r\n                    AttributeSet atributos)\r\n                    throws BadLocationException {\r\n\r\n                replace(\r\n                        fb,\r\n                        offset,\r\n                        0,\r\n                        texto,\r\n                        atributos\r\n                );\r\n            }\r\n\r\n            @Override\r\n            public void replace(\r\n                    FilterBypass fb,\r\n                    int offset,\r\n                    int length,\r\n                    String texto,\r\n                    AttributeSet atributos)\r\n                    throws BadLocationException {\r\n\r\n                String actual = fb.getDocument().getText(\r\n                        0,\r\n                        fb.getDocument().getLength()\r\n                );\r\n\r\n                StringBuilder nuevoTexto = new StringBuilder(actual);\r\n\r\n                nuevoTexto.replace(\r\n                        offset,\r\n                        offset + length,\r\n                        texto == null ? \"\" : texto\r\n                );\r\n\r\n                String textoFormateado =\r\n                        formatear(nuevoTexto.toString());\r\n\r\n                fb.replace(\r\n                        0,\r\n                        fb.getDocument().getLength(),\r\n                        textoFormateado,\r\n                        atributos\r\n                );\r\n            }\r\n\r\n            @Override\r\n            public void remove(\r\n                    FilterBypass fb,\r\n                    int offset,\r\n                    int length)\r\n                    throws BadLocationException {\r\n\r\n                replace(\r\n                        fb,\r\n                        offset,\r\n                        length,\r\n                        \"\",\r\n                        null\r\n                );\r\n            }\r\n        });\r\n    }\r\n\r\n    private void aplicarSoloDigitos(\r\n            JTextField campo,\r\n            int maxDigitos) {\r\n\r\n        PlainDocument documento =\r\n                (PlainDocument) campo.getDocument();\r\n\r\n        documento.setDocumentFilter(new DocumentFilter() {\r\n\r\n            @Override\r\n            public void insertString(\r\n                    FilterBypass fb,\r\n                    int offset,\r\n                    String texto,\r\n                    AttributeSet atributos)\r\n                    throws BadLocationException {\r\n\r\n                replace(\r\n                        fb,\r\n                        offset,\r\n                        0,\r\n                        texto,\r\n                        atributos\r\n                );\r\n            }\r\n\r\n            @Override\r\n            public void replace(\r\n                    FilterBypass fb,\r\n                    int offset,\r\n                    int length,\r\n                    String texto,\r\n                    AttributeSet atributos)\r\n                    throws BadLocationException {\r\n\r\n                if (texto == null) {\r\n                    texto = \"\";\r\n                }\r\n\r\n                String digitos = texto.replaceAll(\"\\\\D\", \"\");\r\n\r\n                int cantidadActual =\r\n                        fb.getDocument().getLength() - length;\r\n\r\n                int espacioDisponible =\r\n                        maxDigitos - cantidadActual;\r\n\r\n                if (espacioDisponible <= 0) {\r\n                    return;\r\n                }\r\n\r\n                if (digitos.length() > espacioDisponible) {\r\n                    digitos = digitos.substring(\r\n                            0,\r\n                            espacioDisponible\r\n                    );\r\n                }\r\n\r\n                fb.replace(\r\n                        offset,\r\n                        length,\r\n                        digitos,\r\n                        atributos\r\n                );\r\n            }\r\n        });\r\n    }\r\n\r\n    private void aplicarPlaceholder(\r\n            JTextField campo,\r\n            String textoEjemplo) {\r\n\r\n        Color colorNormal = campo.getForeground();\r\n        Color colorPlaceholder = Color.BLACK;\r\n\r\n        campo.setText(textoEjemplo);\r\n        campo.setForeground(colorPlaceholder);\r\n\r\n        campo.addFocusListener(new FocusAdapter() {\r\n\r\n            @Override\r\n            public void focusGained(FocusEvent e) {\r\n\r\n                if (campo.getText().equals(textoEjemplo)) {\r\n                    campo.setText(\"\");\r\n                    campo.setForeground(colorNormal);\r\n                }\r\n            }\r\n\r\n            @Override\r\n            public void focusLost(FocusEvent e) {\r\n\r\n                if (campo.getText().isEmpty()) {\r\n                    campo.setText(textoEjemplo);\r\n                    campo.setForeground(colorPlaceholder);\r\n                }\r\n            }\r\n        });\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/visual/RegEmpresa.java b/src/visual/RegEmpresa.java
+--- a/src/visual/RegEmpresa.java	(revision 63c3504383ec273e2905bbf4820972cd680ae976)
++++ b/src/visual/RegEmpresa.java	(date 1784425495261)
+@@ -24,7 +24,8 @@
+ import java.awt.Toolkit;
+ import javax.swing.JPasswordField;
+ 
+-// --- Nuevos imports agregados SOLO para dar formato visual a los campos ---
++import logico.Institucion;
++
+ import javax.swing.text.AttributeSet;
+ import javax.swing.text.BadLocationException;
+ import javax.swing.text.DocumentFilter;
+@@ -71,6 +72,9 @@
+     private JComboBox sectorComboBox;
+     private JComboBox paisComboBox;
+     private JPasswordField passwordField;
++    private JButton registrarBtn;
++
++    private Institucion myInstitucion = null;
+ 
+     /**
+      * Launch the application.
+@@ -78,7 +82,7 @@
+     public static void main(String[] args) {
+ 
+         try {
+-            RegEmpresa dialog = new RegEmpresa();
++            RegEmpresa dialog = new RegEmpresa(null);
+             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+             dialog.setVisible(true);
+ 
+@@ -90,9 +94,17 @@
+     /**
+      * Create the dialog.
+      */
+-    public RegEmpresa() {
++    public RegEmpresa(Institucion institucion) {
++
++        myInstitucion = institucion;
++
+         setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistrar.png")).getImage());
+-        setTitle("REGISTRAR NUEVA EMPRESA");
++
++        if (myInstitucion == null) {
++            setTitle("REGISTRAR NUEVA EMPRESA");
++        } else {
++            setTitle("MODIFICAR EMPRESA");
++        }
+ 
+         setBounds(100, 100, 450, 300);
+ 
+@@ -122,7 +134,10 @@
+         panelFondo.add(panel);
+         panel.setLayout(null);
+ 
+-        JButton registrarBtn = new JButton("CREAR CUENTA");
++        registrarBtn = new JButton("CREAR CUENTA");
++        if (myInstitucion != null) {
++            registrarBtn.setText("MODIFICAR");
++        }
+         registrarBtn.addActionListener(new ActionListener() {
+             public void actionPerformed(ActionEvent arg0) {
+             }
+@@ -322,6 +337,28 @@
+         aplicarMascaraRNC(registroSocialField);
+         aplicarSoloDigitos(postalField, 5);
+         aplicarPlaceholder(correoField, "ejemplo@correo.com");
++
++        cargarDatos();
++    }
++
++    private void cargarDatos() {
++        if (myInstitucion != null) {
++
++            nombreField.setText(myInstitucion.getNombre());
++            telefonoField.setText(myInstitucion.getTelefono());
++            correoField.setText(myInstitucion.getEmail());
++            correoField.setForeground(Color.BLACK);
++            direccionField.setText(myInstitucion.getDireccion());
++            registroSocialField.setText(myInstitucion.getRNC());
++            razonSocialField.setText(myInstitucion.getRegistroSocial());
++            paisComboBox.setSelectedItem(myInstitucion.getPais());
++            cantTrabsSpinner.setValue(myInstitucion.getCantEmpleado());
++            sectorComboBox.setSelectedItem(myInstitucion.isPrivado() ? "PRIVADO" : "PUBLICO");
++
++            if (myInstitucion.getUsuario() != null) {
++                passwordField.setText(myInstitucion.getUsuario().getPassword());
++            }
++        }
+     }
+ 
+     private void aplicarMascaraTelefono(JTextField campo) {
+Index: src/logico/Persona.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package logico;\r\n\r\nimport java.time.LocalDate;\r\nimport java.util.ArrayList;\r\n\r\nabstract class Persona {\r\n\r\n    protected String identificador;\r\n    protected String cedula;\r\n    protected String nombre;\r\n    protected String apellido;\r\n    protected String email;\r\n    protected String direccion;\r\n    protected String sexo;\r\n    protected String telefono;\r\n    protected String pais;\r\n    protected LocalDate fechaNacim;\r\n    protected ArrayList<Experiencia> experiencia;\r\n    protected ArrayList<SolicitudEmp> solicitudEmps;\r\n    protected boolean dispViajar;\r\n    protected boolean dispResidencia;\r\n    protected boolean empleado;\r\n    protected Usuario usuario;\r\n    \r\n    public Persona(String identificador, String cedula, String nombre, String apellido, String email, String direccion,\r\n            String sexo, String telefono, String pais, LocalDate fechaNacim, boolean dispViajar, boolean dispResidencia,\r\n            boolean empleado, Usuario usuario) {\r\n        this.identificador = identificador;\r\n        this.cedula = cedula;\r\n        this.nombre = nombre;\r\n        this.apellido = apellido;\r\n        this.email = email;\r\n        this.direccion = direccion;\r\n        this.sexo = sexo;\r\n        this.telefono = telefono;\r\n        this.pais = pais;\r\n        this.fechaNacim = fechaNacim;\r\n        this.dispViajar = dispViajar;\r\n        this.dispResidencia = dispResidencia;\r\n        this.empleado = empleado;\r\n        this.usuario = usuario;\r\n        experiencia = new ArrayList<>();\r\n        solicitudEmps = new ArrayList<>();\r\n    }\r\n\r\n    \r\n\r\n    public String getCedula() {\r\n        return cedula;\r\n    }\r\n    public void setCedula(String cedula) {\r\n        this.cedula = cedula;\r\n    }\r\n    public String getNombre() {\r\n        return nombre;\r\n    }\r\n    public void setNombre(String nombre) {\r\n        this.nombre = nombre;\r\n    }\r\n    public String getApellido() {\r\n        return apellido;\r\n    }\r\n    public void setApellido(String apellido) {\r\n        this.apellido = apellido;\r\n    }\r\n    public String getEmail() {\r\n        return email;\r\n    }\r\n    public void setEmail(String email) {\r\n        this.email = email;\r\n    }\r\n    public String getDireccion() {\r\n        return direccion;\r\n    }\r\n    public void setDireccion(String direccion) {\r\n        this.direccion = direccion;\r\n    }\r\n    public String getSexo() {\r\n        return sexo;\r\n    }\r\n    public void setSexo(String sexo) {\r\n        this.sexo = sexo;\r\n    }\r\n    public String getTelefono() {\r\n        return telefono;\r\n    }\r\n    public void setTelefono(String telefono) {\r\n        this.telefono = telefono;\r\n    }\r\n    public String getPais() {\r\n        return pais;\r\n    }\r\n    public void setPais(String pais) {\r\n        this.pais = pais;\r\n    }\r\n    public LocalDate getFechaNacim() {\r\n        return fechaNacim;\r\n    }\r\n    public void setFechaNacim(LocalDate fechaNacim) {\r\n        this.fechaNacim = fechaNacim;\r\n    }\r\n    public ArrayList<Experiencia> getExperiencia() {\r\n        return experiencia;\r\n    }\r\n    public void setExperiencia(ArrayList<Experiencia> experiencia) {\r\n        this.experiencia = experiencia;\r\n    }\r\n    public ArrayList<SolicitudEmp> getSolicitudEmps() {\r\n        return solicitudEmps;\r\n    }\r\n    public void setSolicitudEmps(ArrayList<SolicitudEmp> solicitudEmps) {\r\n        this.solicitudEmps = solicitudEmps;\r\n    }\r\n    public boolean isDispViajar() {\r\n        return dispViajar;\r\n    }\r\n    public void setDispViajar(boolean dispViajar) {\r\n        this.dispViajar = dispViajar;\r\n    }\r\n    public boolean isDispResidencia() {\r\n        return dispResidencia;\r\n    }\r\n    public void setDispResidencia(boolean dispResidencia) {\r\n        this.dispResidencia = dispResidencia;\r\n    }\r\n    public boolean isEmpleado() {\r\n        return empleado;\r\n    }\r\n    public void setEmpleado(boolean empleado) {\r\n        this.empleado = empleado;\r\n    }\r\n    public Usuario getUsuario() {\r\n        return usuario;\r\n    }\r\n    public void setUsuario(Usuario usuario) {\r\n        this.usuario = usuario;\r\n    }\r\n\r\n\r\n    public String getIdentificador() {\r\n        return identificador;\r\n    }\r\n\r\n    \r\n    \r\n    \r\n    \r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/logico/Persona.java b/src/logico/Persona.java
+--- a/src/logico/Persona.java	(revision 63c3504383ec273e2905bbf4820972cd680ae976)
++++ b/src/logico/Persona.java	(date 1784426271742)
+@@ -3,7 +3,7 @@
+ import java.time.LocalDate;
+ import java.util.ArrayList;
+ 
+-abstract class Persona {
++public abstract class Persona {
+ 
+     protected String identificador;
+     protected String cedula;
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3\" name=\"Changes\" comment=\"RegPersona Class Created.\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/imagenes/a899a7489d4cf51f5db54738d802bf31.jpg\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/imagenes/iconoEmpresa.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/imagenes/iconoFecha.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/imagenes/iconoInicioSesion.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/imagenes/iconoModalidad.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/imagenes/iconoProfesion.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/imagenes/iconoPuesto.png\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/imagenes/iconoSalario.png\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.classpath\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.classpath\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/logico/Oferta.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/logico/Oferta.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;JeanRobertRojas&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">{\r\n  &quot;selectedUrlAndAccountId&quot;: {\r\n    &quot;url&quot;: &quot;https://github.com/Enmanuel-Abreu-dev/Proyecto-Final-POO.git&quot;,\r\n    &quot;accountId&quot;: &quot;78397620-324d-4747-ab33-93c4fa989984&quot;\r\n  }\r\n}</component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 0,\r\n  &quot;fromUser&quot;: false\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"3GPdMs4VszariSbBXimquNULvdi\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"Application.ListOfertas.executor\": \"Run\",\r\n    \"Application.LoginUsuario.executor\": \"Run\",\r\n    \"Application.RegEmpresa (1).executor\": \"Run\",\r\n    \"Application.RegEmpresa.executor\": \"Run\",\r\n    \"Application.RegPersona.executor\": \"Run\",\r\n    \"ModuleVcsDetector.initialDetectionPerformed\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.git.unshallow\": \"true\",\r\n    \"RunOnceActivity.typescript.service.memoryLimit.init\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"codeWithMe.voiceChat.enabledByDefault\": \"false\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/jeanr/Documents/WorkSpacePUCMM/Proyecto-Final-POO/src/imagenes\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\jeanr\\Documents\\WorkSpacePUCMM\\Proyecto-Final-POO\\src\\imagenes\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.ListOfertas\">\r\n    <configuration name=\"ListOfertas\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"visual.ListOfertas\" />\r\n      <module name=\"POOProyectoFinal\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"visual.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"LoginUsuario\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"visual.LoginUsuario\" />\r\n      <module name=\"POOProyectoFinal\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"visual.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"RegEmpresa (1)\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"visual.RegEmpresa\" />\r\n      <module name=\"POOProyectoFinal\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"visual.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"RegEmpresa\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"visual.RegEmpresa\" />\r\n      <module name=\"POOProyectoFinal\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"visual.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"RegPersona\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"visual.RegPersona\" />\r\n      <module name=\"POOProyectoFinal\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"visual.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.ListOfertas\" />\r\n        <item itemvalue=\"Application.LoginUsuario\" />\r\n        <item itemvalue=\"Application.RegEmpresa\" />\r\n        <item itemvalue=\"Application.RegPersona\" />\r\n        <item itemvalue=\"Application.RegEmpresa (1)\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3\" name=\"Changes\" comment=\"\" />\r\n      <created>1783877092920</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1783877092920</updated>\r\n      <workItem from=\"1783877094233\" duration=\"41000\" />\r\n      <workItem from=\"1784138440028\" duration=\"662000\" />\r\n      <workItem from=\"1784238394941\" duration=\"543000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Creating Usuario class.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1784319856345</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1784319856345</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"LoginUsuario class Finished.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1784325615920</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1784325615920</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"LoginUsuario Debugged\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1784326379497</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1784326379497</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"regEmpresa Class Created.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1784389944275</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1784389944275</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"LoginUsuario Class Updated.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1784403458822</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1784403458822</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00006\" summary=\"RegPersona Class Created.\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1784403532086</created>\r\n      <option name=\"number\" value=\"00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1784403532086</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"7\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Creating Usuario class.\" />\r\n    <MESSAGE value=\"LoginUsuario class Finished.\" />\r\n    <MESSAGE value=\"LoginUsuario Debugged\" />\r\n    <MESSAGE value=\"regEmpresa Class Created.\" />\r\n    <MESSAGE value=\"LoginUsuario Class Updated.\" />\r\n    <MESSAGE value=\"RegPersona Class Created.\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"RegPersona Class Created.\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 63c3504383ec273e2905bbf4820972cd680ae976)
++++ b/.idea/workspace.xml	(date 1784426126002)
+@@ -4,18 +4,10 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="RegPersona Class Created.">
+-      <change afterPath="$PROJECT_DIR$/src/imagenes/a899a7489d4cf51f5db54738d802bf31.jpg" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoEmpresa.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoFecha.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoInicioSesion.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoModalidad.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoProfesion.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoPuesto.png" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/imagenes/iconoSalario.png" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
++    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="listOferta Class Created.">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/logico/Oferta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/logico/Oferta.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/visual/RegEmpresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegEmpresa.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/visual/RegPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegPersona.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -46,36 +38,36 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "Application.ListOfertas.executor": "Run",
+-    "Application.LoginUsuario.executor": "Run",
+-    "Application.RegEmpresa (1).executor": "Run",
+-    "Application.RegEmpresa.executor": "Run",
+-    "Application.RegPersona.executor": "Run",
+-    "ModuleVcsDetector.initialDetectionPerformed": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.git.unshallow": "true",
+-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "codeWithMe.voiceChat.enabledByDefault": "false",
+-    "git-widget-placeholder": "master",
+-    "kotlin-language-version-configured": "true",
+-    "last_opened_file_path": "C:/Users/jeanr/Documents/WorkSpacePUCMM/Proyecto-Final-POO/src/imagenes",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;Application.ListOfertas.executor&quot;: &quot;Run&quot;,
++    &quot;Application.LoginUsuario.executor&quot;: &quot;Run&quot;,
++    &quot;Application.RegEmpresa (1).executor&quot;: &quot;Run&quot;,
++    &quot;Application.RegEmpresa.executor&quot;: &quot;Run&quot;,
++    &quot;Application.RegPersona.executor&quot;: &quot;Run&quot;,
++    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/jeanr/Documents/WorkSpacePUCMM/Proyecto-Final-POO/src/imagenes&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="C:\Users\jeanr\Documents\WorkSpacePUCMM\Proyecto-Final-POO\src\imagenes" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Application.ListOfertas">
++  <component name="RunManager" selected="Application.RegPersona">
+     <configuration name="ListOfertas" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="visual.ListOfertas" />
+       <module name="POOProyectoFinal" />
+@@ -143,10 +135,10 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Application.RegPersona" />
++        <item itemvalue="Application.RegEmpresa" />
+         <item itemvalue="Application.ListOfertas" />
+         <item itemvalue="Application.LoginUsuario" />
+-        <item itemvalue="Application.RegEmpresa" />
+-        <item itemvalue="Application.RegPersona" />
+         <item itemvalue="Application.RegEmpresa (1)" />
+       </list>
+     </recent_temporary>
+@@ -218,7 +210,15 @@
+       <option name="project" value="LOCAL" />
+       <updated>1784403532086</updated>
+     </task>
+-    <option name="localTasksCounter" value="7" />
++    <task id="LOCAL-00007" summary="listOferta Class Created.">
++      <option name="closed" value="true" />
++      <created>1784414700768</created>
++      <option name="number" value="00007" />
++      <option name="presentableId" value="LOCAL-00007" />
++      <option name="project" value="LOCAL" />
++      <updated>1784414700768</updated>
++    </task>
++    <option name="localTasksCounter" value="8" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -231,6 +231,7 @@
+     <MESSAGE value="regEmpresa Class Created." />
+     <MESSAGE value="LoginUsuario Class Updated." />
+     <MESSAGE value="RegPersona Class Created." />
+-    <option name="LAST_COMMIT_MESSAGE" value="RegPersona Class Created." />
++    <MESSAGE value="listOferta Class Created." />
++    <option name="LAST_COMMIT_MESSAGE" value="listOferta Class Created." />
+   </component>
+ </project>
+\ No newline at end of file
