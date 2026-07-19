@@ -48,6 +48,5 @@ abstract class Solicitud {
         this.oferta = oferta;
     }
 
-    
-    
+    // Managment:    
 }

@@ -67,7 +67,4 @@ public class Experiencia {
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
     }
-
-    
-    
 }

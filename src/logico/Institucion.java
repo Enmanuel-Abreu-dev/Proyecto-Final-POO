@@ -18,8 +18,6 @@ public class Institucion {
     private ArrayList<Oferta> myOfertas;
     private Usuario usuario;
     
-    
-
     public Institucion(String identificador, String nombre, String rNC, String pais, String registroSocial,
             String direccion, String telefono, String email, int cantEmpleado, boolean privado, Usuario usuario) {
         this.identificador = identificador;
@@ -139,6 +137,43 @@ public class Institucion {
         this.registroSocial = registroSocial;
     }
 
+    // Managment:
+    public void publicarOferta(Oferta o) {
+    	o.setEstado(true);
+    	this.myOfertas.add(o);
+    }
     
+    public boolean cerrarOferta(String idOferta) {
+    	Oferta ofertaActual = null;
+    	int indice = 0;
+    	boolean encontrado = false;
+    	
+    	while (!encontrado && indice < this.myOfertas.size()) {
+    		ofertaActual = this.myOfertas.get(indice);
+    		if (ofertaActual.getIdentificador().equalsIgnoreCase(idOferta)) {
+    			encontrado = true;
+    		}
+    		indice++;
+    	}
+    	
+    	if (ofertaActual != null) {
+    		ofertaActual.setEstado(false);
+    		return true;
+    	}
+    	return false;
+    }
     
+    public Oferta getOfertaById(String id) {
+    	Oferta ofertaActual = null;
+    	int indice = 0;
+    	boolean encontrado = false;
+    	
+    	while (!encontrado && indice < this.myOfertas.size()) {
+    		ofertaActual = this.myOfertas.get(indice);
+    		if (ofertaActual.getIdentificador().equalsIgnoreCase(id))
+    			encontrado = true;
+    		indice++;
+    	}
+    	return ofertaActual;
+    }
 }
