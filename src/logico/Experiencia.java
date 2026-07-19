@@ -1,6 +1,7 @@
 package logico;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Experiencia {
     
@@ -56,5 +57,12 @@ public class Experiencia {
 
     public void setEspecialidad(String especialidad) {
         this.especialidad = especialidad;
+    }
+    
+    // Managment:
+    public int getAniosDeExperiencia() {
+    	int total = 0;
+    	total = Period.between(this.fechaInicio, this.fechaFinalizacion).getYears();
+    	return total;
     }
 }

@@ -175,12 +175,16 @@ public abstract class Persona {
     {
         int aniosTotales = 0;
         for ( Experiencia e : experiencia )
-            aniosTotales += Period.between(e.getFechaInicio(), e.getFechaFinalizacion()).getYears();
+            aniosTotales += e.getAniosDeExperiencia();
         return aniosTotales;
     }
     
     public void agregarExperiencia ( Experiencia e )
     {
         experiencia.add(e);
+    }
+    
+    public void agregarSolicitud(SolicitudEmp s) {
+    	this.solicitudEmps.add(s);
     }
 }
