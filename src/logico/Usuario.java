@@ -64,10 +64,18 @@ public class Usuario {
     }
 	
 	// Managment:
+	/*
+	 Verifica que la contraseña recibida sea igual a la guardad
+	 @return confirmacion de coincidencia 
+	*/
 	public boolean autenticar(String pass) {
 		return this.password.equals(pass);
 	}
 	
+	/*
+	 Se encarga de cambiar el pass a una nueva verificando la anterior coincida con la anterior recibida
+	 @return confirmacion de si se pudo cambiar o no el pass 
+	*/
 	public boolean cambiarPassword(String actual, String nueva) {
 		if (!this.password.equals(actual) || !this.password.equals(nueva))
 			return false;

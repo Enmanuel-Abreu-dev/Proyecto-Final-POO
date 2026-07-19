@@ -31,10 +31,4 @@ public class Universitario extends Persona{
     public void setUniversidad(String universidad) {
         this.universidad = universidad;
     }
-
-   
-
-    
-
-    
 }

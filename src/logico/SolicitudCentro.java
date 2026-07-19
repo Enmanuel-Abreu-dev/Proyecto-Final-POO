@@ -1,6 +1,5 @@
 package logico;
 
-
 public class SolicitudCentro extends Solicitud {
     
     private Institucion centro;
@@ -38,9 +37,4 @@ public class SolicitudCentro extends Solicitud {
     public void setMensaje(String mensaje) {
         Mensaje = mensaje;
     }
-
-    
-    
-    
-
 }

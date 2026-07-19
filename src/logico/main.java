@@ -76,9 +76,7 @@ public class main {
             "California",
             "Estados Unidos",
             "Masculino",
-            LocalDate.now(), 
             LocalDate.of(2026, 7, 29),
-            true, 
             "Presencial",
             2,
             "Universitario"
@@ -97,22 +95,22 @@ public class main {
         SolicitudEmp s1 = new SolicitudEmp
         (
             BolsaTrabajo.getInstance().generarIdSolicitud(), 
-            true,
             o1, 
             p1, 
             "100",
             "Presencial"
         );
+        s1.setEstado(true);
 
         SolicitudEmp s2 = new SolicitudEmp
         (
             BolsaTrabajo.getInstance().generarIdSolicitud(), 
-            true,
             o1, 
             p2, 
             "1000",
             "Virtual"
         );
+        s2.setEstado(true);
 
         BolsaTrabajo.getInstance().registrarInstitucion(empresa1);
         BolsaTrabajo.getInstance().registrarPersona(p2);

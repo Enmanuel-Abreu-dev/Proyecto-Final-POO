@@ -2,7 +2,6 @@ package logico;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.stream.Collectors;
 
 public class BolsaTrabajo {
 	public static int generadorIdPersona = 0;

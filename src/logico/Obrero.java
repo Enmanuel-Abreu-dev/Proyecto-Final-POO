@@ -21,9 +21,4 @@ public class Obrero extends Persona{
     public void setProfesion(String profesion) {
         this.profesion = profesion;
     }
-
-    
-
-    
-    
 }

@@ -32,9 +32,4 @@ public class Tecnico extends Persona {
     public void setPolitecnico(String politecnico) {
         this.politecnico = politecnico;
     }
-
-    
-    
-    
-
 }
