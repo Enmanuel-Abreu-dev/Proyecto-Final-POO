@@ -27,7 +27,7 @@ public class Oferta {
     
     public Oferta(String identificador, Institucion myEmpresa, String puesto, String descripcion, float salario,
             String modalidad, String requisitos, int aniosExperiencia, int edad, String ubicacion, String pais,
-            String sexo, LocalDate fechaPublicacion, LocalDate fechaFinalizacion, boolean estado,
+            String sexo, LocalDate fechaFinalizacion,
             String tipoContrato, int cantVacante, String profesion) {
         this.identificador = identificador;
         this.myEmpresa = myEmpresa;
@@ -41,9 +41,9 @@ public class Oferta {
         this.ubicacion = ubicacion;
         this.pais = pais;
         this.sexo = sexo;
-        this.fechaPublicacion = fechaPublicacion;
+        this.fechaPublicacion = LocalDate.now();
         this.fechaFinalizacion = fechaFinalizacion;
-        this.estado = estado;
+        this.estado = false;
         this.tipoContrato = tipoContrato;
         this.cantVacante = cantVacante;
         this.profesion = profesion;

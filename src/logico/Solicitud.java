@@ -9,10 +9,10 @@ public abstract class Solicitud {
     protected boolean estado;
     protected Oferta oferta;
 
-    public Solicitud(String identificador, boolean estado, Oferta oferta) {
+    public Solicitud(String identificador, Oferta oferta) {
         this.identificador = identificador;
         this.fecha = LocalDate.now();
-        this.estado = estado;
+        this.estado = false;
         this.oferta = oferta;
     }
 

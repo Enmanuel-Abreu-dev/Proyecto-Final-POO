@@ -6,9 +6,9 @@ public class SolicitudEmp extends Solicitud{
     private String rangoSalarial;
     private String modalidad;
 
-    public SolicitudEmp(String identificador, boolean estado, Oferta oferta, Persona persona, String rangoSalarial,
+    public SolicitudEmp(String identificador, Oferta oferta, Persona persona, String rangoSalarial,
             String modalidad) {
-        super(identificador, estado, oferta);
+        super(identificador, oferta);
         this.persona = persona;
         this.rangoSalarial = rangoSalarial;
         this.modalidad = modalidad;

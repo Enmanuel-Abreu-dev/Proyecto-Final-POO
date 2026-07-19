@@ -7,9 +7,9 @@ public class SolicitudCentro extends Solicitud {
     private Persona persona;
     private String Mensaje;
 
-    public SolicitudCentro(String identificador, boolean estado, Oferta oferta, Institucion centro, Persona persona,
+    public SolicitudCentro(String identificador, Oferta oferta, Institucion centro, Persona persona,
             String mensaje) {
-        super(identificador, estado, oferta);
+        super(identificador, oferta);
         this.centro = centro;
         this.persona = persona;
         Mensaje = mensaje;
