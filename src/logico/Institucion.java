@@ -19,7 +19,7 @@ public class Institucion {
     private Usuario usuario;
     
     public Institucion(String identificador, String nombre, String rNC, String pais, String registroSocial,
-            String direccion, String telefono, String email, int cantEmpleado, boolean privado, Usuario usuario) {
+            String direccion, String telefono, String email, int cantEmpleado, boolean privado) {
         this.identificador = identificador;
         this.nombre = nombre;
         RNC = rNC;
@@ -30,7 +30,8 @@ public class Institucion {
         this.email = email;
         this.cantEmpleado = cantEmpleado;
         this.privado = privado;
-        this.usuario = usuario;
+        myOfertas = new ArrayList<>();
+        mySolicitudes = new ArrayList<>();
     }
 
     public String getIdentificador() {

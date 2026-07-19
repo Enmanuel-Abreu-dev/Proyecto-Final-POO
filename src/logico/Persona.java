@@ -24,8 +24,7 @@ public abstract class Persona {
     protected Usuario usuario;
     
     public Persona(String identificador, String cedula, String nombre, String apellido, String email, String direccion,
-            String sexo, String telefono, String pais, LocalDate fechaNacim, boolean dispViajar, boolean dispResidencia,
-            boolean empleado, Usuario usuario) {
+            String sexo, String telefono, String pais, LocalDate fechaNacim, boolean dispViajar, boolean dispResidencia) {
         this.identificador = identificador;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -38,8 +37,8 @@ public abstract class Persona {
         this.fechaNacim = fechaNacim;
         this.dispViajar = dispViajar;
         this.dispResidencia = dispResidencia;
-        this.empleado = empleado;
-        this.usuario = usuario;
+        empleado = false;
+        usuario = null;
         experiencia = new ArrayList<>();
         solicitudEmps = new ArrayList<>();
     }
@@ -155,7 +154,10 @@ public abstract class Persona {
         return aniosTotales;
     }
     
-    
+    public void agregarExperiencia ( Experiencia e )
+    {
+        experiencia.add(e);
+    }
     
 
 }

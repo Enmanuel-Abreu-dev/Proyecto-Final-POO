@@ -5,11 +5,11 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class BolsaTrabajo {
-	public static int generadorIdPersona = 1;
-	public static int generadorIdSolicitud = 1;
-	public static int generadorIdOferta = 1;
-	public static int generadorIdInstitucion = 1;
-	public static int generadorIdUsuario = 1;
+	public static int generadorIdPersona = 0;
+	public static int generadorIdSolicitud = 0;
+	public static int generadorIdOferta = 0;
+	public static int generadorIdInstitucion = 0;
+	public static int generadorIdUsuario = 0;
 	private Usuario usuarioActual;
 	private ArrayList<Persona> personas;
 	private ArrayList<Solicitud> solicitudes;
@@ -27,7 +27,7 @@ public class BolsaTrabajo {
 	}
 	
 	
-	public BolsaTrabajo getInstace() {
+	public static BolsaTrabajo getInstance() {
 		if (instance == null)
 			instance = new BolsaTrabajo();
 		
@@ -82,11 +82,6 @@ public class BolsaTrabajo {
 	}
 
 
-	public static BolsaTrabajo getInstance() {
-		return instance;
-	}
-
-
 	public static void setInstance(BolsaTrabajo instance) {
 		BolsaTrabajo.instance = instance;
 	}
@@ -135,6 +130,11 @@ public class BolsaTrabajo {
 		this.instituciones.add(i);
 	}
 	
+	public void registrarUsuario ( Usuario u )
+	{
+		this.usuarios.add(u);
+	}
+
 	/*
 	 Se encarga de verificar que existe un usuario que concuerde con los datos recibidos.
 	 @return null si no se encontro, o el usuario encontrado si lo encontro. 
@@ -253,7 +253,7 @@ public class BolsaTrabajo {
 		if ( emp.getPersona().calcularEdad() <= oferta.getEdad() )			 cantidadCoincidencias++;
 		if ( emp.getPersona().calcularAniosExperiencia() >= oferta.getAniosExperiencia() ) cantidadCoincidencias++;
 		if ( emp.getPersona().getDireccion().equalsIgnoreCase(oferta.getUbicacion()) ) cantidadCoincidencias++;
-		if ( oferta.getPuesto().equalsIgnoreCase(puestoEmpSolicitante(emp)) ) cantidadCoincidencias++;
+		if ( oferta.getProfesion().equalsIgnoreCase(puestoEmpSolicitante(emp)) ) cantidadCoincidencias++;
 
 		return cantidadCoincidencias;
 	}

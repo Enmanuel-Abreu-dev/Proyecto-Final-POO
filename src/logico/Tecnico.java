@@ -10,9 +10,9 @@ public class Tecnico extends Persona {
     
     public Tecnico(String identificador, String cedula, String nombre, String apellido, String email, String direccion,
             String sexo, String telefono, String pais, LocalDate fechaNacim, boolean dispViajar, boolean dispResidencia,
-            boolean empleado, Usuario usuario, String especialidad, String politecnico) {
+            String especialidad, String politecnico) {
         super(identificador, cedula, nombre, apellido, email, direccion, sexo, telefono, pais, fechaNacim, dispViajar,
-                dispResidencia, empleado, usuario);
+                dispResidencia);
         this.especialidad = especialidad;
         this.politecnico = politecnico;
     }

@@ -4,28 +4,18 @@ import java.time.LocalDate;
 
 public class Experiencia {
     
-    private String identificador;
     private String institucion;
     private String cargo;
     private LocalDate fechaInicio; 
     private LocalDate fechaFinalizacion;
     private String especialidad;
 
-    public Experiencia(String identificador, String institucion, String cargo, LocalDate fechaInicio, LocalDate fechaFinalizacion, String especialidad) {
-        this.identificador = identificador;
+    public Experiencia(String institucion, String cargo, LocalDate fechaInicio, LocalDate fechaFinalizacion, String especialidad) {
         this.institucion = institucion;
         this.cargo = cargo;
         this.fechaInicio = fechaInicio;
         this.fechaFinalizacion = fechaFinalizacion;
         this.especialidad = especialidad;
-    }
-
-    public String getIdentificador() {
-        return identificador;
-    }
-
-    public void setIdentificador(String identificador) {
-        this.identificador = identificador;
     }
 
     public String getInstitucion() {

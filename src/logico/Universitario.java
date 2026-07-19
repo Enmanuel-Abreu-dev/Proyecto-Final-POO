@@ -9,9 +9,9 @@ public class Universitario extends Persona{
     
     public Universitario(String identificador, String cedula, String nombre, String apellido, String email,
             String direccion, String sexo, String telefono, String pais, LocalDate fechaNacim, boolean dispViajar,
-            boolean dispResidencia, boolean empleado, Usuario usuario, String carrera, String universidad) {
+            boolean dispResidencia, String carrera, String universidad) {
         super(identificador, cedula, nombre, apellido, email, direccion, sexo, telefono, pais, fechaNacim, dispViajar,
-                dispResidencia, empleado, usuario);
+                dispResidencia);
         this.carrera = carrera;
         this.universidad = universidad;
     }

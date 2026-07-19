@@ -20,7 +20,6 @@ public class Oferta {
     private LocalDate fechaPublicacion;
     private LocalDate fechaFinalizacion;
     private ArrayList<SolicitudEmp> solicitudEmps;
-    private float conincidencia;
     private boolean estado;
     private String tipoContrato;
     private int cantVacante;
@@ -28,7 +27,7 @@ public class Oferta {
     
     public Oferta(String identificador, Institucion myEmpresa, String puesto, String descripcion, float salario,
             String modalidad, String requisitos, int aniosExperiencia, int edad, String ubicacion, String pais,
-            String sexo, LocalDate fechaPublicacion, LocalDate fechaFinalizacion, float conincidencia, boolean estado,
+            String sexo, LocalDate fechaPublicacion, LocalDate fechaFinalizacion, boolean estado,
             String tipoContrato, int cantVacante, String profesion) {
         this.identificador = identificador;
         this.myEmpresa = myEmpresa;
@@ -44,11 +43,11 @@ public class Oferta {
         this.sexo = sexo;
         this.fechaPublicacion = fechaPublicacion;
         this.fechaFinalizacion = fechaFinalizacion;
-        this.conincidencia = conincidencia;
         this.estado = estado;
         this.tipoContrato = tipoContrato;
         this.cantVacante = cantVacante;
         this.profesion = profesion;
+        solicitudEmps = new ArrayList<>();
     }
 
     public Institucion getMyEmpresa() {
@@ -171,14 +170,6 @@ public class Oferta {
         this.solicitudEmps = solicitudEmps;
     }
 
-    public float getConincidencia() {
-        return conincidencia;
-    }
-
-    public void setConincidencia(float conincidencia) {
-        this.conincidencia = conincidencia;
-    }
-
     public boolean isEstado() {
         return estado;
     }
@@ -207,7 +198,10 @@ public class Oferta {
         return identificador;
     }
 
-    
+    public void registrarSolicitudEmp ( SolicitudEmp solicitante )
+    {
+        solicitudEmps.add(solicitante);
+    }
     
     
     
