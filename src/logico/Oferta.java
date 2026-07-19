@@ -24,11 +24,12 @@ public class Oferta {
     private boolean estado;
     private String tipoContrato;
     private int cantVacante;
+    private String profesion;
     
     public Oferta(String identificador, Institucion myEmpresa, String puesto, String descripcion, float salario,
             String modalidad, String requisitos, int aniosExperiencia, int edad, String ubicacion, String pais,
             String sexo, LocalDate fechaPublicacion, LocalDate fechaFinalizacion, float conincidencia, boolean estado,
-            String tipoContrato, int cantVacante) {
+            String tipoContrato, int cantVacante, String profesion) {
         this.identificador = identificador;
         this.myEmpresa = myEmpresa;
         this.puesto = puesto;
@@ -47,10 +48,19 @@ public class Oferta {
         this.estado = estado;
         this.tipoContrato = tipoContrato;
         this.cantVacante = cantVacante;
+        this.profesion = profesion;
     }
 
     public Institucion getMyEmpresa() {
         return myEmpresa;
+    }
+
+    public String getProfesion() {
+        return profesion;
+    }
+
+    public void setProfesion(String profesion) {
+        this.profesion = profesion;
     }
 
     public void setMyEmpresa(Institucion myEmpresa) {
