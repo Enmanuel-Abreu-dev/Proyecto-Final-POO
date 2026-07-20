@@ -142,6 +142,7 @@ public class main {
         o1.registrarSolicitudEmp(s2);
         o2.registrarSolicitudEmp(s1);
         o2.registrarSolicitudEmp(s2);
+        BolsaTrabajo.getInstance().iniciarSesion("Google", "123");
         
 
         for ( int i = 0; i < empresa1.getMyOfertas().size(); i++ )
@@ -149,10 +150,10 @@ public class main {
             try
             {
                 System.out.println(empresa1.getMyOfertas().get(i).getPuesto());
-                ArrayList<Coincidencia> listaCoinci = BolsaTrabajo.getInstance().calcularCoincidencia("Google", "123", empresa1.getMyOfertas().get(i).getPuesto());
+                ArrayList<Coincidencia> listaCoinci = BolsaTrabajo.getInstance().calcularCoincidencia(empresa1.getMyOfertas().get(i).getPuesto());
 
                 for ( Coincidencia c : listaCoinci )
-                    System.out.printf("Nombre: %s -> %.2f %n", c.getPersona().getPersona().getNombre(), c.getPorcentaje());
+                    System.out.printf("Nombre: %s --> %.2f %n", c.getPersona().getPersona().getNombre(), c.getPorcentaje());
                     
             } catch ( NullPointerException e )
             {

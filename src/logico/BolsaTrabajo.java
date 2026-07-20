@@ -9,7 +9,7 @@ public class BolsaTrabajo {
 	public static int generadorIdOferta = 0;
 	public static int generadorIdInstitucion = 0;
 	public static int generadorIdUsuario = 0;
-	private Usuario usuarioActual;
+	private static Usuario usuarioActual;
 	private ArrayList<Persona> personas;
 	private ArrayList<Solicitud> solicitudes;
 	private ArrayList<Oferta> ofertas;
@@ -38,7 +38,7 @@ public class BolsaTrabajo {
 	}
 
 	public void setUsuarioActual(Usuario usuarioActual) {
-		this.usuarioActual = usuarioActual;
+		BolsaTrabajo.usuarioActual = usuarioActual;
 	}
 
 	public ArrayList<Persona> getPersonas() {
@@ -138,22 +138,15 @@ public class BolsaTrabajo {
 	 Se encarga de verificar que existe un usuario que concuerde con los datos recibidos.
 	 @return null si no se encontro, o el usuario encontrado si lo encontro. 
 	*/
-	public Usuario iniciarSesion(String usuario, String pass) {
-		Usuario actual = null;
-		int contador = 0;
-		boolean encontrado = false;
-		
-		while ( !encontrado && contador < usuarios.size() )
+	public void iniciarSesion(String usuario, String pass) {
+		for ( Usuario user : usuarios )
 		{
-			if ( usuarios.get(contador).getNombre().equalsIgnoreCase(usuario) && usuarios.get(contador).getPassword().equalsIgnoreCase(pass) )
-			{
-				encontrado = true;
-				actual = usuarios.get(contador);
+			if ( user.getNombre().equals(usuario) && user.getPassword().equals(pass) )
+			{	
+				setUsuarioActual(user);
+				return;
 			}
-			contador++;
 		}
-		
-		return actual;
 	}
 	
 	/*
@@ -177,14 +170,13 @@ public class BolsaTrabajo {
 	/*
 		!Buscamos la Empresa que ha iniciado la seccion, asi optenemos la empresa que esta loggeada.
 	 */
-	private Institucion obtenerEmpresaSeccion ( String usuario, String pass )
+	private Institucion obtenerEmpresaSeccion ()
 	{
-		Usuario user = iniciarSesion(usuario, pass);
 		Institucion institucion = null;
 
 		for ( Usuario users : usuarios )
 		{
-			if ( users.getMyInstitucion().getNombre().equalsIgnoreCase(user.getMyInstitucion().getNombre()) )
+			if ( users.getMyInstitucion().getNombre().equalsIgnoreCase(usuarioActual.getMyInstitucion().getNombre()) )
 				institucion = users.getMyInstitucion();
 		}
 
@@ -195,9 +187,9 @@ public class BolsaTrabajo {
 		!Calculamos la coincidencia con de las solicitudes enviadas a la oferta dada devolviendo
 		!un arreglo de la lista de las coincidencia de mayor a menor 
 	*/
-	public ArrayList<Coincidencia> calcularCoincidencia( String usuario, String pass, String nombreOferta )
+	public ArrayList<Coincidencia> calcularCoincidencia( String nombreOferta )
 	{
-		Institucion institucion = obtenerEmpresaSeccion(usuario, pass);
+		Institucion institucion = obtenerEmpresaSeccion();
 		ArrayList<Coincidencia> listaMacheo = new ArrayList<>();
 
 		if ( institucion != null && estadoOferta(nombreOferta, institucion) )
