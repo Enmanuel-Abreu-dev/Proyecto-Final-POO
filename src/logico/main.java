@@ -82,6 +82,26 @@ public class main {
             "Universitario"
         );
 
+        Oferta o2 = new Oferta
+        (
+            BolsaTrabajo.getInstance().generarIdOferta(),
+            empresa1,
+            "Tecnico Software",
+            "Oferta de Trabajo",
+            10000,
+            "Virtual", 
+            "Habilidades Tecnicas",
+            0, 
+            20, 
+            "California",
+            "Estados Unidos",
+            "Masculino",
+            LocalDate.of(2026, 7, 30),
+            "Pasante",
+            3,
+            "Tecnico en Sistemas"
+        );
+
         Usuario user1 = new Usuario
         (
             BolsaTrabajo.getInstance().generarIdUsuario(), 
@@ -116,15 +136,25 @@ public class main {
         BolsaTrabajo.getInstance().registrarPersona(p2);
         empresa1.setUsuario(user1);
         empresa1.publicarOferta(o1);
+        empresa1.publicarOferta(o2);
         p1.agregarExperiencia(exp1);
         BolsaTrabajo.getInstance().registrarUsuario(user1);
         o1.registrarSolicitudEmp(s1);
         o1.registrarSolicitudEmp(s2);
+        o2.registrarSolicitudEmp(s1);
+        o2.registrarSolicitudEmp(s2);
+        
 
-        ArrayList<Coincidencia> listaCoinci = BolsaTrabajo.getInstance().calcularCoincidencia("Google", "123", "Ingeniero Software");
+        for ( int i = 0; i < empresa1.getMyOfertas().size(); i++ )
+        {
+            System.out.println(empresa1.getMyOfertas().get(i).getPuesto());
+            ArrayList<Coincidencia> listaCoinci = BolsaTrabajo.getInstance().calcularCoincidencia("Google", "123", empresa1.getMyOfertas().get(i).getPuesto());
 
-        for ( Coincidencia c : listaCoinci )
+            for ( Coincidencia c : listaCoinci )
             System.out.printf("Nombre: %s -> %.2f %n", c.getPersona().getPersona().getNombre(), c.getPorcentaje());
+            
+            System.out.println();
+        }
 
     }
 }
