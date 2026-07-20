@@ -7,6 +7,8 @@ import javax.swing.border.EmptyBorder;
 import java.net.URL;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
@@ -39,42 +41,6 @@ public class RegOferta extends JDialog {
     };
     private JTextField textField;
     private JTextField textField_1;
-
-    /**
-     * JTextField con placeholder real: el texto de ejemplo se dibuja
-     * encima del campo (no es contenido real) y desaparece apenas
-     * el usuario empieza a escribir.
-     */
-    private class CampoConPlaceholder extends JTextField {
-
-        private static final long serialVersionUID = 1L;
-        private final String placeholder;
-        private final String prefijoFijo;
-
-        public CampoConPlaceholder(String prefijoFijo, String placeholder) {
-            super();
-            this.prefijoFijo = prefijoFijo;
-            this.placeholder = placeholder;
-            setText(prefijoFijo);
-        }
-
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-
-            if (getText().equals(prefijoFijo)) {
-                Graphics2D g2 = (Graphics2D) g.create();
-                g2.setColor(new Color(90, 90, 90));
-                g2.setFont(getFont());
-                FontMetrics fm = g2.getFontMetrics();
-                Insets insets = getInsets();
-                int x = insets.left + fm.stringWidth(prefijoFijo);
-                int y = (getHeight() - fm.getHeight()) / 2 + fm.getAscent();
-                g2.drawString(placeholder, x, y);
-                g2.dispose();
-            }
-        }
-    }
 
     /**
      * Launch the application.
@@ -154,7 +120,7 @@ public class RegOferta extends JDialog {
        lblSalario.setBounds(248, 27, 73, 19);
        panel.add(lblSalario);
        
-       textField_1 = new CampoConPlaceholder("$ ", "25000.00");
+       textField_1 = new JTextField();
        textField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
        textField_1.setColumns(10);
        textField_1.setBackground(new Color(153, 255, 255));
@@ -272,27 +238,50 @@ public class RegOferta extends JDialog {
        panel_1.add(btnCancelar);
        
        aplicarMascaraSalario(textField_1);
+       aplicarPlaceholder(textField_1, "Ej: 25000.00");
+    }
+
+    private void aplicarPlaceholder(JTextField campo, String textoEjemplo) {
+
+        Color colorNormal = campo.getForeground();
+        Color colorPlaceholder = Color.BLACK;
+
+        campo.setText(textoEjemplo);
+        campo.setForeground(colorPlaceholder);
+
+        campo.addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (campo.getText().equals(textoEjemplo)) {
+                    campo.setText("");
+                    campo.setForeground(colorNormal);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (campo.getText().isEmpty()) {
+                    campo.setText(textoEjemplo);
+                    campo.setForeground(colorPlaceholder);
+                }
+            }
+        });
     }
 
     private void aplicarMascaraSalario(JTextField campo) {
 
-        final String prefijo = "$ ";
         PlainDocument documento = (PlainDocument) campo.getDocument();
 
         documento.setDocumentFilter(new DocumentFilter() {
 
             private String formatear(String texto) {
 
-                String numeros = texto;
-                if (numeros.startsWith(prefijo)) {
-                    numeros = numeros.substring(prefijo.length());
-                }
-
                 StringBuilder soloValidos = new StringBuilder();
                 boolean puntoEncontrado = false;
                 int decimales = 0;
 
-                for (char c : numeros.toCharArray()) {
+                for (char c : texto.toCharArray()) {
                     if (Character.isDigit(c)) {
                         if (puntoEncontrado) {
                             if (decimales < 2) {
@@ -308,7 +297,7 @@ public class RegOferta extends JDialog {
                     }
                 }
 
-                return prefijo + soloValidos.toString();
+                return soloValidos.toString();
             }
 
             @Override
@@ -323,11 +312,8 @@ public class RegOferta extends JDialog {
 
                 String actual = fb.getDocument().getText(0, fb.getDocument().getLength());
 
-                int minOffset = Math.max(offset, prefijo.length());
-                int minLength = Math.max(0, Math.min(length, actual.length() - minOffset));
-
                 StringBuilder nuevoTexto = new StringBuilder(actual);
-                nuevoTexto.replace(minOffset, minOffset + minLength, texto == null ? "" : texto);
+                nuevoTexto.replace(offset, offset + length, texto == null ? "" : texto);
 
                 String textoFormateado = formatear(nuevoTexto.toString());
 
@@ -336,12 +322,7 @@ public class RegOferta extends JDialog {
 
             @Override
             public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
-                int minOffset = Math.max(offset, prefijo.length());
-                int minLength = Math.max(0, Math.min(length, offset + length - minOffset));
-                if (minLength <= 0) {
-                    return;
-                }
-                replace(fb, minOffset, minLength, "", null);
+                replace(fb, offset, length, "", null);
             }
         });
     }
