@@ -138,15 +138,16 @@ public class BolsaTrabajo {
 	 Se encarga de verificar que existe un usuario que concuerde con los datos recibidos.
 	 @return null si no se encontro, o el usuario encontrado si lo encontro. 
 	*/
-	public void iniciarSesion(String usuario, String pass) {
+	public boolean iniciarSesion(String usuario, String pass) {
 		for ( Usuario user : usuarios )
 		{
 			if ( user.getNombre().equals(usuario) && user.getPassword().equals(pass) )
 			{	
 				setUsuarioActual(user);
-				return;
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	/*
