@@ -1,6 +1,5 @@
 package logico;
 
-import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -147,12 +146,19 @@ public class main {
 
         for ( int i = 0; i < empresa1.getMyOfertas().size(); i++ )
         {
-            System.out.println(empresa1.getMyOfertas().get(i).getPuesto());
-            ArrayList<Coincidencia> listaCoinci = BolsaTrabajo.getInstance().calcularCoincidencia("Google", "123", empresa1.getMyOfertas().get(i).getPuesto());
+            try
+            {
+                System.out.println(empresa1.getMyOfertas().get(i).getPuesto());
+                ArrayList<Coincidencia> listaCoinci = BolsaTrabajo.getInstance().calcularCoincidencia("Google", "123", empresa1.getMyOfertas().get(i).getPuesto());
 
-            for ( Coincidencia c : listaCoinci )
-            System.out.printf("Nombre: %s -> %.2f %n", c.getPersona().getPersona().getNombre(), c.getPorcentaje());
-            
+                for ( Coincidencia c : listaCoinci )
+                    System.out.printf("Nombre: %s -> %.2f %n", c.getPersona().getPersona().getNombre(), c.getPorcentaje());
+                    
+            } catch ( NullPointerException e )
+            {
+                System.out.println("Algo a fallado");
+            }
+
             System.out.println();
         }
 
