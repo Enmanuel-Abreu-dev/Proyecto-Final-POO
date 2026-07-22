@@ -12,7 +12,7 @@ public abstract class Solicitud {
     public Solicitud(String identificador, Oferta oferta) {
         this.identificador = identificador;
         this.fecha = LocalDate.now();
-        this.estado = false;
+        this.estado = true;
         this.oferta = oferta;
     }
 

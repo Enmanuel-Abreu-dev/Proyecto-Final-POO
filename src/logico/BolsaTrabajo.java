@@ -2,6 +2,7 @@ package logico;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Random;
 
 public class BolsaTrabajo {
 	public static int generadorIdPersona = 0;
@@ -199,10 +200,13 @@ public class BolsaTrabajo {
 			
 			for ( SolicitudEmp emp : oferta.getSolicitudEmps() )
 			{
-				int cantidadCoincidencias = sumaCoincidencia(emp, oferta);
-				float totalCoincidencia = (cantidadCoincidencias * 100f) / 9;
-				Coincidencia coincidencia = new Coincidencia(emp, totalCoincidencia);
-				listaMacheo.add(coincidencia);
+				if ( emp.estado )
+				{
+					int cantidadCoincidencias = sumaCoincidencia(emp, oferta);
+					float totalCoincidencia = (cantidadCoincidencias * 100f) / 9;
+					Coincidencia coincidencia = new Coincidencia(emp, totalCoincidencia);
+					listaMacheo.add(coincidencia);
+				}else continue;
 			}
 		}
 		listaMacheo.sort(Comparator.comparing(Coincidencia::getPorcentaje).reversed());
@@ -296,4 +300,14 @@ public class BolsaTrabajo {
 		
 		return result;
 	}
+	
+	public Usuario crearUsuario( String correo, Institucion inst, Persona persona )
+	{
+		Random random = new Random();
+		int index = correo.indexOf("@");
+		String nombreUser = correo.substring(0, index).toUpperCase();
+		String passUser = nombreUser.substring(0, 3) + "-" + String.format("%04d", random.nextInt(10000));
+
+		return new Usuario(generarIdUsuario(), nombreUser, correo, passUser, inst, persona);
+	} 
 }

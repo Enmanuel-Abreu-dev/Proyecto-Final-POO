@@ -119,7 +119,6 @@ public class main {
             "100",
             "Presencial"
         );
-        s1.setEstado(true);
 
         SolicitudEmp s2 = new SolicitudEmp
         (
@@ -129,7 +128,7 @@ public class main {
             "1000",
             "Virtual"
         );
-        s2.setEstado(true);
+        
 
         BolsaTrabajo.getInstance().registrarInstitucion(empresa1);
         BolsaTrabajo.getInstance().registrarPersona(p2);
@@ -142,9 +141,10 @@ public class main {
         o1.registrarSolicitudEmp(s2);
         o2.registrarSolicitudEmp(s1);
         o2.registrarSolicitudEmp(s2);
-        BolsaTrabajo.getInstance().iniciarSesion("Google", "123");
-        
-
+        System.out.println(BolsaTrabajo.getInstance().iniciarSesion("Google", "123"));
+        Usuario user = BolsaTrabajo.getInstance().crearUsuario(empresa1.getEmail(), empresa1, null);
+        System.out.println(user.getNombre() + " " + user.getPassword());
+ 
         for ( int i = 0; i < empresa1.getMyOfertas().size(); i++ )
         {
             try
