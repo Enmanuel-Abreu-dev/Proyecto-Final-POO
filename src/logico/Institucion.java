@@ -1,6 +1,7 @@
 package logico;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 import java.io.Serializable;
 
 public class Institucion implements Serializable {
@@ -180,6 +181,25 @@ public class Institucion implements Serializable {
     		indice++;
     	}
     	return ofertaActual;
+    }
+    
+    public Solicitud getSolicitud (String id){
+    	Solicitud result = null;
+    	boolean encontrado = false;
+    	int indice = 0;
+    	
+    	while (!encontrado && indice < this.mySolicitudes.size()) {
+    		if (this.mySolicitudes.get(indice).getIdentificador().equalsIgnoreCase(id)) {
+    			result = this.mySolicitudes.get(indice);
+    			encontrado = true;
+    		}
+    		indice++;
+    	}
+    	return result;
+    }
+    
+    public ArrayList<Solicitud> getSolicitudesActivas() {
+    	return this.mySolicitudes.stream().filter(x -> x.estado).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public String getRutaImagen() {
