@@ -43,12 +43,12 @@ import java.awt.Toolkit;
 public class ListOfertas extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField nombreEmpresa;
-	private JTextField cantDiasVigente;
-	private JTextField profesionTxt;
-	private JTextField txtHibridoPresencial;
-	private JTextField puestoTxt;
-	private JTextField salarioTxt;
+	private RoundedTextField nombreEmpresa;
+	private RoundedTextField cantDiasVigente;
+	private RoundedTextField profesionTxt;
+	private RoundedTextField txtHibridoPresencial;
+	private RoundedTextField puestoTxt;
+	private RoundedTextField salarioTxt;
 	private JTextArea txtDescripcion;
 	private JTextArea txtRequisitos;
 	private JPanel panel;
@@ -76,10 +76,10 @@ public class ListOfertas extends JDialog {
 	 */
 	public ListOfertas() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListOfertas.class.getResource("/imagenes/iconoBuscarOferta.png")));
-		getContentPane().setBackground(new Color(173, 216, 230));
+		getContentPane().setBackground(new Color(0, 0, 102));
 		{
 			JLayeredPane layeredPane = new JLayeredPane();
-			layeredPane.setBackground(new Color(175, 238, 238));
+			layeredPane.setBackground(new Color(0, 102, 102));
 			getContentPane().add(layeredPane, BorderLayout.CENTER);
 
 			JScrollPane scrollPane = new JScrollPane();
@@ -132,7 +132,7 @@ public class ListOfertas extends JDialog {
 				}
 			});
 			btnNewButton.setForeground(new Color(255, 255, 255));
-			btnNewButton.setBackground(new Color(0, 51, 153));
+			btnNewButton.setBackground(new Color(0, 153, 204));
 			btnNewButton.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 20));
 			btnNewButton.setBounds(0, 32, 115, 36);
 			layeredPane.add(btnNewButton);
@@ -184,57 +184,57 @@ public class ListOfertas extends JDialog {
 			panel_2_1_4.setBounds(331, 114, 27, 27);
 			panel_1.add(panel_2_1_4);
 
-			nombreEmpresa = new JTextField();
+			nombreEmpresa = new RoundedTextField(20);
 			nombreEmpresa.setFont(new Font("Franklin Gothic Medium", Font.ITALIC, 16));
 			nombreEmpresa.setText("EMPRESA");
 			nombreEmpresa.setEditable(false);
-			nombreEmpresa.setBackground(new Color(240, 248, 255));
+			nombreEmpresa.setBackground(new Color(204, 204, 204));
 			nombreEmpresa.setBounds(47, 22, 274, 27);
 			panel_1.add(nombreEmpresa);
 			nombreEmpresa.setColumns(10);
 
-			cantDiasVigente = new JTextField();
+			cantDiasVigente = new RoundedTextField(20);
 			cantDiasVigente.setText("HACE X DIAS");
 			cantDiasVigente.setFont(new Font("Franklin Gothic Medium", Font.ITALIC, 16));
 			cantDiasVigente.setEditable(false);
 			cantDiasVigente.setColumns(10);
-			cantDiasVigente.setBackground(new Color(240, 248, 255));
+			cantDiasVigente.setBackground(new Color(204, 204, 204));
 			cantDiasVigente.setBounds(47, 65, 274, 27);
 			panel_1.add(cantDiasVigente);
 
-			profesionTxt = new JTextField();
+			profesionTxt = new RoundedTextField(20);
 			profesionTxt.setText("PROFESION");
 			profesionTxt.setFont(new Font("Franklin Gothic Medium", Font.ITALIC, 16));
 			profesionTxt.setEditable(false);
 			profesionTxt.setColumns(10);
-			profesionTxt.setBackground(new Color(240, 248, 255));
+			profesionTxt.setBackground(new Color(204, 204, 204));
 			profesionTxt.setBounds(47, 114, 274, 27);
 			panel_1.add(profesionTxt);
 
-			txtHibridoPresencial = new JTextField();
+			txtHibridoPresencial = new RoundedTextField(20);
 			txtHibridoPresencial.setText("MODALIDAD");
 			txtHibridoPresencial.setFont(new Font("Franklin Gothic Medium", Font.ITALIC, 16));
 			txtHibridoPresencial.setEditable(false);
 			txtHibridoPresencial.setColumns(10);
-			txtHibridoPresencial.setBackground(new Color(240, 248, 255));
+			txtHibridoPresencial.setBackground(new Color(204, 204, 204));
 			txtHibridoPresencial.setBounds(368, 22, 274, 27);
 			panel_1.add(txtHibridoPresencial);
 
-			puestoTxt = new JTextField();
+			puestoTxt = new RoundedTextField(20);
 			puestoTxt.setText("PUESTO");
 			puestoTxt.setFont(new Font("Franklin Gothic Medium", Font.ITALIC, 16));
 			puestoTxt.setEditable(false);
 			puestoTxt.setColumns(10);
-			puestoTxt.setBackground(new Color(240, 248, 255));
+			puestoTxt.setBackground(new Color(204, 204, 204));
 			puestoTxt.setBounds(368, 65, 274, 27);
 			panel_1.add(puestoTxt);
 
-			salarioTxt = new JTextField();
+			salarioTxt = new RoundedTextField(20);
 			salarioTxt.setText("SALARIO");
 			salarioTxt.setFont(new Font("Franklin Gothic Medium", Font.ITALIC, 16));
 			salarioTxt.setEditable(false);
 			salarioTxt.setColumns(10);
-			salarioTxt.setBackground(new Color(240, 248, 255));
+			salarioTxt.setBackground(new Color(204, 204, 204));
 			salarioTxt.setBounds(367, 114, 274, 27);
 			panel_1.add(salarioTxt);
 
@@ -249,7 +249,7 @@ public class ListOfertas extends JDialog {
 			txtDescripcion.setWrapStyleWord(true);
 			txtDescripcion.setEditable(false);
 			txtDescripcion.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			txtDescripcion.setBackground(new Color(240, 248, 255));
+			txtDescripcion.setBackground(new Color(204, 204, 204));
 			txtDescripcion.setBounds(10, 190, 620, 200);
 			panel_1.add(txtDescripcion);
 
@@ -264,14 +264,14 @@ public class ListOfertas extends JDialog {
 			txtRequisitos.setWrapStyleWord(true);
 			txtRequisitos.setEditable(false);
 			txtRequisitos.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			txtRequisitos.setBackground(new Color(240, 248, 255));
+			txtRequisitos.setBackground(new Color(204, 204, 204));
 			txtRequisitos.setBounds(10, 440, 620, 200);
 			panel_1.add(txtRequisitos);
 			
 			JButton btnPostularme = new JButton("POSTULARME");
 			btnPostularme.setForeground(Color.WHITE);
 			btnPostularme.setFont(new Font("Franklin Gothic Medium", Font.BOLD | Font.ITALIC, 20));
-			btnPostularme.setBackground(new Color(0, 51, 153));
+			btnPostularme.setBackground(new Color(0, 153, 204));
 			btnPostularme.setBounds(1072, 98, 173, 42);
 			layeredPane.add(btnPostularme);
 		}

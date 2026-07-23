@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="Logins and Regs Updated and Finished.">
+    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="Windows (Rounded) Upgraded.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/visual/RegEmpresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegEmpresa.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/visual/RegPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegPersona.java" afterDir="false" />
@@ -40,7 +40,10 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Application.DashboardEmpresa.executor&quot;: &quot;Run&quot;,
     &quot;Application.ListOfertas.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ListOfertasEmpresa.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ListSolicitudesEmp.executor&quot;: &quot;Run&quot;,
     &quot;Application.LoginUsuario.executor&quot;: &quot;Run&quot;,
     &quot;Application.RegEmpresa (1).executor&quot;: &quot;Run&quot;,
     &quot;Application.RegEmpresa.executor&quot;: &quot;Run&quot;,
@@ -72,19 +75,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.RegEmpresa (1)">
-    <configuration name="LoginUsuario" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.LoginUsuario" />
-      <module name="POOProyectoFinal" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="visual.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="RegEmpresa (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="visual.RegEmpresa" />
       <module name="POOProyectoFinal" />
@@ -98,8 +88,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RegPersona (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.RegPersona" />
+    <configuration name="RegOferta" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.RegOferta" />
       <module name="POOProyectoFinal" />
       <extension name="coverage">
         <pattern>
@@ -137,12 +127,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="VentanaMatcheo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.VentanaMatcheo" />
+      <module name="POOProyectoFinal" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="visual.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.RegEmpresa (1)" />
-        <item itemvalue="Application.RegPersona (1)" />
         <item itemvalue="Application.RegPersona" />
-        <item itemvalue="Application.LoginUsuario" />
+        <item itemvalue="Application.RegOferta" />
+        <item itemvalue="Application.VentanaMatcheo" />
         <item itemvalue="Application.TipoDeUsuario" />
       </list>
     </recent_temporary>
@@ -286,7 +289,39 @@
       <option name="project" value="LOCAL" />
       <updated>1784827239981</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="RegPersona and RegEmpresa Updated (Photo Field).">
+      <option name="closed" value="true" />
+      <created>1784835877824</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1784835877824</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Rounded Classes added.">
+      <option name="closed" value="true" />
+      <created>1784835961094</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1784835961094</updated>
+    </task>
+    <task id="LOCAL-00018" summary="RegEmpresa Upgraded.">
+      <option name="closed" value="true" />
+      <created>1784842541438</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1784842541438</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Windows (Rounded) Upgraded.">
+      <option name="closed" value="true" />
+      <created>1784844360287</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1784844360287</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -308,6 +343,10 @@
     <MESSAGE value="LoginUsuario class Upgraded." />
     <MESSAGE value="TipoDeUsuario class Created." />
     <MESSAGE value="Logins and Regs Updated and Finished." />
-    <option name="LAST_COMMIT_MESSAGE" value="Logins and Regs Updated and Finished." />
+    <MESSAGE value="RegPersona and RegEmpresa Updated (Photo Field)." />
+    <MESSAGE value="Rounded Classes added." />
+    <MESSAGE value="RegEmpresa Upgraded." />
+    <MESSAGE value="Windows (Rounded) Upgraded." />
+    <option name="LAST_COMMIT_MESSAGE" value="Windows (Rounded) Upgraded." />
   </component>
 </project>

@@ -39,8 +39,8 @@ public class RegOferta extends JDialog {
           }
        }
     };
-    private JTextField textField;
-    private JTextField textField_1;
+    private RoundedTextField textField;
+    private RoundedTextField textField_1;
 
     /**
      * Launch the application.
@@ -107,7 +107,7 @@ public class RegOferta extends JDialog {
        lblPuesto.setBounds(26, 27, 73, 19);
        panel.add(lblPuesto);
        
-       textField = new JTextField();
+       textField = new RoundedTextField(20);
        textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
        textField.setColumns(10);
        textField.setBackground(new Color(153, 255, 255));
@@ -120,7 +120,7 @@ public class RegOferta extends JDialog {
        lblSalario.setBounds(248, 27, 73, 19);
        panel.add(lblSalario);
        
-       textField_1 = new JTextField();
+       textField_1 = new RoundedTextField(20);
        textField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
        textField_1.setColumns(10);
        textField_1.setBackground(new Color(153, 255, 255));
