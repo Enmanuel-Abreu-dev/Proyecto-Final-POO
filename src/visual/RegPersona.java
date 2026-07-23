@@ -565,6 +565,7 @@ public class RegPersona extends JDialog {
 			String email = textField_5.getText();
 			String direccion = textField_4.getText();
 			String telefono = telefonoField.getText();
+			String rutaImagen = BolsaTrabajo.getInstance().buscarImagen(nombre, identificador);
 			String pais = (String) paisComboBox.getSelectedItem();
 			LocalDate fechaNacim = ((Date) fechaSpinner.getValue())
 					.toInstant()
@@ -587,15 +588,15 @@ public class RegPersona extends JDialog {
 
 			if (rbUniversitario.isSelected()) {
 				nuevo = new Universitario(identificador, cedula, nombre, apellido, email, direccion, null,
-						telefono, pais, fechaNacim, dispViajar, dispResidencia, carreraField.getText(), universidadField.getText());
+						telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia, carreraField.getText(), universidadField.getText());
 			}
 			if (rbTecnico.isSelected()) {
 				nuevo = new Tecnico(identificador, cedula, nombre, apellido, email, direccion, null,
-						telefono, pais, fechaNacim, dispViajar, dispResidencia, especialidadField.getText(), politecnicoField.getText());
+						telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia, especialidadField.getText(), politecnicoField.getText());
 			}
 			if (rbObrero.isSelected()) {
 				nuevo = new Obrero(identificador, cedula, nombre, apellido, email, direccion, null,
-						telefono, pais, fechaNacim, dispViajar, dispResidencia, profesionField.getText());
+						telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia, profesionField.getText());
 			}
 
 			usuario.setMyPersona(nuevo);

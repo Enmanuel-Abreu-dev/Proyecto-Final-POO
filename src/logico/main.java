@@ -16,6 +16,7 @@ public class main {
             "Masculino", 
             "80923023",
             "Republica Dominicana", 
+            null,
             LocalDate.of(2007, 9, 15), 
             true, true,
             "Ingeniero Software",
@@ -32,6 +33,7 @@ public class main {
             "Masculino", 
             "4903231",
             "Estados Unidos", 
+            null,
             LocalDate.of(2007, 4, 1), 
             true, true,
             "Tecnico en Sistemas",
@@ -57,6 +59,7 @@ public class main {
             "California",
             "2313323",
             "Google@gmail.com",
+            null,
             100,
             true
         );
@@ -163,5 +166,8 @@ public class main {
             System.out.println();
         }
 
+        System.out.println(BolsaTrabajo.getInstance().buscarImagen(p1.getNombre(), p1.getCedula()));
+
+        System.exit(0);
     }
 }

@@ -14,6 +14,7 @@ public abstract class Persona {
     protected String sexo;
     protected String telefono;
     protected String pais;
+    protected String rutaImagen;
     protected LocalDate fechaNacim;
     protected ArrayList<Experiencia> experiencia;
     protected ArrayList<SolicitudEmp> solicitudEmps;
@@ -23,7 +24,7 @@ public abstract class Persona {
     protected Usuario usuario;
     
     public Persona(String identificador, String cedula, String nombre, String apellido, String email, String direccion,
-            String sexo, String telefono, String pais, LocalDate fechaNacim, boolean dispViajar, boolean dispResidencia) {
+            String sexo, String telefono, String pais, String rutaImagen, LocalDate fechaNacim, boolean dispViajar, boolean dispResidencia) {
         this.identificador = identificador;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -36,6 +37,7 @@ public abstract class Persona {
         this.fechaNacim = fechaNacim;
         this.dispViajar = dispViajar;
         this.dispResidencia = dispResidencia;
+        this.rutaImagen = rutaImagen;
         empleado = false;
         usuario = null;
         experiencia = new ArrayList<>();
@@ -164,6 +166,14 @@ public abstract class Persona {
 
     public String getIdentificador() {
         return identificador;
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
     }
 
     public int calcularEdad()

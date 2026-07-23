@@ -1,8 +1,17 @@
 package logico;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
+
+import java.awt.FileDialog;
+import java.awt.Frame;
 
 public class BolsaTrabajo {
 	public static int generadorIdPersona = 0;
@@ -310,4 +319,38 @@ public class BolsaTrabajo {
 
 		return new Usuario(generarIdUsuario(), nombreUser, correo, passUser, inst, persona);
 	} 
+
+	public String buscarImagen( String nombre, String id )
+	{
+		FileDialog fileDialog = new FileDialog((Frame) null, "Seleccionar Imagen: ");
+		fileDialog.setFile("*.jpg; *.jpeg; *.png;");
+		fileDialog.setVisible(true);
+
+		String directorio = fileDialog.getDirectory();
+		String nombreArchivo = fileDialog.getFile();
+
+		if ( nombreArchivo != null )
+		{
+			File archivo = new File(directorio, nombreArchivo);
+			String carpetaDestino = "ImagenesUsers";
+			String extension = nombreArchivo.substring(nombreArchivo.lastIndexOf("."));
+			String nuevoNombre =  nombre + id + extension;
+
+			try {
+				Files.createDirectories(Paths.get(carpetaDestino));
+
+				Path destino = Paths.get(carpetaDestino, nuevoNombre);
+				Files.copy(archivo.toPath(), destino, StandardCopyOption.REPLACE_EXISTING);
+
+				System.out.println("Imagen guardada: " + destino.toAbsolutePath());
+				return destino.toString();
+				
+			} catch (IOException e) {
+				System.out.println("Error al guardar la Imagen: " + e.getMessage());
+				return null;
+			}
+		}
+		else System.out.println("No se selecciono imagen");
+		return null;
+	}
 }
