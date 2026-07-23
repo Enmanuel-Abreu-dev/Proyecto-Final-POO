@@ -471,7 +471,7 @@ public class RegEmpresa extends JDialog {
             rutaLogoSeleccionado = directorio + archivo;
 
             ImageIcon icon = new ImageIcon(rutaLogoSeleccionado);
-            Image escalada = icon.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+            Image escalada = icon.getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH);
 
             lblLogo.setIcon(new ImageIcon(escalada));
             lblLogo.setText("");
@@ -506,7 +506,7 @@ public class RegEmpresa extends JDialog {
             if (myInstitucion.getRutaImagen() != null) {
                 rutaLogoSeleccionado = myInstitucion.getRutaImagen();
                 ImageIcon icon = new ImageIcon(rutaLogoSeleccionado);
-                Image escalada = icon.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+                Image escalada = icon.getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH);
                 lblLogo.setIcon(new ImageIcon(escalada));
                 lblLogo.setText("");
             }

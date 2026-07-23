@@ -8,9 +8,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.BevelBorder;
 
+import logico.BolsaTrabajo;
+import logico.Usuario;
+
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.io.*;
 
 public class LoginUsuario extends JDialog {
 
@@ -57,6 +61,7 @@ public class LoginUsuario extends JDialog {
     } 
 
     public LoginUsuario() {
+    	cargarControladora();
     	setIconImage(Toolkit.getDefaultToolkit().getImage(LoginUsuario.class.getResource("/imagenes/iconoInicioSesion.png")));
 
         setTitle("Iniciar Sesion");
@@ -160,5 +165,22 @@ public class LoginUsuario extends JDialog {
         panelTarjeta.add(cancelButton);
 
         getRootPane().setDefaultButton(okButton);
+    }
+    
+    public void cargarControladora() {
+    	File source = new File("save.bin");
+    	if (!source.exists()) {
+    		Usuario admin = new Usuario(BolsaTrabajo.getInstance().generarIdUsuario(), "admin", "admin.32@gmail.com", "admin1234@", null, null);
+    		BolsaTrabajo.getInstance().registrarUsuario(admin);
+    		return;
+    	}
+    	
+    	try {
+    		ObjectInputStream io = new ObjectInputStream(new FileInputStream(source));
+    		io.readObject();
+    		io.close();
+    	} catch (IOException | ClassNotFoundException e) {
+    		e.printStackTrace(); // Solo para debug
+    	}
     }
 }
