@@ -178,6 +178,7 @@ public class main {
         }
 
         p1.setRutaImagen(BolsaTrabajo.getInstance().buscarImagen(p1.getNombre(), p1.getCedula()));
+        p2.setRutaImagen(BolsaTrabajo.getInstance().buscarImagen(p2.getNombre(), p2.getCedula()));
 
         BufferedImage imagen = BolsaTrabajo.getInstance().cargarImagenPersona(p1);
 

@@ -169,6 +169,9 @@ public class RegEmpresa extends JDialog {
 
                 if (myInstitucion == null) {
 
+                    System.out.println("Empresa: " + BolsaTrabajo.getInstance().getInstituciones().size());
+                    System.out.println("Usuario: " + BolsaTrabajo.getInstance().getUsuarios().size());
+
                     // --- Registrar nueva empresa ---
                     String identificador = BolsaTrabajo.getInstance().generarIdInstitucion();
                     String nombre = nombreField.getText();
@@ -181,28 +184,22 @@ public class RegEmpresa extends JDialog {
                     String rutaImagen = rutaLogoSeleccionado;
                     int cantEmpleado = (Integer) cantTrabsSpinner.getValue();
 
-                    Usuario usuario = new Usuario(
-                            BolsaTrabajo.getInstance().generarIdUsuario(),
-                            nombre,
-                            email,
-                            new String(passwordField.getPassword()),
-                            null,
-                            null
-                    );
+                    Institucion nueva = new Institucion(identificador, nombre, rnc, pais, razonSocial, direccion, telefono, email, rutaImagen, cantEmpleado, privado);
 
-                    Institucion nueva = new Institucion(identificador, nombre, rnc, pais, razonSocial,
-                            direccion, telefono, email, rutaImagen, cantEmpleado, privado);
-
-                    // --- Guardamos la ruta del logo seleccionado (si el usuario cargo uno) ---
                     if (rutaLogoSeleccionado != null) {
                         nueva.setRutaImagen(rutaLogoSeleccionado);
                     }
 
-                    usuario.setMyInstitucion(nueva);
                     BolsaTrabajo.getInstance().registrarInstitucion(nueva);
+                    Usuario user = BolsaTrabajo.getInstance().crearUsuario(nueva.getEmail(), nueva, null);
+                    BolsaTrabajo.getInstance().registrarUsuario(user);
+
+                    System.out.println("Empresa: " + BolsaTrabajo.getInstance().getInstituciones().size());
+                    System.out.println("Usuario: " + BolsaTrabajo.getInstance().getUsuarios().size());
 
                     JOptionPane.showMessageDialog(null, "Empresa Registrada Exitosamente",
                             "Registro", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Nombre Usuario: " + user.getNombre() + "   " + "Contraseña: " + user.getPassword(),"Credenciales de Usuario", JOptionPane.INFORMATION_MESSAGE);
 
                 } else {
 
