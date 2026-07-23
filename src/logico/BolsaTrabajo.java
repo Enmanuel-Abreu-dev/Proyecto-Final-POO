@@ -10,8 +10,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
+
 import java.awt.FileDialog;
 import java.awt.Frame;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 public class BolsaTrabajo {
 	public static int generadorIdPersona = 0;
@@ -352,5 +356,45 @@ public class BolsaTrabajo {
 		}
 		else System.out.println("No se selecciono imagen");
 		return null;
+	}
+
+	public BufferedImage cargarImagenPersona( Persona p )
+	{
+		try {
+			File archivo = new File(p.getRutaImagen());
+
+			if ( !archivo.exists() )
+			{
+				System.out.println("No existe el archivo.");
+				return null;
+			}			
+
+			BufferedImage imagen = ImageIO.read(archivo);
+			return imagen;
+
+		} catch (Exception e) {
+			System.out.println("Error al cargar la imagen: " + e.getMessage());
+			return null;
+		}
+	}
+
+	public BufferedImage cargarImagenInstitucion( Institucion i )
+	{
+		try {
+			File archivo = new File(i.getRutaImagen());
+
+			if ( !archivo.exists() )
+			{
+				System.out.println("No existe el archivo.");
+				return null;
+			}			
+
+			BufferedImage imagen = ImageIO.read(archivo);
+			return imagen;
+			
+		} catch (Exception e) {
+			System.out.println("Error al cargar la imagen: " + e.getMessage());
+			return null;
+		}
 	}
 }

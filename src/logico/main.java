@@ -1,7 +1,12 @@
 package logico;
 
+import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class main {
     public static void main(String[] args) {
@@ -166,7 +171,13 @@ public class main {
             System.out.println();
         }
 
-        System.out.println(BolsaTrabajo.getInstance().buscarImagen(p1.getNombre(), p1.getCedula()));
+        p1.setRutaImagen(BolsaTrabajo.getInstance().buscarImagen(p1.getNombre(), p1.getCedula()));
+
+        BufferedImage imagen = BolsaTrabajo.getInstance().cargarImagenPersona(p1);
+
+        if ( imagen !=  null )
+            JOptionPane.showMessageDialog(null, new JLabel(new ImageIcon(imagen)));
+        else System.out.println("No cargo");
 
         System.exit(0);
     }
