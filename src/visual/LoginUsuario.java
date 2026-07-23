@@ -39,7 +39,7 @@ public class LoginUsuario extends JDialog {
         }
     };
 
-    private final JPanel panelTarjeta = new JPanel() {
+    private final RoundedPanel panelTarjeta = new RoundedPanel(25, new Color(0, 0, 51)) {
 
         private static final long serialVersionUID = 1L;
     };
@@ -83,16 +83,6 @@ public class LoginUsuario extends JDialog {
 
         panelTarjeta.setBounds(121, 94, 300, 260);
         panelFondo.add(panelTarjeta);
-        panelTarjeta.setBackground(new Color(0, 0, 51));
-        panelTarjeta.setBorder(
-            new BevelBorder(
-                BevelBorder.LOWERED,
-                null,
-                null,
-                null,
-                null
-            )
-        );
         panelTarjeta.setLayout(null);
 
         JLabel lblTitulo = new JLabel("Iniciar Sesión");
@@ -139,20 +129,23 @@ public class LoginUsuario extends JDialog {
         txtPassword.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelTarjeta.add(txtPassword);
 
-        JButton okButton = new JButton("Ingresar");
-        okButton.setBounds(102, 160, 96, 21);
+        RoundedButton okButton = new RoundedButton("Ingresar", 20);
+        okButton.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+        okButton.setBounds(28, 173, 107, 30);
         okButton.setForeground(Color.WHITE);
         okButton.setBackground(new Color(0, 0, 153));
         okButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         okButton.setFocusPainted(false);
         panelTarjeta.add(okButton);
 
-        JButton cancelButton = new JButton("Cancelar");
-        cancelButton.setBounds(102, 191, 96, 21);
+        RoundedButton cancelButton = new RoundedButton("Registrar", 20);
+        cancelButton.setFont(new Font("Times New Roman", Font.PLAIN, 17));
+        cancelButton.setBounds(163, 173, 107, 30);
         cancelButton.setForeground(Color.WHITE);
         cancelButton.setBackground(new Color(0, 0, 153));
         cancelButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        cancelButton.setFocusPainted(false);
+        cancelButton.setFocusPainted(false); 
+        
 
         cancelButton.addActionListener(new ActionListener() {
 
