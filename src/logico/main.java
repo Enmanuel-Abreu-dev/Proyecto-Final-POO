@@ -1,6 +1,13 @@
 package logico;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -10,7 +17,6 @@ import javax.swing.JOptionPane;
 
 public class main {
     public static void main(String[] args) {
-
         Persona p1 = new Universitario(
             BolsaTrabajo.getInstance().generarIdPersona(), 
             "03131321", 

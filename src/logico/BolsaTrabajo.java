@@ -16,8 +16,11 @@ import java.awt.FileDialog;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class BolsaTrabajo {
+public class BolsaTrabajo implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	public static int generadorIdPersona = 0;
 	public static int generadorIdSolicitud = 0;
 	public static int generadorIdOferta = 0;
@@ -46,6 +49,13 @@ public class BolsaTrabajo {
 		
 		return instance;
 	}
+	
+    protected Object readResolve() {
+        if (instance == null) {
+            instance = this; 
+        }
+        return instance;
+    }
 
 	public Usuario getUsuarioActual() {
 		return usuarioActual;
@@ -147,7 +157,7 @@ public class BolsaTrabajo {
 	{
 		this.usuarios.add(u);
 	}
-
+	
 	/*
 	 Se encarga de verificar que existe un usuario que concuerde con los datos recibidos.
 	 @return null si no se encontro, o el usuario encontrado si lo encontro. 
