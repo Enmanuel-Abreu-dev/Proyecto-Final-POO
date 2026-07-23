@@ -1,4 +1,4 @@
-package logico;
+    package logico;
 
 import java.awt.image.BufferedImage;
 import java.time.LocalDate;
