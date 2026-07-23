@@ -199,7 +199,7 @@ public class Institucion implements Serializable {
     }
     
     public ArrayList<Solicitud> getSolicitudesActivas() {
-    	return this.mySolicitudes.stream().filter(x -> x.estado).collect(Collectors.toCollection(ArrayList::new));
+    	return this.mySolicitudes.stream().filter(x -> x.isEstado()).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public String getRutaImagen() {
