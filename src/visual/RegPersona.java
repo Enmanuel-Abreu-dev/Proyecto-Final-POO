@@ -71,7 +71,6 @@ public class RegPersona extends JDialog {
 	private RoundedTextField telefonoField;
 	private RoundedTextField textField_4;
 	private RoundedTextField textField_5;
-	private RoundedPasswordField passwordField;
 	private JComboBox paisComboBox;
 	private JSpinner fechaSpinner;
 	private JComboBox paisComboBox_1;
@@ -192,15 +191,6 @@ public class RegPersona extends JDialog {
 					boolean dispResidencia = "SI".equals(paisComboBox_1_1.getSelectedItem());
 					boolean empleado = "SI".equals(paisComboBox_1_1_1.getSelectedItem());
 
-					Usuario usuario = new Usuario(
-							BolsaTrabajo.getInstance().generarIdUsuario(),
-							nombre,
-							email,
-							new String(passwordField.getPassword()),
-							null,
-							null
-					);
-
 					Persona nuevo = null;
 
 					if (rbUniversitario.isSelected()) {
@@ -216,8 +206,6 @@ public class RegPersona extends JDialog {
 								telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia,
 								profesionField.getText());
 					}
-
-					usuario.setMyPersona(nuevo);
 					BolsaTrabajo.getInstance().registrarPersona(nuevo);
 
 					JOptionPane.showMessageDialog(null, "Candidato Registrado Exitosamente",
@@ -241,10 +229,6 @@ public class RegPersona extends JDialog {
 					myPersona.setDispViajar("SI".equals(paisComboBox_1.getSelectedItem()));
 					myPersona.setDispResidencia("SI".equals(paisComboBox_1_1.getSelectedItem()));
 					myPersona.setEmpleado("SI".equals(paisComboBox_1_1_1.getSelectedItem()));
-
-					if (myPersona.getUsuario() != null) {
-						myPersona.getUsuario().setPassword(new String(passwordField.getPassword()));
-					}
 
 					if (myPersona instanceof Universitario) {
 						((Universitario) myPersona).setCarrera(carreraField.getText());
@@ -341,20 +325,20 @@ public class RegPersona extends JDialog {
 		cedulaField.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		cedulaField.setColumns(10);
 		cedulaField.setBackground(new Color(153, 255, 255));
-		cedulaField.setBounds(329, 314, 166, 42);
+		cedulaField.setBounds(329, 314, 317, 42);
 		panel.add(cedulaField);
 
 		JLabel lblTelefono = new JLabel("TELEFONO:");
 		lblTelefono.setForeground(Color.WHITE);
 		lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTelefono.setBounds(531, 285, 200, 19);
+		lblTelefono.setBounds(401, 391, 200, 19);
 		panel.add(lblTelefono);
 
 		telefonoField = new RoundedTextField(RADIO);
 		telefonoField.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		telefonoField.setColumns(10);
 		telefonoField.setBackground(new Color(153, 255, 255));
-		telefonoField.setBounds(528, 314, 156, 42);
+		telefonoField.setBounds(398, 420, 248, 42);
 		panel.add(telefonoField);
 
 		JLabel lblDireccion = new JLabel("DIRECCION:");
@@ -450,17 +434,6 @@ public class RegPersona extends JDialog {
 		paisComboBox_1_1_1.setBackground(new Color(102, 255, 255));
 		paisComboBox_1_1_1.setBounds(277, 624, 190, 42);
 		panel.add(paisComboBox_1_1_1);
-
-		JLabel lblContrasea = new JLabel("CONTRASEÑA:");
-		lblContrasea.setForeground(Color.WHITE);
-		lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblContrasea.setBounds(420, 379, 166, 42);
-		panel.add(lblContrasea);
-
-		passwordField = new RoundedPasswordField(RADIO);
-		passwordField.setBackground(new Color(102, 255, 255));
-		passwordField.setBounds(420, 420, 264, 42);
-		panel.add(passwordField);
 
 		// --- Seleccion de tipo de candidato (mismo patron que RegQueso) ---
 
@@ -667,10 +640,6 @@ public class RegPersona extends JDialog {
 			paisComboBox_1.setSelectedItem(myPersona.isDispViajar() ? "SI" : "NO");
 			paisComboBox_1_1.setSelectedItem(myPersona.isDispResidencia() ? "SI" : "NO");
 			paisComboBox_1_1_1.setSelectedItem(myPersona.isEmpleado() ? "SI" : "NO");
-
-			if (myPersona.getUsuario() != null) {
-				passwordField.setText(myPersona.getUsuario().getPassword());
-			}
 
 			if (myPersona instanceof Universitario) {
 				rbUniversitario.setSelected(true);

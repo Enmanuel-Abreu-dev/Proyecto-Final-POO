@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="RegEmpresa Upgraded.">
+    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="Windows (Rounded) Upgraded.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/ListOfertas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListOfertas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/LoginUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/LoginUsuario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/visual/RegEmpresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegEmpresa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/RegOferta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegOferta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/VentanaMatcheo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/VentanaMatcheo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/RegPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegPersona.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +74,7 @@
       <recent name="C:\Users\jeanr\Documents\WorkSpacePUCMM\Proyecto-Final-POO\src\imagenes" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.VentanaMatcheo">
+  <component name="RunManager" selected="Application.RegEmpresa (1)">
     <configuration name="RegEmpresa (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="visual.RegEmpresa" />
       <module name="POOProyectoFinal" />
@@ -145,11 +142,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.VentanaMatcheo" />
-        <item itemvalue="Application.TipoDeUsuario" />
+        <item itemvalue="Application.RegEmpresa (1)" />
         <item itemvalue="Application.RegPersona" />
         <item itemvalue="Application.RegOferta" />
-        <item itemvalue="Application.RegEmpresa (1)" />
+        <item itemvalue="Application.VentanaMatcheo" />
+        <item itemvalue="Application.TipoDeUsuario" />
       </list>
     </recent_temporary>
   </component>
@@ -316,7 +313,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784842541438</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Windows (Rounded) Upgraded.">
+      <option name="closed" value="true" />
+      <created>1784844360287</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1784844360287</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,6 +346,7 @@
     <MESSAGE value="RegPersona and RegEmpresa Updated (Photo Field)." />
     <MESSAGE value="Rounded Classes added." />
     <MESSAGE value="RegEmpresa Upgraded." />
-    <option name="LAST_COMMIT_MESSAGE" value="RegEmpresa Upgraded." />
+    <MESSAGE value="Windows (Rounded) Upgraded." />
+    <option name="LAST_COMMIT_MESSAGE" value="Windows (Rounded) Upgraded." />
   </component>
 </project>

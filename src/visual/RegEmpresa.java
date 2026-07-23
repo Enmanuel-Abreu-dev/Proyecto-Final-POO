@@ -84,7 +84,6 @@ public class RegEmpresa extends JDialog {
     private JSpinner cantTrabsSpinner;
     private JComboBox sectorComboBox;
     private JComboBox paisComboBox;
-    private RoundedPasswordField passwordField;
     private RoundedButton registrarBtn;
 
     // --- Cuadro de logo/foto de la empresa (con esquinas redondeadas) ---
@@ -183,15 +182,6 @@ public class RegEmpresa extends JDialog {
                     String rutaImagen = rutaLogoSeleccionado;
                     int cantEmpleado = (Integer) cantTrabsSpinner.getValue();
 
-                    Usuario usuario = new Usuario(
-                            BolsaTrabajo.getInstance().generarIdUsuario(),
-                            nombre,
-                            email,
-                            new String(passwordField.getPassword()),
-                            null,
-                            null
-                    );
-
                     Institucion nueva = new Institucion(identificador, nombre, rnc, pais, razonSocial,
                             direccion, telefono, email, rutaImagen, cantEmpleado, privado);
 
@@ -199,8 +189,6 @@ public class RegEmpresa extends JDialog {
                     if (rutaLogoSeleccionado != null) {
                         nueva.setRutaImagen(rutaLogoSeleccionado);
                     }
-
-                    usuario.setMyInstitucion(nueva);
                     BolsaTrabajo.getInstance().registrarInstitucion(nueva);
 
                     JOptionPane.showMessageDialog(null, "Empresa Registrada Exitosamente",
@@ -221,10 +209,6 @@ public class RegEmpresa extends JDialog {
 
                     if (rutaLogoSeleccionado != null) {
                         myInstitucion.setRutaImagen(rutaLogoSeleccionado);
-                    }
-
-                    if (myInstitucion.getUsuario() != null) {
-                        myInstitucion.getUsuario().setPassword(new String(passwordField.getPassword()));
                     }
 
                     JOptionPane.showMessageDialog(null, "Empresa Modificada Exitosamente",
@@ -281,7 +265,7 @@ public class RegEmpresa extends JDialog {
         lblLogo.setBackground(new Color(102, 255, 255));
         lblLogo.setForeground(new Color(0, 0, 51));
         lblLogo.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lblLogo.setBounds(433, 100, 195, 175);
+        lblLogo.setBounds(433, 100, 264, 258);
         lblLogo.setCursor(new Cursor(Cursor.HAND_CURSOR));
         lblLogo.addMouseListener(new MouseAdapter() {
             @Override
@@ -311,12 +295,6 @@ public class RegEmpresa extends JDialog {
         lblCorreoElectronico.setBounds(44, 388, 201, 20);
         panel.add(lblCorreoElectronico);
 
-        JLabel lblContrasea = new JLabel("CONTRASEÑA:");
-        lblContrasea.setForeground(Color.WHITE);
-        lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblContrasea.setBounds(438, 377, 166, 42);
-        panel.add(lblContrasea);
-
         JLabel lblNombreDeEmpresa = new JLabel("DIRECCION:");
         lblNombreDeEmpresa.setForeground(Color.WHITE);
         lblNombreDeEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -326,7 +304,7 @@ public class RegEmpresa extends JDialog {
         JLabel lblRazonSocial = new JLabel("RAZON SOCIAL:");
         lblRazonSocial.setForeground(Color.WHITE);
         lblRazonSocial.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblRazonSocial.setBounds(438, 287, 166, 29);
+        lblRazonSocial.setBounds(438, 385, 166, 29);
         panel.add(lblRazonSocial);
 
         JLabel lblCodigoPostal = new JLabel("CODIGO POSTAL:");
@@ -389,7 +367,7 @@ public class RegEmpresa extends JDialog {
         razonSocialField.setBackground(new Color(102, 255, 255));
         razonSocialField.setFont(new Font("Tahoma", Font.PLAIN, 18));
         razonSocialField.setColumns(10);
-        razonSocialField.setBounds(438, 320, 259, 42);
+        razonSocialField.setBounds(438, 418, 259, 42);
         panel.add(razonSocialField);
 
         registroSocialField = new RoundedTextField(20);
@@ -452,11 +430,6 @@ public class RegEmpresa extends JDialog {
         cantVacantesSpinner.setBounds(44, 709, 305, 42);
         panel.add(cantVacantesSpinner);
 
-        passwordField = new RoundedPasswordField(20);
-        passwordField.setBackground(new Color(102, 255, 255));
-        passwordField.setBounds(438, 418, 259, 42);
-        panel.add(passwordField);
-
         aplicarMascaraTelefono(telefonoField);
         aplicarMascaraRNC(registroSocialField);
         aplicarSoloDigitos(postalField, 5);
@@ -493,11 +466,6 @@ public class RegEmpresa extends JDialog {
 
             sectorComboBox.setSelectedItem(myInstitucion.isPrivado() ? "PRIVADO" : "OTROS");
 
-            if (myInstitucion.getUsuario() != null) {
-                passwordField.setText(myInstitucion.getUsuario().getPassword());
-            }
-
-            // --- Modo "modificar": si la empresa ya tenia un logo guardado, se muestra ---
             if (myInstitucion.getRutaImagen() != null) {
                 rutaLogoSeleccionado = myInstitucion.getRutaImagen();
                 ImageIcon icon = new ImageIcon(rutaLogoSeleccionado);
