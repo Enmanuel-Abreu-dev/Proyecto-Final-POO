@@ -185,22 +185,12 @@ public class RegEmpresa extends JDialog {
                     String rutaImagen = rutaLogoSeleccionado;
                     int cantEmpleado = (Integer) cantTrabsSpinner.getValue();
 
-<<<<<<< HEAD
                     Institucion nueva = new Institucion(identificador, nombre, rnc, pais, razonSocial, direccion, telefono, email, rutaImagen, cantEmpleado, privado);
 
                     if (rutaLogoSeleccionado != null) {
                         nueva.setRutaImagen(rutaLogoSeleccionado);
                     }
 
-=======
-                    Institucion nueva = new Institucion(identificador, nombre, rnc, pais, razonSocial,
-                            direccion, telefono, email, rutaImagen, cantEmpleado, privado);
-
-                    // --- Guardamos la ruta del logo seleccionado (si el usuario cargo uno) ---
-                    if (rutaLogoSeleccionado != null) {
-                        nueva.setRutaImagen(rutaLogoSeleccionado);
-                    }
->>>>>>> 7f82df4aadc529caf1d1519ce78248e37c34b7fb
                     BolsaTrabajo.getInstance().registrarInstitucion(nueva);
                     Usuario user = BolsaTrabajo.getInstance().crearUsuario(nueva.getEmail(), nueva, null);
                     BolsaTrabajo.getInstance().registrarUsuario(user);
