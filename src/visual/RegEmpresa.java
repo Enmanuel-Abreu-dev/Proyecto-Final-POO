@@ -33,6 +33,13 @@ import javax.swing.text.PlainDocument;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
+// --- Nuevos imports para cargar la foto/logo (explorador NATIVO de Windows) ---
+import javax.swing.SwingConstants;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.FileDialog;
+
 import logico.Institucion;
 import logico.Usuario;
 import logico.BolsaTrabajo;
@@ -40,6 +47,8 @@ import logico.BolsaTrabajo;
 public class RegEmpresa extends JDialog {
 
     private static final long serialVersionUID = 1L;
+
+    private static final int RADIO = 20;
 
     private Image imagenFondo;
 
@@ -77,6 +86,10 @@ public class RegEmpresa extends JDialog {
     private JComboBox paisComboBox;
     private JPasswordField passwordField;
     private JButton registrarBtn;
+
+    // --- Cuadro de logo/foto de la empresa (con esquinas redondeadas) ---
+    private JLabel lblLogo;
+    private String rutaLogoSeleccionado;
 
     private Institucion myInstitucion = null;
 
@@ -165,7 +178,7 @@ public class RegEmpresa extends JDialog {
                     String direccion = direccionField.getText();
                     String telefono = telefonoField.getText();
                     String email = correoField.getText();
-                    String rutaImagen = BolsaTrabajo.getInstance().buscarImagen(nombre, identificador);
+                    String rutaImagen = rutaLogoSeleccionado;
                     int cantEmpleado = (Integer) cantTrabsSpinner.getValue();
 
                     Usuario usuario = new Usuario(
@@ -179,6 +192,11 @@ public class RegEmpresa extends JDialog {
 
                     Institucion nueva = new Institucion(identificador, nombre, rnc, pais, razonSocial,
                             direccion, telefono, email, rutaImagen, cantEmpleado, privado);
+
+                    // --- Guardamos la ruta del logo seleccionado (si el usuario cargo uno) ---
+                    if (rutaLogoSeleccionado != null) {
+                        nueva.setRutaImagen(rutaLogoSeleccionado);
+                    }
 
                     usuario.setMyInstitucion(nueva);
                     BolsaTrabajo.getInstance().registrarInstitucion(nueva);
@@ -198,6 +216,10 @@ public class RegEmpresa extends JDialog {
                     myInstitucion.setEmail(correoField.getText());
                     myInstitucion.setCantEmpleado((Integer) cantTrabsSpinner.getValue());
                     myInstitucion.setPrivado(privado);
+
+                    if (rutaLogoSeleccionado != null) {
+                        myInstitucion.setRutaImagen(rutaLogoSeleccionado);
+                    }
 
                     if (myInstitucion.getUsuario() != null) {
                         myInstitucion.getUsuario().setPassword(new String(passwordField.getPassword()));
@@ -233,38 +255,62 @@ public class RegEmpresa extends JDialog {
         JLabel lblNewLabel = new JLabel("NOMBRE DE EMPRESA:");
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
         lblNewLabel.setForeground(new Color(255, 255, 255));
-        lblNewLabel.setBounds(44, 82, 226, 19);
+        lblNewLabel.setBounds(44, 73, 226, 19);
         panel.add(lblNewLabel);
 
         nombreField = new JTextField();
         nombreField.setBackground(new Color(153, 255, 255));
         nombreField.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        nombreField.setBounds(44, 111, 332, 42);
+        nombreField.setBounds(44, 102, 332, 42);
         panel.add(nombreField);
         nombreField.setColumns(10);
+
+        // --- Cuadro de logo, al lado del nombre de la empresa (esquinas redondeadas) ---
+        JLabel lblLogoTitulo = new JLabel("LOGO:");
+        lblLogoTitulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        lblLogoTitulo.setForeground(new Color(255, 255, 255));
+        lblLogoTitulo.setBounds(438, 73, 166, 19);
+        panel.add(lblLogoTitulo);
+
+        lblLogo = new JLabel();
+        lblLogo.setText("CARGAR");
+        lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        lblLogo.setOpaque(true);
+        lblLogo.setBackground(new Color(102, 255, 255));
+        lblLogo.setForeground(new Color(0, 0, 51));
+        lblLogo.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblLogo.setBounds(433, 100, 195, 175);
+        lblLogo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblLogo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cargarLogo();
+            }
+        });
+        panel.add(lblLogo);
 
         JLabel lblTelefono = new JLabel("TELEFONO:");
         lblTelefono.setForeground(Color.WHITE);
         lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblTelefono.setBounds(438, 82, 166, 19);
+        lblTelefono.setBounds(47, 287, 166, 19);
         panel.add(lblTelefono);
 
         JLabel lblCorreoElectronico = new JLabel("CORREO ELECTRONICO:");
         lblCorreoElectronico.setForeground(Color.WHITE);
         lblCorreoElectronico.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblCorreoElectronico.setBounds(44, 187, 201, 20);
+        lblCorreoElectronico.setBounds(44, 388, 201, 20);
         panel.add(lblCorreoElectronico);
 
         JLabel lblContrasea = new JLabel("CONTRASEÑA:");
         lblContrasea.setForeground(Color.WHITE);
         lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblContrasea.setBounds(438, 176, 166, 42);
+        lblContrasea.setBounds(438, 377, 166, 42);
         panel.add(lblContrasea);
 
         JLabel lblNombreDeEmpresa = new JLabel("DIRECCION:");
         lblNombreDeEmpresa.setForeground(Color.WHITE);
         lblNombreDeEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblNombreDeEmpresa.setBounds(44, 287, 201, 29);
+        lblNombreDeEmpresa.setBounds(44, 172, 201, 29);
         panel.add(lblNombreDeEmpresa);
 
         JLabel lblRazonSocial = new JLabel("RAZON SOCIAL:");
@@ -276,14 +322,14 @@ public class RegEmpresa extends JDialog {
         JLabel lblCodigoPostal = new JLabel("CODIGO POSTAL:");
         lblCodigoPostal.setForeground(Color.WHITE);
         lblCodigoPostal.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblCodigoPostal.setBounds(44, 390, 166, 19);
+        lblCodigoPostal.setBounds(44, 481, 166, 19);
         panel.add(lblCodigoPostal);
 
         postalField = new JTextField();
         postalField.setBackground(new Color(102, 255, 255));
         postalField.setFont(new Font("Tahoma", Font.PLAIN, 18));
         postalField.setColumns(10);
-        postalField.setBounds(44, 419, 182, 42);
+        postalField.setBounds(44, 510, 182, 42);
         panel.add(postalField);
 
         paisComboBox = new JComboBox();
@@ -293,40 +339,40 @@ public class RegEmpresa extends JDialog {
                 "REPUBLICA DOMINICANA",
                 "ESTADOS UNIDOS"
         }));
-        paisComboBox.setBounds(462, 419, 235, 42);
+        paisComboBox.setBounds(462, 510, 235, 42);
         panel.add(paisComboBox);
 
         JLabel lblRegistroSocial = new JLabel("REGISTRO SOCIAL:");
         lblRegistroSocial.setForeground(Color.WHITE);
         lblRegistroSocial.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblRegistroSocial.setBounds(255, 390, 166, 19);
+        lblRegistroSocial.setBounds(255, 481, 166, 19);
         panel.add(lblRegistroSocial);
 
         JLabel lblPais = new JLabel("PAIS:");
         lblPais.setForeground(Color.WHITE);
         lblPais.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblPais.setBounds(462, 390, 166, 19);
+        lblPais.setBounds(462, 481, 166, 19);
         panel.add(lblPais);
 
         telefonoField = new JTextField();
         telefonoField.setBackground(new Color(102, 255, 255));
         telefonoField.setFont(new Font("Tahoma", Font.PLAIN, 18));
         telefonoField.setColumns(10);
-        telefonoField.setBounds(438, 111, 259, 42);
+        telefonoField.setBounds(47, 316, 329, 42);
         panel.add(telefonoField);
 
         correoField = new JTextField();
         correoField.setBackground(new Color(102, 255, 255));
         correoField.setFont(new Font("Tahoma", Font.PLAIN, 18));
         correoField.setColumns(10);
-        correoField.setBounds(44, 217, 332, 42);
+        correoField.setBounds(44, 418, 332, 42);
         panel.add(correoField);
 
         direccionField = new JTextField();
         direccionField.setBackground(new Color(102, 255, 255));
         direccionField.setFont(new Font("Tahoma", Font.PLAIN, 18));
         direccionField.setColumns(10);
-        direccionField.setBounds(44, 320, 332, 42);
+        direccionField.setBounds(44, 205, 332, 42);
         panel.add(direccionField);
 
         razonSocialField = new JTextField();
@@ -340,13 +386,13 @@ public class RegEmpresa extends JDialog {
         registroSocialField.setBackground(new Color(102, 255, 255));
         registroSocialField.setFont(new Font("Tahoma", Font.PLAIN, 18));
         registroSocialField.setColumns(10);
-        registroSocialField.setBounds(255, 419, 174, 42);
+        registroSocialField.setBounds(255, 510, 174, 42);
         panel.add(registroSocialField);
 
         JLabel lblSector = new JLabel("SECTOR:");
         lblSector.setForeground(Color.WHITE);
         lblSector.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblSector.setBounds(44, 491, 166, 19);
+        lblSector.setBounds(44, 582, 166, 19);
         panel.add(lblSector);
 
         sectorComboBox = new JComboBox();
@@ -357,13 +403,13 @@ public class RegEmpresa extends JDialog {
                 "PRIVADO"
         }));
         sectorComboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        sectorComboBox.setBounds(44, 520, 280, 42);
+        sectorComboBox.setBounds(44, 611, 280, 42);
         panel.add(sectorComboBox);
 
         JLabel lblCantidadDeTrabajadores = new JLabel("CANTIDAD DE TRABAJADORES:");
         lblCantidadDeTrabajadores.setForeground(Color.WHITE);
         lblCantidadDeTrabajadores.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblCantidadDeTrabajadores.setBounds(388, 497, 262, 19);
+        lblCantidadDeTrabajadores.setBounds(388, 588, 262, 19);
         panel.add(lblCantidadDeTrabajadores);
 
         cantTrabsSpinner = new JSpinner();
@@ -375,13 +421,13 @@ public class RegEmpresa extends JDialog {
                 Integer.valueOf(1)
         ));
         cantTrabsSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        cantTrabsSpinner.setBounds(392, 523, 305, 42);
+        cantTrabsSpinner.setBounds(392, 614, 305, 42);
         panel.add(cantTrabsSpinner);
 
         JLabel lblCantidadDeVacantes = new JLabel("CANTIDAD DE VACANTES:");
         lblCantidadDeVacantes.setForeground(Color.WHITE);
         lblCantidadDeVacantes.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblCantidadDeVacantes.setBounds(44, 592, 262, 19);
+        lblCantidadDeVacantes.setBounds(44, 683, 262, 19);
         panel.add(lblCantidadDeVacantes);
 
         cantVacantesSpinner = new JSpinner();
@@ -393,12 +439,12 @@ public class RegEmpresa extends JDialog {
                 Integer.valueOf(1)
         ));
         cantVacantesSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        cantVacantesSpinner.setBounds(44, 618, 305, 42);
+        cantVacantesSpinner.setBounds(44, 709, 305, 42);
         panel.add(cantVacantesSpinner);
 
         passwordField = new JPasswordField();
         passwordField.setBackground(new Color(102, 255, 255));
-        passwordField.setBounds(438, 217, 259, 42);
+        passwordField.setBounds(438, 418, 259, 42);
         panel.add(passwordField);
 
         aplicarMascaraTelefono(telefonoField);
@@ -407,6 +453,29 @@ public class RegEmpresa extends JDialog {
         aplicarPlaceholder(correoField, "ejemplo@correo.com");
 
         cargarDatos();
+    }
+
+    // --- Abre el explorador de archivos NATIVO del sistema operativo (Windows/Mac/Linux) ---
+    private void cargarLogo() {
+        FileDialog dialog = new FileDialog(this, "Seleccionar Logo", FileDialog.LOAD);
+        dialog.setFilenameFilter((dir, name) -> {
+            String n = name.toLowerCase();
+            return n.endsWith(".jpg") || n.endsWith(".jpeg") || n.endsWith(".png");
+        });
+        dialog.setVisible(true);
+
+        String archivo = dialog.getFile();
+        String directorio = dialog.getDirectory();
+
+        if (archivo != null && directorio != null) {
+            rutaLogoSeleccionado = directorio + archivo;
+
+            ImageIcon icon = new ImageIcon(rutaLogoSeleccionado);
+            Image escalada = icon.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+
+            lblLogo.setIcon(new ImageIcon(escalada));
+            lblLogo.setText("");
+        }
     }
 
     private void cargarDatos() {
@@ -431,6 +500,15 @@ public class RegEmpresa extends JDialog {
 
             if (myInstitucion.getUsuario() != null) {
                 passwordField.setText(myInstitucion.getUsuario().getPassword());
+            }
+
+            // --- Modo "modificar": si la empresa ya tenia un logo guardado, se muestra ---
+            if (myInstitucion.getRutaImagen() != null) {
+                rutaLogoSeleccionado = myInstitucion.getRutaImagen();
+                ImageIcon icon = new ImageIcon(rutaLogoSeleccionado);
+                Image escalada = icon.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
+                lblLogo.setIcon(new ImageIcon(escalada));
+                lblLogo.setText("");
             }
         }
     }
