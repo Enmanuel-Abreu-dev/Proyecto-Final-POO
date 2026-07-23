@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="VentanaMatcheo class Created.">
+    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="LoginUsuario class Upgraded.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/visual/LoginUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/LoginUsuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/RegEmpresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegEmpresa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/RegPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegPersona.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,33 +39,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.ListOfertas.executor&quot;: &quot;Run&quot;,
-    &quot;Application.LoginUsuario.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegEmpresa (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegEmpresa.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegOferta.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegPersona (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegPersona.executor&quot;: &quot;Run&quot;,
-    &quot;Application.VentanaMatcheo.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jeanr/Documents/WorkSpacePUCMM/Proyecto-Final-POO/src/imagenes&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ListOfertas.executor": "Run",
+    "Application.LoginUsuario.executor": "Run",
+    "Application.RegEmpresa (1).executor": "Run",
+    "Application.RegEmpresa.executor": "Run",
+    "Application.RegOferta.executor": "Run",
+    "Application.RegPersona (1).executor": "Run",
+    "Application.RegPersona.executor": "Run",
+    "Application.TipoDeUsuario.executor": "Run",
+    "Application.VentanaMatcheo.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/jeanr/Documents/WorkSpacePUCMM/Proyecto-Final-POO/src/imagenes",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jeanr\Documents\WorkSpacePUCMM\Proyecto-Final-POO\src\imagenes" />
@@ -109,8 +112,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RegEmpresa" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.RegEmpresa" />
+    <configuration name="TipoDeUsuario" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.TipoDeUsuario" />
       <module name="POOProyectoFinal" />
       <extension name="coverage">
         <pattern>
@@ -138,10 +141,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.LoginUsuario" />
+        <item itemvalue="Application.TipoDeUsuario" />
         <item itemvalue="Application.VentanaMatcheo" />
         <item itemvalue="Application.RegEmpresa (1)" />
         <item itemvalue="Application.ListOfertas" />
-        <item itemvalue="Application.RegEmpresa" />
       </list>
     </recent_temporary>
   </component>
@@ -252,7 +255,23 @@
       <option name="project" value="LOCAL" />
       <updated>1784513224287</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Rounded Classes Implemented (textF, button and Panel).">
+      <option name="closed" value="true" />
+      <created>1784821845221</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1784821845222</updated>
+    </task>
+    <task id="LOCAL-00013" summary="LoginUsuario class Upgraded.">
+      <option name="closed" value="true" />
+      <created>1784821959050</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1784821959050</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,6 +289,8 @@
     <MESSAGE value="RegPersona class Updated [herencia]." />
     <MESSAGE value="RegOferta class Created." />
     <MESSAGE value="VentanaMatcheo class Created." />
-    <option name="LAST_COMMIT_MESSAGE" value="VentanaMatcheo class Created." />
+    <MESSAGE value="Rounded Classes Implemented (textF, button and Panel)." />
+    <MESSAGE value="LoginUsuario class Upgraded." />
+    <option name="LAST_COMMIT_MESSAGE" value="LoginUsuario class Upgraded." />
   </component>
 </project>

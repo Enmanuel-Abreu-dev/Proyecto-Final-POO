@@ -150,7 +150,10 @@ public class LoginUsuario extends JDialog {
         cancelButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent arg0) {
-                dispose();
+            	dispose();
+            	TipoDeUsuario tipo = new TipoDeUsuario();
+            	tipo.setModal(true);
+            	tipo.setVisible(true);
             }
         });
 
