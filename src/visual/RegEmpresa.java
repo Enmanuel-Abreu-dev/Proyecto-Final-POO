@@ -146,7 +146,7 @@ public class RegEmpresa extends JDialog {
 
         JPanel panel = new JPanel();
         panel.setBackground(new Color(0, 0, 51));
-        panel.setBounds(0, 0, 741, 1000);
+        panel.setBounds(0, 0, 741, dim.height);
         panelFondo.add(panel);
         panel.setLayout(null);
 
