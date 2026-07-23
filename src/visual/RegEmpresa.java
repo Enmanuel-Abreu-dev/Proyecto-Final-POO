@@ -9,6 +9,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Font;
@@ -32,6 +33,10 @@ import javax.swing.text.PlainDocument;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
+import logico.Institucion;
+import logico.Usuario;
+import logico.BolsaTrabajo;
+
 public class RegEmpresa extends JDialog {
 
     private static final long serialVersionUID = 1L;
@@ -48,12 +53,12 @@ public class RegEmpresa extends JDialog {
 
             if (imagenFondo != null) {
                 g.drawImage(
-                    imagenFondo,
-                    0,
-                    0,
-                    getWidth(),
-                    getHeight(),
-                    this
+                        imagenFondo,
+                        0,
+                        0,
+                        getWidth(),
+                        getHeight(),
+                        this
                 );
             }
         }
@@ -71,6 +76,9 @@ public class RegEmpresa extends JDialog {
     private JComboBox sectorComboBox;
     private JComboBox paisComboBox;
     private JPasswordField passwordField;
+    private JButton registrarBtn;
+
+    private Institucion myInstitucion = null;
 
     /**
      * Launch the application.
@@ -78,7 +86,7 @@ public class RegEmpresa extends JDialog {
     public static void main(String[] args) {
 
         try {
-            RegEmpresa dialog = new RegEmpresa();
+            RegEmpresa dialog = new RegEmpresa(null);
             dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
 
@@ -90,9 +98,18 @@ public class RegEmpresa extends JDialog {
     /**
      * Create the dialog.
      */
-    public RegEmpresa() {
+    public RegEmpresa(Institucion institucion) {
+
+        myInstitucion = institucion;
+
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistrar.png")).getImage());
-        setTitle("REGISTRAR NUEVA EMPRESA");
+
+        if (myInstitucion == null) {
+            setTitle("REGISTRAR NUEVA EMPRESA");
+        } else {
+            setTitle("MODIFICAR EMPRESA");
+        }
+
         URL rutaImagen = getClass().getResource("/imagenes/fondoRegEmpresa.png");
 
         setBounds(100, 100, 450, 300);
@@ -120,9 +137,77 @@ public class RegEmpresa extends JDialog {
         panelFondo.add(panel);
         panel.setLayout(null);
 
-        JButton registrarBtn = new JButton("CREAR CUENTA");
+        registrarBtn = new JButton("CREAR CUENTA");
+        if (myInstitucion != null) {
+            registrarBtn.setText("MODIFICAR");
+        }
         registrarBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+
+                // --- Validacion basica ---
+                if (nombreField.getText().trim().isEmpty() || registroSocialField.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null,
+                            "El nombre y el registro social (RNC) no pueden estar vacios.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                boolean privado = "PRIVADO".equals(sectorComboBox.getSelectedItem());
+
+                if (myInstitucion == null) {
+
+                    // --- Registrar nueva empresa ---
+                    String identificador = BolsaTrabajo.getInstance().generarIdInstitucion();
+                    String nombre = nombreField.getText();
+                    String rnc = registroSocialField.getText();
+                    String pais = (String) paisComboBox.getSelectedItem();
+                    String razonSocial = razonSocialField.getText();
+                    String direccion = direccionField.getText();
+                    String telefono = telefonoField.getText();
+                    String email = correoField.getText();
+                    String rutaImagen = BolsaTrabajo.getInstance().buscarImagen(nombre, identificador);
+                    int cantEmpleado = (Integer) cantTrabsSpinner.getValue();
+
+                    Usuario usuario = new Usuario(
+                            BolsaTrabajo.getInstance().generarIdUsuario(),
+                            nombre,
+                            email,
+                            new String(passwordField.getPassword()),
+                            null,
+                            null
+                    );
+
+                    Institucion nueva = new Institucion(identificador, nombre, rnc, pais, razonSocial,
+                            direccion, telefono, email, rutaImagen, cantEmpleado, privado);
+
+                    usuario.setMyInstitucion(nueva);
+                    BolsaTrabajo.getInstance().registrarInstitucion(nueva);
+
+                    JOptionPane.showMessageDialog(null, "Empresa Registrada Exitosamente",
+                            "Registro", JOptionPane.INFORMATION_MESSAGE);
+
+                } else {
+
+                    // --- Modificar empresa existente ---
+                    myInstitucion.setNombre(nombreField.getText());
+                    myInstitucion.setRNC(registroSocialField.getText());
+                    myInstitucion.setPais((String) paisComboBox.getSelectedItem());
+                    myInstitucion.setRegistroSocial(razonSocialField.getText());
+                    myInstitucion.setDireccion(direccionField.getText());
+                    myInstitucion.setTelefono(telefonoField.getText());
+                    myInstitucion.setEmail(correoField.getText());
+                    myInstitucion.setCantEmpleado((Integer) cantTrabsSpinner.getValue());
+                    myInstitucion.setPrivado(privado);
+
+                    if (myInstitucion.getUsuario() != null) {
+                        myInstitucion.getUsuario().setPassword(new String(passwordField.getPassword()));
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Empresa Modificada Exitosamente",
+                            "Modificacion", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+                dispose();
             }
         });
 
@@ -320,6 +405,34 @@ public class RegEmpresa extends JDialog {
         aplicarMascaraRNC(registroSocialField);
         aplicarSoloDigitos(postalField, 5);
         aplicarPlaceholder(correoField, "ejemplo@correo.com");
+
+        cargarDatos();
+    }
+
+    private void cargarDatos() {
+        if (myInstitucion != null) {
+
+            nombreField.setText(myInstitucion.getNombre());
+            telefonoField.setText(myInstitucion.getTelefono());
+            correoField.setText(myInstitucion.getEmail());
+            correoField.setForeground(Color.BLACK);
+            direccionField.setText(myInstitucion.getDireccion());
+            razonSocialField.setText(myInstitucion.getRegistroSocial());
+
+            registroSocialField.setText(myInstitucion.getRNC());
+            registroSocialField.setEditable(false);
+            registroSocialField.setBackground(new Color(192, 192, 192));
+
+            paisComboBox.setSelectedItem(myInstitucion.getPais());
+
+            cantTrabsSpinner.setValue(myInstitucion.getCantEmpleado());
+
+            sectorComboBox.setSelectedItem(myInstitucion.isPrivado() ? "PRIVADO" : "OTROS");
+
+            if (myInstitucion.getUsuario() != null) {
+                passwordField.setText(myInstitucion.getUsuario().getPassword());
+            }
+        }
     }
 
     private void aplicarMascaraTelefono(JTextField campo) {

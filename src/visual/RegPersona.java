@@ -151,7 +151,104 @@ public class RegPersona extends JDialog {
 		}
 		registrarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				guardar();
+
+				// --- Validacion basica ---
+				if (nombreField.getText().trim().isEmpty() || cedulaField.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null,
+							"El nombre y la cedula no pueden estar vacios.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+
+				if (myPersona == null) {
+
+					// --- Registrar nueva persona ---
+					String identificador = BolsaTrabajo.getInstance().generarIdPersona();
+					String cedula = cedulaField.getText();
+					String nombre = nombreField.getText();
+					String apellido = apellidoField.getText();
+					String email = textField_5.getText();
+					String direccion = textField_4.getText();
+					String telefono = telefonoField.getText();
+					String rutaImagen = BolsaTrabajo.getInstance().buscarImagen(nombre, identificador);
+					String pais = (String) paisComboBox.getSelectedItem();
+					LocalDate fechaNacim = ((Date) fechaSpinner.getValue())
+							.toInstant()
+							.atZone(ZoneId.systemDefault())
+							.toLocalDate();
+					boolean dispViajar = "SI".equals(paisComboBox_1.getSelectedItem());
+					boolean dispResidencia = "SI".equals(paisComboBox_1_1.getSelectedItem());
+					boolean empleado = "SI".equals(paisComboBox_1_1_1.getSelectedItem());
+
+					Usuario usuario = new Usuario(
+							BolsaTrabajo.getInstance().generarIdUsuario(),
+							nombre,
+							email,
+							new String(passwordField.getPassword()),
+							null,
+							null
+					);
+
+					Persona nuevo = null;
+
+					if (rbUniversitario.isSelected()) {
+						nuevo = new Universitario(identificador, cedula, nombre, apellido, email, direccion, null,
+								telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia, carreraField.getText(), universidadField.getText());
+					}
+					if (rbTecnico.isSelected()) {
+						nuevo = new Tecnico(identificador, cedula, nombre, apellido, email, direccion, null,
+								telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia, especialidadField.getText(), politecnicoField.getText());
+					}
+					if (rbObrero.isSelected()) {
+						nuevo = new Obrero(identificador, cedula, nombre, apellido, email, direccion, null,
+								telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia,
+								profesionField.getText());
+					}
+
+					usuario.setMyPersona(nuevo);
+					BolsaTrabajo.getInstance().registrarPersona(nuevo);
+
+					JOptionPane.showMessageDialog(null, "Candidato Registrado Exitosamente",
+							"Registro", JOptionPane.INFORMATION_MESSAGE);
+
+				} else {
+
+					// --- Modificar persona existente ---
+					myPersona.setNombre(nombreField.getText());
+					myPersona.setApellido(apellidoField.getText());
+					myPersona.setTelefono(telefonoField.getText());
+					myPersona.setDireccion(textField_4.getText());
+					myPersona.setEmail(textField_5.getText());
+					myPersona.setPais((String) paisComboBox.getSelectedItem());
+					myPersona.setFechaNacim(
+							((Date) fechaSpinner.getValue())
+									.toInstant()
+									.atZone(ZoneId.systemDefault())
+									.toLocalDate()
+					);
+					myPersona.setDispViajar("SI".equals(paisComboBox_1.getSelectedItem()));
+					myPersona.setDispResidencia("SI".equals(paisComboBox_1_1.getSelectedItem()));
+					myPersona.setEmpleado("SI".equals(paisComboBox_1_1_1.getSelectedItem()));
+
+					if (myPersona.getUsuario() != null) {
+						myPersona.getUsuario().setPassword(new String(passwordField.getPassword()));
+					}
+
+					if (myPersona instanceof Universitario) {
+						((Universitario) myPersona).setCarrera(carreraField.getText());
+						((Universitario) myPersona).setUniversidad(universidadField.getText());
+					} else if (myPersona instanceof Tecnico) {
+						((Tecnico) myPersona).setEspecialidad(especialidadField.getText());
+						((Tecnico) myPersona).setPolitecnico(politecnicoField.getText());
+					} else if (myPersona instanceof Obrero) {
+						((Obrero) myPersona).setProfesion(profesionField.getText());
+					}
+
+					JOptionPane.showMessageDialog(null, "Candidato Modificado Exitosamente",
+							"Modificacion", JOptionPane.INFORMATION_MESSAGE);
+				}
+
+				dispose();
 			}
 		});
 		registrarBtn.setBackground(new Color(255, 153, 51));
