@@ -15,6 +15,8 @@ import logico.Persona;
 import logico.Universitario;
 import logico.Tecnico;
 import logico.Obrero;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaMatcheo extends JDialog {
 
@@ -41,6 +43,7 @@ public class VentanaMatcheo extends JDialog {
 	private JLabel lblProfesionDelEmpleado;
 
 	private Oferta ofertaActual;
+	private JButton btnSalir;
 
 	/**
 	 * Launch the application.
@@ -234,6 +237,18 @@ public class VentanaMatcheo extends JDialog {
 		lblOtrasSolicitudes.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 22));
 		lblOtrasSolicitudes.setBounds(10, 310, 283, 19);
 		layeredPane.add(lblOtrasSolicitudes);
+		
+		btnSalir = new JButton("SALIR");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnSalir.setForeground(Color.WHITE);
+		btnSalir.setFont(new Font("Franklin Gothic Medium", Font.BOLD | Font.ITALIC, 16));
+		btnSalir.setBackground(new Color(0, 153, 204));
+		btnSalir.setBounds(1118, 22, 100, 36);
+		layeredPane.add(btnSalir);
 
 	}
 

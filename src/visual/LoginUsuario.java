@@ -97,7 +97,7 @@ public class LoginUsuario extends JDialog {
         lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelTarjeta.add(lblTitulo);
 
-        JTextField txtEmail = new JTextField("Usuario");
+        RoundedTextField txtEmail = new RoundedTextField(20);
         txtEmail.setText("Usuario");
         txtEmail.setForeground(new Color(0, 0, 0));
 
@@ -127,7 +127,7 @@ public class LoginUsuario extends JDialog {
         txtEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelTarjeta.add(txtEmail);
 
-        JPasswordField txtPassword = new JPasswordField();
+        RoundedPasswordField txtPassword = new RoundedPasswordField(20);
         txtPassword.setToolTipText("");
         txtPassword.setBounds(25, 107, 250, 30);
         txtPassword.setMaximumSize(new Dimension(250, 30));
