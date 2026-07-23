@@ -1,10 +1,12 @@
 package logico;
 
 import java.time.LocalDate;
+import java.io.Serializable;
 
-public abstract class Solicitud {
-    
-    protected String identificador;
+public abstract class Solicitud implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	protected String identificador;
     protected LocalDate fecha;
     protected boolean estado;
     protected Oferta oferta;

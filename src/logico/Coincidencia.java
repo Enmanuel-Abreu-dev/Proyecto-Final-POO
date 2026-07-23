@@ -1,7 +1,7 @@
 package logico;
 
 public class Coincidencia {
-    private SolicitudEmp persona;
+	private SolicitudEmp persona;
     private float porcentaje;
 
     public Coincidencia(SolicitudEmp persona, float porcentaje) {

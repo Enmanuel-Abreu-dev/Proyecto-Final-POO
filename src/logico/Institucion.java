@@ -1,10 +1,12 @@
 package logico;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Institucion {
-    
-    private String identificador;
+public class Institucion implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	private String identificador;
     private String nombre;
     private String RNC; 
     private String pais;

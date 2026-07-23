@@ -3,9 +3,12 @@ package logico;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public abstract class Persona {
-    protected String identificador;
+public abstract class Persona implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	protected String identificador;
     protected String cedula;
     protected String nombre;
     protected String apellido;
