@@ -284,7 +284,15 @@ public class RegEmpresa extends JDialog {
         lblLogo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                cargarLogo();
+                if ( nombreField.getText().isEmpty() || registroSocialField.getText(). isEmpty() )
+                {
+                    JOptionPane.showMessageDialog(null, "Debe rellenar el Nombre y el Registro social", "Error", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else
+                {
+                    rutaLogoSeleccionado = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), registroSocialField.getText());
+                    cargarLogo();
+                }
             }
         });
         panel.add(lblLogo);
@@ -455,27 +463,12 @@ public class RegEmpresa extends JDialog {
         cargarDatos();
     }
 
-    // --- Abre el explorador de archivos NATIVO del sistema operativo (Windows/Mac/Linux) ---
     private void cargarLogo() {
-        FileDialog dialog = new FileDialog(this, "Seleccionar Logo", FileDialog.LOAD);
-        dialog.setFilenameFilter((dir, name) -> {
-            String n = name.toLowerCase();
-            return n.endsWith(".jpg") || n.endsWith(".jpeg") || n.endsWith(".png");
-        });
-        dialog.setVisible(true);
+        ImageIcon icon = new ImageIcon(rutaLogoSeleccionado);
+        Image escalada = icon.getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH);
 
-        String archivo = dialog.getFile();
-        String directorio = dialog.getDirectory();
-
-        if (archivo != null && directorio != null) {
-            rutaLogoSeleccionado = directorio + archivo;
-
-            ImageIcon icon = new ImageIcon(rutaLogoSeleccionado);
-            Image escalada = icon.getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH);
-
-            lblLogo.setIcon(new ImageIcon(escalada));
-            lblLogo.setText("");
-        }
+        lblLogo.setIcon(new ImageIcon(escalada));
+        lblLogo.setText("");
     }
 
     private void cargarDatos() {
