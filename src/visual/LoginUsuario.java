@@ -135,6 +135,13 @@ public class LoginUsuario extends JDialog {
         panelTarjeta.add(txtPassword);
 
         RoundedButton okButton = new RoundedButton("Ingresar", 20);
+        okButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Principal myPrincipal = new Principal();
+        		myPrincipal.setVisible(true);
+        		myPrincipal.setModal(true);
+        	}
+        });
         okButton.setFont(new Font("Times New Roman", Font.PLAIN, 17));
         okButton.setBounds(28, 173, 107, 30);
         okButton.setForeground(Color.WHITE);
