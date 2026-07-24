@@ -207,9 +207,12 @@ public class RegPersona extends JDialog {
 								profesionField.getText());
 					}
 					BolsaTrabajo.getInstance().registrarPersona(nuevo);
+					Usuario user = BolsaTrabajo.getInstance().crearUsuario(email, null, nuevo);
+					BolsaTrabajo.getInstance().registrarUsuario(user);
 
 					JOptionPane.showMessageDialog(null, "Candidato Registrado Exitosamente",
 							"Registro", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Nombre Usuario: " + user.getNombre() + "   " + "Contraseña: " + user.getPassword(),"Credenciales de Usuario", JOptionPane.INFORMATION_MESSAGE);
 
 				} else {
 
@@ -310,7 +313,15 @@ public class RegPersona extends JDialog {
 		lblFoto.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				cargarFoto();
+				if ( nombreField.getText().trim().isEmpty() && cedulaField.getText().trim().isEmpty() )
+				{
+					JOptionPane.showMessageDialog(null, "Error debe ingresar un Nombre y una Cedula", "Error", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else
+				{
+					rutaFotoSeleccionada = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), cedulaField.getText());
+					cargarFoto();
+				}
 			}
 		});
 		panel.add(lblFoto);
@@ -586,25 +597,12 @@ public class RegPersona extends JDialog {
 	}
 
 	private void cargarFoto() {
-		FileDialog dialog = new FileDialog(this, "Seleccionar Foto", FileDialog.LOAD);
-		dialog.setFilenameFilter((dir, name) -> {
-			String n = name.toLowerCase();
-			return n.endsWith(".jpg") || n.endsWith(".jpeg") || n.endsWith(".png");
-		});
-		dialog.setVisible(true);
+		ImageIcon icon = new ImageIcon(rutaFotoSeleccionada);
+		Image escalada = icon.getImage().getScaledInstance(170, 170, Image.SCALE_SMOOTH);
 
-		String archivo = dialog.getFile();
-		String directorio = dialog.getDirectory();
-
-		if (archivo != null && directorio != null) {
-			rutaFotoSeleccionada = directorio + archivo;
-
-			ImageIcon icon = new ImageIcon(rutaFotoSeleccionada);
-			Image escalada = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-
-			lblFoto.setIcon(new ImageIcon(escalada));
-			lblFoto.setText("");
-		}
+		lblFoto.setIcon(new ImageIcon(escalada));
+		lblFoto.setText("");
+		
 	}
 
 	private void inicializarVentana() {
