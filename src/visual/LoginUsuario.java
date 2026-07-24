@@ -136,11 +136,21 @@ public class LoginUsuario extends JDialog {
 
         RoundedButton okButton = new RoundedButton("Ingresar", 20);
         okButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		Principal myPrincipal = new Principal();
-        		myPrincipal.setVisible(true);
-        		myPrincipal.setModal(true);
-        	}
+            public void actionPerformed(ActionEvent e) {
+                String usuario = txtEmail.getText();
+                String pass = new String(txtPassword.getPassword());
+
+                boolean ok = BolsaTrabajo.getInstance().iniciarSesion(usuario, pass);
+
+                if (ok) {
+                    Principal myPrincipal = new Principal(BolsaTrabajo.getInstance().getUsuarioActual());
+                    myPrincipal.setVisible(true);
+                    myPrincipal.setModal(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         });
         okButton.setFont(new Font("Times New Roman", Font.PLAIN, 17));
         okButton.setBounds(28, 173, 107, 30);
@@ -162,7 +172,6 @@ public class LoginUsuario extends JDialog {
         cancelButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent arg0) {
-            	dispose();
             	TipoDeUsuario tipo = new TipoDeUsuario();
             	tipo.setModal(true);
             	tipo.setVisible(true);
