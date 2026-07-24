@@ -29,7 +29,9 @@ import javax.swing.JLabel;
 import java.awt.TextField;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
+import logico.BolsaTrabajo;
 import logico.Oferta;
 
 import javax.swing.DefaultComboBoxModel;
@@ -38,6 +40,7 @@ import java.awt.event.MouseEvent;
 import java.awt.Cursor;
 import java.util.ArrayList;
 import java.awt.Toolkit;
+import javax.swing.JTable;
 
 
 public class ListOfertas extends JDialog {
@@ -52,12 +55,16 @@ public class ListOfertas extends JDialog {
 	private JTextArea txtDescripcion;
 	private JTextArea txtRequisitos;
 	private JPanel panel;
+	private Oferta seleccionado = null;
+	private static Object[] row;
+	private static DefaultTableModel model;
 	private JComboBox ordenComboBox;
 	private JComboBox fechaComboBox;
 	private JComboBox experienciaComboBox;
 	private JComboBox salarioComboBox;
 	private JComboBox jornadaComboBox;
 	private Oferta ofertaSeleccionada;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -88,8 +95,25 @@ public class ListOfertas extends JDialog {
 			layeredPane.add(scrollPane);
 
 			panel = new JPanel();
-			scrollPane.setViewportView(panel);
-			panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+			panel.setLayout(new BorderLayout(0, 0));
+			
+			//! Campos para la tabla
+			String[] headersTodos = {"Empresa", "Puesto", "Salario", "Tipo Contrato", "Profesion"};
+			model = new DefaultTableModel();
+			model.setColumnIdentifiers(headersTodos);
+
+			table = new JTable();
+			table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					int index = table.getSelectedRow();
+					if ( index >= 0 )
+						mostrarDetalle(BolsaTrabajo.getInstance().getOfertas().get(index));
+				}
+			});
+
+			table.setModel(model);
+			scrollPane.setViewportView(table);
 
 			ordenComboBox = new JComboBox();
 			ordenComboBox.setModel(new DefaultComboBoxModel(new String[] {"Ordenar ", "Relevancia ", "Fecha ", "Salario"}));
@@ -291,80 +315,7 @@ public class ListOfertas extends JDialog {
 
 		setSize(1280, 720);
 		setLocationRelativeTo(null);
-	}
-
-	public void cargarOfertas(ArrayList<Oferta> ofertas) {
-		panel.removeAll();
-		for (final Oferta o : ofertas) {
-			JPanel tarjeta = crearTarjeta(o);
-			panel.add(tarjeta);
-			panel.add(javax.swing.Box.createRigidArea(new Dimension(0, 10)));
-		}
-		panel.revalidate();
-		panel.repaint();
-
-		if (!ofertas.isEmpty()) {
-			mostrarDetalle(ofertas.get(0));
-		}
-	}
-
-	private JPanel crearTarjeta(final Oferta o) {
-		JPanel tarjeta = new JPanel();
-		tarjeta.setLayout(new BoxLayout(tarjeta, BoxLayout.Y_AXIS));
-		tarjeta.setBackground(Color.WHITE);
-		tarjeta.setBorder(new MatteBorder(1, 1, 1, 1, new Color(200, 200, 200)));
-		tarjeta.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-		tarjeta.setMaximumSize(new Dimension(Integer.MAX_VALUE, 110));
-
-		JLabel lblPuesto = new JLabel(o.getPuesto());
-		lblPuesto.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 16));
-		lblPuesto.setBorder(new EmptyBorder(8, 12, 2, 12));
-		lblPuesto.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-
-		JLabel lblEmpresa = new JLabel(o.getMyEmpresa().getNombre());
-		lblEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblEmpresa.setBorder(new EmptyBorder(2, 12, 2, 12));
-		lblEmpresa.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-
-		JLabel lblModalidad = new JLabel(o.getModalidad());
-		lblModalidad.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblModalidad.setForeground(new Color(100, 100, 100));
-		lblModalidad.setBorder(new EmptyBorder(2, 12, 2, 12));
-		lblModalidad.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-
-		JLabel lblFecha = new JLabel(o.getFechaPublicacion().toString());
-		lblFecha.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblFecha.setForeground(new Color(150, 150, 150));
-		lblFecha.setBorder(new EmptyBorder(2, 12, 8, 12));
-		lblFecha.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-
-		tarjeta.add(lblPuesto);
-		tarjeta.add(lblEmpresa);
-		tarjeta.add(lblModalidad);
-		tarjeta.add(lblFecha);
-
-		java.awt.event.MouseAdapter listenerTarjeta = new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				mostrarDetalle(o);
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				tarjeta.setBackground(new Color(245, 245, 245));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				tarjeta.setBackground(Color.WHITE);
-			}
-		};
-		tarjeta.addMouseListener(listenerTarjeta);
-		tarjeta.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		lblPuesto.addMouseListener(listenerTarjeta);
-		lblEmpresa.addMouseListener(listenerTarjeta);
-		lblModalidad.addMouseListener(listenerTarjeta);
-		lblFecha.addMouseListener(listenerTarjeta);
-
-		return tarjeta;
+		cargarOferta();
 	}
 
 	private void mostrarDetalle(Oferta o) {
@@ -377,5 +328,21 @@ public class ListOfertas extends JDialog {
 		salarioTxt.setText(String.valueOf(o.getSalario()));
 		txtDescripcion.setText(o.getDescripcion());
 		txtRequisitos.setText(o.getRequisitos());
+	}
+
+	public static void cargarOferta()
+	{
+		model.setRowCount(0);
+		row = new Object[model.getColumnCount()];
+
+		for ( Oferta o : BolsaTrabajo.getInstance().getOfertas() )
+		{
+			row[0] = o.getMyEmpresa().getNombre();
+			row[1] = o.getPuesto();
+			row[2] = o.getSalario();
+			row[3] = o.getTipoContrato();
+			row[4] = o.getProfesion();
+			model.addRow(row);
+		}
 	}
 }

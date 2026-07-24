@@ -324,6 +324,9 @@ public class BolsaTrabajo implements Serializable {
 		return result;
 	}
 	
+	/*
+		!Le otorga las credenciales a al nuevo usuario creado 
+	*/
 	public Usuario crearUsuario( String correo, Institucion inst, Persona persona )
 	{
 		Random random = new Random();
@@ -334,6 +337,10 @@ public class BolsaTrabajo implements Serializable {
 		return new Usuario(generarIdUsuario(), nombreUser, correo, passUser, inst, persona);
 	} 
 
+	/*
+		!Busca la imagen en el buscardor del sistema operativo, la imagen seleccionada, se guarda en una 
+		!carpeta especial con un identificador asociado a la imagen
+	*/
 	public String buscarImagen( String nombre, String id )
 	{
 		FileDialog fileDialog = new FileDialog((Frame) null, "Seleccionar Imagen: ");
@@ -368,6 +375,9 @@ public class BolsaTrabajo implements Serializable {
 		return null;
 	}
 
+	/*
+		!Carga la imagen que esta asociada a la persona
+	*/
 	public BufferedImage cargarImagenPersona( Persona p )
 	{
 		try {
@@ -388,6 +398,9 @@ public class BolsaTrabajo implements Serializable {
 		}
 	}
 
+	/*
+		!Carga la imagen que esta asociada a la Institucion
+	*/
 	public BufferedImage cargarImagenInstitucion( Institucion i )
 	{
 		try {
@@ -407,4 +420,6 @@ public class BolsaTrabajo implements Serializable {
 			return null;
 		}
 	}
+
+
 }
