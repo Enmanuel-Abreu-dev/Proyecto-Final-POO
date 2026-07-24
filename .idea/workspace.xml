@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="ListCandidatos and ListSolicitudesRecibidas Classes Created.">
+    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="Principal Class Created.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ImagenesUsers/qrewwrww323-42434-3.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/visual/LoginUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/LoginUsuario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/visual/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/Principal.java" afterDir="false" />
     </list>
@@ -45,6 +44,7 @@
     "Application.ListOfertas.executor": "Run",
     "Application.ListOfertasEmpresa.executor": "Run",
     "Application.ListSolicitudesEmp.executor": "Run",
+    "Application.LoginUsuario (1).executor": "Run",
     "Application.LoginUsuario.executor": "Run",
     "Application.Principal.executor": "Run",
     "Application.RegEmpresa (1).executor": "Run",
@@ -77,9 +77,22 @@
       <recent name="C:\Users\jeanr\Documents\WorkSpacePUCMM\Proyecto-Final-POO\src\imagenes" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.LoginUsuario">
+  <component name="RunManager" selected="Application.LoginUsuario (1)">
     <configuration name="ListOfertas" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="visual.ListOfertas" />
+      <module name="POOProyectoFinal" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="visual.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoginUsuario (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.LoginUsuario" />
       <module name="POOProyectoFinal" />
       <extension name="coverage">
         <pattern>
@@ -117,19 +130,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RegOferta" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.RegOferta" />
-      <module name="POOProyectoFinal" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="visual.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="RegSolicitudEmp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="visual.RegSolicitudEmp" />
       <module name="POOProyectoFinal" />
@@ -145,11 +145,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.LoginUsuario (1)" />
         <item itemvalue="Application.LoginUsuario" />
         <item itemvalue="Application.Principal" />
         <item itemvalue="Application.RegSolicitudEmp" />
         <item itemvalue="Application.ListOfertas" />
-        <item itemvalue="Application.RegOferta" />
       </list>
     </recent_temporary>
   </component>
@@ -364,7 +364,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784867847034</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Principal Class Created.">
+      <option name="closed" value="true" />
+      <created>1784897779878</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1784897779878</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -395,6 +403,7 @@
     <MESSAGE value="ListSolicitud and RegSolicitud Classes Created." />
     <MESSAGE value="(Visual)Pricipal Class(Base) Created." />
     <MESSAGE value="ListCandidatos and ListSolicitudesRecibidas Classes Created." />
-    <option name="LAST_COMMIT_MESSAGE" value="ListCandidatos and ListSolicitudesRecibidas Classes Created." />
+    <MESSAGE value="Principal Class Created." />
+    <option name="LAST_COMMIT_MESSAGE" value="Principal Class Created." />
   </component>
 </project>

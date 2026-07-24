@@ -6,6 +6,7 @@ import logico.Institucion;
 import logico.Persona;
 
 import java.awt.*;
+import java.io.File;
 import java.net.URL;
 
 import javax.swing.*;
@@ -27,10 +28,8 @@ public class Principal extends JDialog {
     private static final Color TARJETA_BLANCA = Color.WHITE;
     private static final Color TEXTO_OSCURO = new Color(31, 41, 55);
 
-    // Referencia a la imagen que se va a dibujar como fondo
     private Image imagenFondo;
 
-    // Panel con paintComponent sobreescrito: aqui es donde se "pinta" la imagen
     private final JPanel panelFondo = new JPanel() {
 
         private static final long serialVersionUID = 1L;
@@ -90,7 +89,6 @@ public class Principal extends JDialog {
         setLocationRelativeTo(null);
         getContentPane().setLayout(new BorderLayout());
 
-        // Cargar la imagen desde los recursos del proyecto (carpeta /imagenes/)
         URL rutaImagen = getClass().getResource("/imagenes/fondoPrincipal.png");
         if (rutaImagen != null) {
             imagenFondo = new ImageIcon(rutaImagen).getImage();
@@ -100,13 +98,9 @@ public class Principal extends JDialog {
         getContentPane().add(layeredPane, BorderLayout.CENTER);
         layeredPane.setLayout(new BorderLayout(0, 0));
 
-        // El panelFondo (con la imagen) ocupa todo el espacio disponible
         layeredPane.add(panelFondo, BorderLayout.CENTER);
         panelFondo.setLayout(null);
 
-        // ==========================================================
-        // Campo "Cargo o area" con icono de maletin a la izquierda
-        // ==========================================================
         textField = new RoundedTextField(90);
         textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
         textField.setBackground(new Color(255, 255, 255));
@@ -149,21 +143,20 @@ public class Principal extends JDialog {
 
         panel.add(btnBuscar);
 
-        // ==========================================================
-        // Datos reales del usuario logueado: si trae Institucion se
-        // trata de una empresa, si trae Persona se trata de un candidato.
-        // ==========================================================
         String nombreMostrado;
         String inicialesPlaceholder;
+        String rutaImagenPerfil = null;
 
         if (esEmpresa) {
             Institucion miInstitucion = usuarioActual.getMyInstitucion();
             nombreMostrado = miInstitucion.getNombre();
             inicialesPlaceholder = obtenerIniciales(miInstitucion.getNombre());
+            rutaImagenPerfil = miInstitucion.getRutaImagen();
         } else if (usuarioActual != null && usuarioActual.getMyPersona() != null) {
             Persona miPersona = usuarioActual.getMyPersona();
             nombreMostrado = miPersona.getNombre() + " " + miPersona.getApellido();
             inicialesPlaceholder = obtenerIniciales(miPersona.getNombre() + " " + miPersona.getApellido());
+            rutaImagenPerfil = miPersona.getRutaImagen();
         } else {
             nombreMostrado = "Usuario";
             inicialesPlaceholder = "US";
@@ -175,10 +168,6 @@ public class Principal extends JDialog {
         int xPanelPerfil = dim.width - anchoPanelPerfil - margenPanelPerfil;
         int yPanelPerfil = 25;
 
-        // ==========================================================
-        // Panel-botón de perfil (foto/logo + nombre + "Ver Perfil"),
-        // arriba a la derecha.
-        // ==========================================================
         panelPerfil = new RoundedPanel(60, new Color(255, 255, 255));
         panelPerfil.setBackground(new Color(255, 255, 255));
         panelPerfil.setBounds(xPanelPerfil, yPanelPerfil, anchoPanelPerfil, altoPanelPerfil);
@@ -194,6 +183,14 @@ public class Principal extends JDialog {
         lblFoto.setFont(new Font("Tahoma", Font.BOLD, 16));
         lblFoto.setBounds(12, 12, 46, 46);
         lblFoto.setBorder(new LineBorder(AZUL_OSCURO, 1, true));
+
+        if (rutaImagenPerfil != null && new File(rutaImagenPerfil).exists()) {
+            ImageIcon icono = new ImageIcon(rutaImagenPerfil);
+            Image escalada = icono.getImage().getScaledInstance(46, 46, Image.SCALE_SMOOTH);
+            lblFoto.setIcon(new ImageIcon(escalada));
+            lblFoto.setText("");
+        }
+
         panelPerfil.add(lblFoto);
 
         JLabel lblNombre = new JLabel(nombreMostrado);
@@ -243,11 +240,6 @@ public class Principal extends JDialog {
         panelDesplegable.add(panel_2);
         panel_2.setLayout(null);
 
-        // ==========================================================
-        // Panel de contenido: es el area blanca a la derecha del menu
-        // lateral. Contiene el panel de Inicio (visible por defecto)
-        // y el panel de Perfil (se activa con "Ver Mi Perfil").
-        // ==========================================================
         int xContenido = 220;
         int yContenido = 105;
         int anchoContenido = dim.width - xContenido;
@@ -259,7 +251,6 @@ public class Principal extends JDialog {
         panelContenido.setLayout(null);
         panelDesplegable.add(panelContenido);
 
-        // ---------------- Panel de Inicio (fondo por defecto) ----------------
         panelInicio = new RoundedPanel(0, FONDO_GRIS);
         panelInicio.setBackground(FONDO_GRIS);
         panelInicio.setBounds(0, 0, anchoContenido, altoContenido);
@@ -313,7 +304,6 @@ public class Principal extends JDialog {
         lblTextoAccesos.setBounds(25, 55, anchoContenido - 130, 100);
         tarjetaAccesos.add(lblTextoAccesos);
 
-        // ---------------- Panel de Perfil (empresa o candidato) ----------------
         panelPerfilUsuario = new RoundedPanel(0, FONDO_GRIS);
         panelPerfilUsuario.setBackground(FONDO_GRIS);
         panelPerfilUsuario.setBounds(0, 0, anchoContenido, altoContenido);
@@ -332,8 +322,16 @@ public class Principal extends JDialog {
         lblLogoPerfil.setBackground(AZUL_PRINCIPAL);
         lblLogoPerfil.setForeground(Color.WHITE);
         lblLogoPerfil.setFont(new Font("Tahoma", Font.BOLD, 30));
-        lblLogoPerfil.setText(inicialesPlaceholder);
         lblLogoPerfil.setBounds(30, 30, 130, 130);
+
+        if (rutaImagenPerfil != null && new File(rutaImagenPerfil).exists()) {
+            ImageIcon icono = new ImageIcon(rutaImagenPerfil);
+            Image escalada = icono.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+            lblLogoPerfil.setIcon(new ImageIcon(escalada));
+        } else {
+            lblLogoPerfil.setText(inicialesPlaceholder);
+        }
+
         tarjetaEncabezado.add(lblLogoPerfil);
 
         JLabel lblNombrePerfil = new JLabel(nombreMostrado);

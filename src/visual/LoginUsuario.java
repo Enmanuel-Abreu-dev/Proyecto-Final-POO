@@ -196,7 +196,7 @@ public class LoginUsuario extends JDialog {
     		io.readObject();
     		io.close();
     	} catch (IOException | ClassNotFoundException e) {
-    		e.printStackTrace(); // Solo para debug
+    		e.printStackTrace();
     	}
     }
 }
