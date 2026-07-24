@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -26,6 +27,8 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
 import logico.SolicitudEmp;
+import logico.Institucion;
+import logico.Oferta;
 import logico.Persona;
 
 
@@ -63,6 +66,7 @@ public class ListSolicitudesEmp extends JDialog {
 
 	public ListSolicitudesEmp(Persona candidato) {
 		this.candidato = candidato;
+		this.cargarSolicitudes(this.candidato.getSolicitudEmps());
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				ListSolicitudesEmp.class.getResource("/imagenes/iconoBuscarOferta.png")));
