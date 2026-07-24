@@ -218,14 +218,14 @@ public class RegOferta extends JDialog {
        lblIconoOferta.setBounds(35, 10, 350, 350);
        panel_1.add(lblIconoOferta);
        
-       JButton btnCrearOferta = new JButton("CREAR OFERTA");
+       RoundedButton btnCrearOferta = new RoundedButton("CREAR OFERTA", 20);
        btnCrearOferta.setForeground(Color.WHITE);
        btnCrearOferta.setFont(new Font("Tahoma", Font.BOLD, 20));
-       btnCrearOferta.setBackground(new Color(25, 25, 112));
+       btnCrearOferta.setBackground(new Color(255, 153, 0));
        btnCrearOferta.setBounds(10, 358, 208, 49);
        panel_1.add(btnCrearOferta);
        
-       JButton btnCancelar = new JButton("CANCELAR");
+       RoundedButton btnCancelar = new RoundedButton("CANCELAR", 20);
        btnCancelar.addActionListener(new ActionListener() {
        	public void actionPerformed(ActionEvent arg0) {
        		dispose();
@@ -233,7 +233,7 @@ public class RegOferta extends JDialog {
        });
        btnCancelar.setForeground(Color.WHITE);
        btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 20));
-       btnCancelar.setBackground(new Color(25, 25, 112));
+       btnCancelar.setBackground(new Color(255, 0, 51));
        btnCancelar.setBounds(273, 358, 177, 49);
        panel_1.add(btnCancelar);
        

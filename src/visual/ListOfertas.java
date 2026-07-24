@@ -57,6 +57,7 @@ public class ListOfertas extends JDialog {
 	private JComboBox experienciaComboBox;
 	private JComboBox salarioComboBox;
 	private JComboBox jornadaComboBox;
+	private Oferta ofertaSeleccionada;
 
 	/**
 	 * Launch the application.
@@ -269,6 +270,15 @@ public class ListOfertas extends JDialog {
 			panel_1.add(txtRequisitos);
 			
 			JButton btnPostularme = new JButton("POSTULARME");
+			btnPostularme.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					if (ofertaSeleccionada != null) {
+						RegSolicitudEmp dialogSolicitud = new RegSolicitudEmp(ofertaSeleccionada);
+						dialogSolicitud.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+						dialogSolicitud.setVisible(true);
+					}
+				}
+			});
 			btnPostularme.setForeground(Color.WHITE);
 			btnPostularme.setFont(new Font("Franklin Gothic Medium", Font.BOLD | Font.ITALIC, 20));
 			btnPostularme.setBackground(new Color(0, 153, 204));
@@ -358,6 +368,7 @@ public class ListOfertas extends JDialog {
 	}
 
 	private void mostrarDetalle(Oferta o) {
+		ofertaSeleccionada = o;
 		nombreEmpresa.setText(o.getMyEmpresa().getNombre());
 		cantDiasVigente.setText(o.getFechaPublicacion().toString());
 		profesionTxt.setText(o.getProfesion());
