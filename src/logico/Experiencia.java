@@ -2,10 +2,12 @@ package logico;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.io.Serializable;
 
-public class Experiencia {
-    
-    private String institucion;
+public class Experiencia implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	private String institucion;
     private String cargo;
     private LocalDate fechaInicio; 
     private LocalDate fechaFinalizacion;

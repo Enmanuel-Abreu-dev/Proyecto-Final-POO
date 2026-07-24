@@ -2,10 +2,12 @@ package logico;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Oferta {
-    
-    private String identificador;
+public class Oferta implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	private String identificador;
     private Institucion myEmpresa;
     private String puesto;
     private String descripcion;
