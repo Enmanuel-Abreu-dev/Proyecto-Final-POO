@@ -59,10 +59,8 @@ public class ListOfertas extends JDialog {
 	private static Object[] row;
 	private static DefaultTableModel model;
 	private JComboBox ordenComboBox;
-	private JComboBox fechaComboBox;
 	private JComboBox experienciaComboBox;
 	private JComboBox salarioComboBox;
-	private JComboBox jornadaComboBox;
 	private Oferta ofertaSeleccionada;
 	private JTable table;
 
@@ -119,35 +117,21 @@ public class ListOfertas extends JDialog {
 			ordenComboBox.setModel(new DefaultComboBoxModel(new String[] {"Ordenar ", "Relevancia ", "Fecha ", "Salario"}));
 			ordenComboBox.setFont(new Font("Tahoma", Font.ITALIC, 16));
 			ordenComboBox.setBackground(new Color(255, 255, 255));
-			ordenComboBox.setBounds(24, 98, 183, 42);
+			ordenComboBox.setBounds(108, 98, 183, 42);
 			layeredPane.add(ordenComboBox);
-
-			fechaComboBox = new JComboBox();
-			fechaComboBox.setModel(new DefaultComboBoxModel(new String[] {"Fecha", "Urgente", "Desde Ayer", "Ultimos 3 dias ", "Ultima Semana ", "Ultimo Mes"}));
-			fechaComboBox.setFont(new Font("Tahoma", Font.ITALIC, 16));
-			fechaComboBox.setBackground(new Color(255, 255, 255));
-			fechaComboBox.setBounds(231, 98, 183, 42);
-			layeredPane.add(fechaComboBox);
 
 			experienciaComboBox = new JComboBox();
 			experienciaComboBox.setModel(new DefaultComboBoxModel(new String[] {"Experiencia", "Sin Experiencia ", "1 año", "2 años ", "3-4 años", "5-10 años"}));
 			experienciaComboBox.setFont(new Font("Tahoma", Font.ITALIC, 16));
 			experienciaComboBox.setBackground(new Color(255, 255, 255));
-			experienciaComboBox.setBounds(438, 98, 183, 42);
+			experienciaComboBox.setBounds(399, 98, 183, 42);
 			layeredPane.add(experienciaComboBox);
-
-			jornadaComboBox = new JComboBox();
-			jornadaComboBox.setModel(new DefaultComboBoxModel(new String[] {"Jornada", "Tiempo Completo", "Medio Tiempo", "Beca / Practicas", "Por Horas"}));
-			jornadaComboBox.setFont(new Font("Tahoma", Font.ITALIC, 16));
-			jornadaComboBox.setBackground(new Color(255, 255, 255));
-			jornadaComboBox.setBounds(852, 98, 183, 42);
-			layeredPane.add(jornadaComboBox);
 
 			salarioComboBox = new JComboBox();
 			salarioComboBox.setModel(new DefaultComboBoxModel(new String[] {"Salario", "Menos de $15,000", "$15,000 - $25,000", "$25,000 - $35,000", "$35,000 - $50,000", "$50,000 - $70,000", "$70,000 - $100,000", "Más de $100,000"}));
 			salarioComboBox.setFont(new Font("Tahoma", Font.ITALIC, 16));
 			salarioComboBox.setBackground(new Color(255, 255, 255));
-			salarioComboBox.setBounds(645, 98, 183, 42);
+			salarioComboBox.setBounds(690, 98, 183, 42);
 			layeredPane.add(salarioComboBox);
 
 			JButton btnNewButton = new JButton("SALIR");
@@ -306,7 +290,7 @@ public class ListOfertas extends JDialog {
 			btnPostularme.setForeground(Color.WHITE);
 			btnPostularme.setFont(new Font("Franklin Gothic Medium", Font.BOLD | Font.ITALIC, 20));
 			btnPostularme.setBackground(new Color(0, 153, 204));
-			btnPostularme.setBounds(1072, 98, 173, 42);
+			btnPostularme.setBounds(981, 98, 173, 42);
 			layeredPane.add(btnPostularme);
 		}
 		setTitle("LISTADO DE OFERTAS");

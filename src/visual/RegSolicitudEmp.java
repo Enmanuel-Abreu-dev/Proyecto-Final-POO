@@ -156,11 +156,11 @@ public class RegSolicitudEmp extends JDialog {
        panel_1.setLayout(null);
 
        JLabel lblIconoSolicitud = new JLabel();
-       URL rutaIcono = getClass().getResource("/imagenes/iconoOfertaDeTrabajo.png");
+       URL rutaIcono = getClass().getResource("/imagenes/iconoSolicitudEmpl.png");
        if (rutaIcono != null) {
           ImageIcon iconoOriginal = new ImageIcon(rutaIcono);
           Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(
-                350, 350, Image.SCALE_SMOOTH);
+                450, 350, Image.SCALE_SMOOTH);
           lblIconoSolicitud.setIcon(new ImageIcon(imagenEscalada));
        }
        lblIconoSolicitud.setOpaque(false);
@@ -172,7 +172,7 @@ public class RegSolicitudEmp extends JDialog {
        btnEnviarSolicitud.setForeground(Color.WHITE);
        btnEnviarSolicitud.setFont(new Font("Tahoma", Font.BOLD, 20));
        btnEnviarSolicitud.setBackground(new Color(255, 153, 0));
-       btnEnviarSolicitud.setBounds(10, 358, 208, 49);
+       btnEnviarSolicitud.setBounds(10, 358, 237, 49);
        panel_1.add(btnEnviarSolicitud);
 
        RoundedButton btnCancelar = new RoundedButton("CANCELAR", 20);
