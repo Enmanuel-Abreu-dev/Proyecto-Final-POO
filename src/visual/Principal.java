@@ -17,6 +17,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -86,6 +88,13 @@ public class Principal extends JDialog {
         this.usuarioActual = usuario;
         this.esEmpresa = (usuarioActual != null && usuarioActual.getMyInstitucion() != null);
 
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				saveData();
+			}
+		});
+        
         setBounds(100, 100, 450, 300);
         Dimension dim = getToolkit().getScreenSize();
         setSize(dim.width, dim.height);
@@ -674,7 +683,7 @@ public class Principal extends JDialog {
     		ObjectOutputStream io = new ObjectOutputStream(new FileOutputStream("save.bin"));
     		io.writeObject(BolsaTrabajo.getInstance());
     	} catch (IOException e) {
-    		
+    		e.printStackTrace();
     	}
     }
 }
