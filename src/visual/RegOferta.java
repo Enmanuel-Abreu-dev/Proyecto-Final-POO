@@ -5,6 +5,9 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
@@ -13,6 +16,10 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
+
+import logico.BolsaTrabajo;
+import logico.Oferta;
+
 import javax.swing.plaf.basic.BasicComboBoxEditor;
 
 public class RegOferta extends JDialog {
@@ -43,6 +50,16 @@ public class RegOferta extends JDialog {
     };
     private RoundedTextField puestoTextField;
     private RoundedTextField salariotextField;
+    private RoundedTextField txtPais;
+    private JSpinner edadSpinner;
+    private JComboBox cbxSexo;
+    private RoundedTextField txtProfesion;
+    private JEditorPane txtDescripcion;
+    private JEditorPane txtRequisito;
+    private JComboBox modalidadComboBox;
+    private JSpinner fechaSpinner;
+    private JComboBox tipoContratoComboBox;
+    private JSpinner spnCantidadVacante;
 
     /**
      * Launch the application.
@@ -93,15 +110,15 @@ public class RegOferta extends JDialog {
        panelFondo.add(panel);
        panel.setLayout(null);
        
-       JEditorPane editorPane = new JEditorPane();
-       editorPane.setBackground(new Color(173, 216, 230));
-       editorPane.setBounds(26, 351, 395, 116);
-       panel.add(editorPane);
+       txtDescripcion = new JEditorPane();
+       txtDescripcion.setBackground(new Color(173, 216, 230));
+       txtDescripcion.setBounds(26, 351, 395, 116);
+       panel.add(txtDescripcion);
        
-       JEditorPane editorPane_1 = new JEditorPane();
-       editorPane_1.setBackground(new Color(173, 216, 230));
-       editorPane_1.setBounds(26, 498, 395, 116);
-       panel.add(editorPane_1);
+       txtRequisito = new JEditorPane();
+       txtRequisito.setBackground(new Color(173, 216, 230));
+       txtRequisito.setBounds(26, 498, 395, 116);
+       panel.add(txtRequisito);
        
        JLabel lblPuesto = new JLabel("PUESTO:");
        lblPuesto.setForeground(Color.WHITE);
@@ -135,7 +152,7 @@ public class RegOferta extends JDialog {
        lblModalidad.setBounds(26, 78, 101, 19);
        panel.add(lblModalidad);
        
-       JComboBox modalidadComboBox = new JComboBox();
+       modalidadComboBox = new JComboBox();
        modalidadComboBox.setFont(new Font("Tahoma", Font.PLAIN, 15));
        modalidadComboBox.setModel(new DefaultComboBoxModel(new String[] {"Modalidad ", "Tiempo Completo", "Medio Tiempo", "Beca / Practicas", "Por Horas"}));
        modalidadComboBox.setBounds(26, 104, 173, 29);
@@ -148,11 +165,11 @@ public class RegOferta extends JDialog {
        lblDechaDeNacimiento.setBounds(248, 78, 226, 19);
        panel.add(lblDechaDeNacimiento);
        
-       JSpinner fechaSpinner = new JSpinner();
+       fechaSpinner = new JSpinner();
        SpinnerDateModel modeloFechaCierre = new SpinnerDateModel();
        fechaSpinner.setModel(modeloFechaCierre);
-       JSpinner.DateEditor editorFechaCierre = new JSpinner.DateEditor(fechaSpinner, "dd/MM/yyyy");
-       fechaSpinner.setEditor(editorFechaCierre);
+       JSpinner.DateEditor de_fechaSpinner = new JSpinner.DateEditor(fechaSpinner, "dd/MM/yyyy");
+       fechaSpinner.setEditor(de_fechaSpinner);
        fechaSpinner.setFont(new Font("Tahoma", Font.PLAIN, 15));
        fechaSpinner.setBounds(250, 103, 171, 28);
        aplicarColorSpinner(fechaSpinner);
@@ -176,12 +193,12 @@ public class RegOferta extends JDialog {
        lblDechaDeNacimiento_1.setBounds(248, 141, 226, 19);
        panel.add(lblDechaDeNacimiento_1);
        
-       JSpinner fechaSpinner_1 = new JSpinner();
-       fechaSpinner_1.setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
-       fechaSpinner_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-       fechaSpinner_1.setBounds(250, 166, 171, 28);
-       aplicarColorSpinner(fechaSpinner_1);
-       panel.add(fechaSpinner_1);
+       spnCantidadVacante = new JSpinner();
+       spnCantidadVacante.setModel(new SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+       spnCantidadVacante.setFont(new Font("Tahoma", Font.PLAIN, 15));
+       spnCantidadVacante.setBounds(250, 166, 171, 28);
+       aplicarColorSpinner(spnCantidadVacante);
+       panel.add(spnCantidadVacante);
        
        JLabel lblTipoDeContraro = new JLabel("TIPO DE CONTRARO:");
        lblTipoDeContraro.setForeground(Color.WHITE);
@@ -189,7 +206,7 @@ public class RegOferta extends JDialog {
        lblTipoDeContraro.setBounds(26, 139, 139, 19);
        panel.add(lblTipoDeContraro);
        
-       JComboBox tipoContratoComboBox = new JComboBox();
+       tipoContratoComboBox = new JComboBox();
        tipoContratoComboBox.setFont(new Font("Tahoma", Font.PLAIN, 15));
        tipoContratoComboBox.setModel(new DefaultComboBoxModel(new String[] {"Indefinido ", "Tiempo Determinado", "Obra o Servicio", "Temporal", "Pasantía o Aprendizaje"}));
        tipoContratoComboBox.setBounds(26, 165, 173, 29);
@@ -221,6 +238,48 @@ public class RegOferta extends JDialog {
        panel_1.add(lblIconoOferta);
        
        RoundedButton btnCrearOferta = new RoundedButton("CREAR OFERTA", 20);
+       btnCrearOferta.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if ( !validarCampos() ) return;
+                
+                String puesto = puestoTextField.getText();
+                float salario = Float.valueOf(salariotextField.getText());
+                String modalidad = modalidadComboBox.getSelectedItem().toString();
+                Date fechaDate = (Date) fechaSpinner.getValue();
+                LocalDate fecha = fechaDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                String tipoContrato = tipoContratoComboBox.getSelectedItem().toString();
+                int cantidadVacante = (int)spnCantidadVacante.getValue();
+                String pais = txtPais.getText();
+                int edad = (int)edadSpinner.getValue();
+                String sexo = cbxSexo.getSelectedItem().toString();
+                String profesion = txtProfesion.getText();
+                String descripcion = txtDescripcion.getText();
+                String requisitos = txtRequisito.getText();
+
+                Oferta oferta = new Oferta(
+                    BolsaTrabajo.getInstance().generarIdOferta(),
+                    BolsaTrabajo.getInstance().getUsuarioActual().getMyInstitucion(),
+                    puesto,
+                    descripcion,
+                    salario,
+                    modalidad,
+                    requisitos,
+                    0,
+                    edad,
+                    null,
+                    pais,
+                    sexo,
+                    fecha,
+                    tipoContrato,
+                    cantidadVacante,
+                    profesion
+                );
+
+                BolsaTrabajo.getInstance().getUsuarioActual().getMyInstitucion().publicarOferta(oferta);
+                JOptionPane.showMessageDialog(null, "Oferta registrada Exitosamente", "Publicar Oferta", JOptionPane.INFORMATION_MESSAGE); 
+                System.out.println("Ofertas" + BolsaTrabajo.getInstance().getOfertas().size());
+            }
+        });
        btnCrearOferta.setForeground(Color.WHITE);
        btnCrearOferta.setFont(new Font("Tahoma", Font.BOLD, 20));
        btnCrearOferta.setBackground(new Color(255, 153, 0));
@@ -248,19 +307,13 @@ public class RegOferta extends JDialog {
        lblPais.setBounds(25, 206, 101, 19);
        panel.add(lblPais);
        
-       JComboBox paisCombobox = new JComboBox();
-       paisCombobox.setFont(new Font("Tahoma", Font.PLAIN, 15));
-       paisCombobox.setBounds(25, 232, 151, 29);
-       aplicarColorCombo(paisCombobox);
-       panel.add(paisCombobox);
-       
        JLabel lblDechaDeNacimiento_1_1 = new JLabel("EDAD:");
        lblDechaDeNacimiento_1_1.setForeground(Color.WHITE);
        lblDechaDeNacimiento_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
        lblDechaDeNacimiento_1_1.setBounds(184, 206, 64, 19);
        panel.add(lblDechaDeNacimiento_1_1);
        
-       JSpinner edadSpinner = new JSpinner();
+       edadSpinner = new JSpinner();
        edadSpinner.setModel(new SpinnerNumberModel(Integer.valueOf(18), Integer.valueOf(18), null, Integer.valueOf(1)));
        edadSpinner.setFont(new Font("Tahoma", Font.PLAIN, 15));
        edadSpinner.setBounds(186, 232, 86, 28);
@@ -273,12 +326,12 @@ public class RegOferta extends JDialog {
        lblSexo.setBounds(282, 206, 58, 19);
        panel.add(lblSexo);
        
-       JComboBox paisCombobox_1 = new JComboBox();
-       paisCombobox_1.setModel(new DefaultComboBoxModel(new String[] {"AMBOS", "FEMENINO", "MASCULINO"}));
-       paisCombobox_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-       paisCombobox_1.setBounds(282, 232, 139, 29);
-       aplicarColorCombo(paisCombobox_1);
-       panel.add(paisCombobox_1);
+       cbxSexo = new JComboBox();
+       cbxSexo.setModel(new DefaultComboBoxModel(new String[] {"AMBOS", "FEMENINO", "MASCULINO"}));
+       cbxSexo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+       cbxSexo.setBounds(282, 232, 139, 29);
+       aplicarColorCombo(cbxSexo);
+       panel.add(cbxSexo);
        
        JLabel lblProfesion = new JLabel("PROFESION:");
        lblProfesion.setForeground(Color.WHITE);
@@ -286,12 +339,19 @@ public class RegOferta extends JDialog {
        lblProfesion.setBounds(26, 271, 101, 19);
        panel.add(lblProfesion);
        
-       RoundedTextField puestoTextField_1 = new RoundedTextField(20);
-       puestoTextField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-       puestoTextField_1.setColumns(10);
-       puestoTextField_1.setBackground(new Color(153, 255, 255));
-       puestoTextField_1.setBounds(26, 289, 395, 28);
-       panel.add(puestoTextField_1);
+       txtProfesion = new RoundedTextField(20);
+       txtProfesion.setFont(new Font("Tahoma", Font.PLAIN, 14));
+       txtProfesion.setColumns(10);
+       txtProfesion.setBackground(new Color(153, 255, 255));
+       txtProfesion.setBounds(26, 289, 395, 28);
+       panel.add(txtProfesion);
+       
+       txtPais = new RoundedTextField(20);
+       txtPais.setFont(new Font("Tahoma", Font.PLAIN, 14));
+       txtPais.setColumns(10);
+       txtPais.setBackground(new Color(153, 255, 255));
+       txtPais.setBounds(26, 232, 149, 28);
+       panel.add(txtPais);
     }
 
     private void aplicarColorCombo(JComboBox<?> combo) {
@@ -411,5 +471,124 @@ public class RegOferta extends JDialog {
                 replace(fb, offset, length, "", null);
             }
         });
+    }
+
+    private boolean validarCampos()
+    {
+        if ( puestoTextField.getText().trim().isEmpty() )
+        {
+            JOptionPane.showMessageDialog(null,
+                    "Debe introducir un puesto.");
+            puestoTextField.requestFocus();
+            return false;
+        }
+
+        if ( salariotextField.getText().trim().isEmpty() )
+        {
+            JOptionPane.showMessageDialog(null,
+                    "Debe introducir un salario.");
+            salariotextField.requestFocus();
+            return false;
+        }
+
+        try
+        {
+            if ( Float.valueOf(salariotextField.getText()) <= 0 )
+            {
+                JOptionPane.showMessageDialog(null,
+                        "El salario debe ser mayor a 0.");
+                salariotextField.requestFocus();
+                return false;
+            }
+        }
+        catch ( NumberFormatException e )
+        {
+            JOptionPane.showMessageDialog(null,
+                    "El salario debe ser un valor numérico válido.");
+            salariotextField.requestFocus();
+            return false;
+        }
+
+        if ( modalidadComboBox.getSelectedItem().toString().equalsIgnoreCase("<<Seleccionar>>") )
+        {
+            JOptionPane.showMessageDialog(null,
+                    "Debe seleccionar una modalidad.");
+            modalidadComboBox.requestFocus();
+            return false;
+        }
+
+        if ( ((Date) fechaSpinner.getValue()).before(new Date()) )
+        {
+            JOptionPane.showMessageDialog(null,
+                    "La fecha no puede ser anterior a hoy.");
+            fechaSpinner.requestFocus();
+            return false;
+        }
+
+        if ( tipoContratoComboBox.getSelectedItem().toString().equalsIgnoreCase("<<Seleccionar>>") )
+        {
+            JOptionPane.showMessageDialog(null,
+                    "Debe seleccionar un tipo de contrato.");
+            tipoContratoComboBox.requestFocus();
+            return false;
+        }
+
+        if ( (Integer)spnCantidadVacante.getValue() <= 0 )
+        {
+            JOptionPane.showMessageDialog(null,
+                    "La cantidad de vacantes debe ser mayor a 0.");
+            spnCantidadVacante.requestFocus();
+            return false;
+        }
+
+        if ( txtPais.getText().trim().isEmpty() )
+        {
+            JOptionPane.showMessageDialog(null,
+                    "Debe introducir un país.");
+            txtPais.requestFocus();
+            return false;
+        }
+
+        if ( (Integer)edadSpinner.getValue() <= 0 )
+        {
+            JOptionPane.showMessageDialog(null,
+                    "La edad debe ser mayor a 0.");
+            edadSpinner.requestFocus();
+            return false;
+        }
+
+        if ( cbxSexo.getSelectedItem().toString().equalsIgnoreCase("<<Seleccionar>>") )
+        {
+            JOptionPane.showMessageDialog(null,
+                    "Debe seleccionar un sexo.");
+            cbxSexo.requestFocus();
+            return false;
+        }
+
+        if ( txtProfesion.getText().trim().isEmpty() )
+        {
+            JOptionPane.showMessageDialog(null,
+                    "Debe introducir una profesión.");
+            txtProfesion.requestFocus();
+            return false;
+        }
+
+        if ( txtDescripcion.getText().trim().isEmpty() )
+        {
+            JOptionPane.showMessageDialog(null,
+                    "Debe introducir una descripción.");
+            txtDescripcion.requestFocus();
+            return false;
+        }
+
+        if ( txtRequisito.getText().trim().isEmpty() )
+        {
+            JOptionPane.showMessageDialog(null,
+                    "Debe introducir los requisitos.");
+            txtRequisito.requestFocus();
+            return false;
+        }
+
+        return true;
     }
 }
