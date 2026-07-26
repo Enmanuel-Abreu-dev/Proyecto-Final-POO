@@ -2,6 +2,7 @@ package visual;
 
 import java.awt.*;
 import java.net.URL;
+import java.time.LocalDate;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -9,6 +10,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.BevelBorder;
 
 import logico.BolsaTrabajo;
+import logico.Universitario;
 import logico.Usuario;
 
 import java.awt.Color;
@@ -186,7 +188,24 @@ public class LoginUsuario extends JDialog {
     public void cargarControladora() {
     	File source = new File("save.bin");
     	if (!source.exists()) {
-    		Usuario admin = new Usuario(BolsaTrabajo.getInstance().generarIdUsuario(), "admin", "admin.32@gmail.com", "admin1234@", null, null);
+    		Universitario u1 = new Universitario(
+    			    BolsaTrabajo.getInstance().generarIdPersona(),             
+    			    "001-1234567-8",            
+    			    "Administrador",                   
+    			    "Super",            
+    			    "admin.32@gmail.com",
+    			    "Oculta", 
+    			    "Masculino",                
+    			    "829-555-1234",             
+    			    "República Dominicana",     
+    			    "/imagenes/perfiles/iconoLupa.png", 
+    			    LocalDate.of(2001, 4, 17), 
+    			    true,                       
+    			    false,                      
+    			    "Ingeniería en Sistemas",   
+    			    "PUCMM"                    
+    			);
+    		Usuario admin = new Usuario(BolsaTrabajo.getInstance().generarIdUsuario(), "admin", "admin.32@gmail.com", "admin1234@", null, u1);
     		BolsaTrabajo.getInstance().registrarUsuario(admin);
     		return;
     	}
