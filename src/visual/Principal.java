@@ -7,6 +7,9 @@ import logico.Persona;
 
 import java.awt.*;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 
 import javax.swing.*;
@@ -664,5 +667,14 @@ public class Principal extends JDialog {
 
         panelFondo.add(lblIcono);
         panelFondo.setComponentZOrder(lblIcono, 0);
+    }
+    
+    public void saveData() {
+    	try {
+    		ObjectOutputStream io = new ObjectOutputStream(new FileOutputStream("save.bin"));
+    		io.writeObject(BolsaTrabajo.getInstance());
+    	} catch (IOException e) {
+    		
+    	}
     }
 }
