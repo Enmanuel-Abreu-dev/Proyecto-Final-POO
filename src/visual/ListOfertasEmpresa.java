@@ -24,9 +24,12 @@ import javax.swing.BoxLayout;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import logico.Oferta;
+import logico.BolsaTrabajo;
 import logico.Institucion;
+import javax.swing.JTable;
 
 public class ListOfertasEmpresa extends JDialog {
 
@@ -55,6 +58,11 @@ public class ListOfertasEmpresa extends JDialog {
 
 	private final Institucion empresa;
 	private Oferta ofertaSeleccionada;
+	private JTable table;
+
+	private Oferta seleccionado = null;
+	private static Object[] row;
+	private static DefaultTableModel model;
 
 	/**
 	 * Lanza la ventana de forma independiente (para pruebas visuales).
@@ -100,7 +108,26 @@ public class ListOfertasEmpresa extends JDialog {
 		panelListado = new JPanel();
 		panelListado.setBackground(FONDO_GRIS);
 		scrollPane.setViewportView(panelListado);
-		panelListado.setLayout(new BoxLayout(panelListado, BoxLayout.Y_AXIS));
+		panelListado.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		panelListado.add(scrollPane_1, BorderLayout.CENTER);
+		
+		String[] headers = {"Puesto", "Estado", "Salario", "Modalidad", "Vacantes", "Fecha Cierre"};
+		model = new DefaultTableModel();
+		model.setColumnIdentifiers(headers);
+
+		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int index = table.getSelectedRow();
+				if ( index >= 0 )
+					cargarDetalles(BolsaTrabajo.getInstance().getUsuarioActual().getMyInstitucion().getMyOfertas().get(index));
+			}
+		});
+		table.setModel(model);
+		scrollPane_1.setViewportView(table);
 
 		JPanel panelDetalle = new JPanel();
 		panelDetalle.setBackground(TARJETA_BLANCA);
@@ -272,101 +299,45 @@ public class ListOfertasEmpresa extends JDialog {
 		setTitle("MIS OFERTAS");
 		setSize(1280, 720);
 		setLocationRelativeTo(null);
+		cargarOferta();
 	}
 
-	public void cargarOfertas(ArrayList<Oferta> ofertas) {
-		panelListado.removeAll();
-		for (final Oferta o : ofertas) {
-			panelListado.add(crearTarjeta(o));
-			panelListado.add(javax.swing.Box.createRigidArea(new Dimension(0, 10)));
+	protected void cargarDetalles(Oferta oferta) {
+		puestoTxt.setText(oferta.getPuesto());
+		estadoTxt.setText(estadoOferta(oferta.isEstado()));
+		salarioTxt.setText(""+oferta.getSalario());
+		modalidadTxt.setText(oferta.getModalidad());
+		cantVacanteTxt.setText(""+oferta.getCantVacante());
+		fechaPublicacionTxt.setText(oferta.getFechaPublicacion().toString());
+		fechaCierreTxt.setText(oferta.getFechaFinalizacion().toString());
+		cantSolicitudesTxt.setText(""+oferta.getSolicitudEmps().size());
+		txtDescripcion.setText(oferta.getDescripcion());
+		txtRequisitos.setText(oferta.getRequisitos());
+
+	}
+
+	public static void cargarOferta()
+	{
+		String codigoSocial = BolsaTrabajo.getInstance().getUsuarioActual().getMyInstitucion().getRegistroSocial();
+		model.setRowCount(0);
+		row = new Object[model.getColumnCount()];
+
+		for ( Oferta o : BolsaTrabajo.getInstance().listOfertaEmpresa(codigoSocial) )
+		{
+			row[0] = o.getPuesto();
+			row[1] = estadoOferta(o.isEstado());
+			row[2] = o.getSalario();
+			row[3] = o.getModalidad();
+			row[4] = o.getCantVacante();
+			row[5] = o.getFechaFinalizacion();
+			model.addRow(row);
 		}
-		panelListado.revalidate();
-		panelListado.repaint();
-
-		if (!ofertas.isEmpty()) {
-			mostrarDetalle(ofertas.get(0));
-		}
 	}
 
-	private JPanel crearTarjeta(final Oferta o) {
-		JPanel tarjeta = new JPanel();
-		tarjeta.setLayout(new BoxLayout(tarjeta, BoxLayout.Y_AXIS));
-		tarjeta.setBackground(TARJETA_BLANCA);
-		tarjeta.setBorder(new MatteBorder(1, 1, 1, 1, new Color(220, 220, 220)));
-		tarjeta.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-		tarjeta.setMaximumSize(new Dimension(Integer.MAX_VALUE, 110));
-
-		JLabel lblPuesto = new JLabel(o.getPuesto());
-		lblPuesto.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 16));
-		lblPuesto.setForeground(TEXTO_OSCURO);
-		lblPuesto.setBorder(new EmptyBorder(8, 12, 2, 12));
-		lblPuesto.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-
-		JLabel lblVacantes = new JLabel(o.getCantVacante() + " vacante(s) - " + o.getModalidad());
-		lblVacantes.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblVacantes.setForeground(AZUL_PRINCIPAL);
-		lblVacantes.setBorder(new EmptyBorder(2, 12, 2, 12));
-		lblVacantes.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-
-		JLabel lblEstado = new JLabel(o.isEstado() ? "ABIERTA" : "CERRADA");
-		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblEstado.setForeground(o.isEstado() ? VERDE_AZULADO : ROJO);
-		lblEstado.setBorder(new EmptyBorder(2, 12, 2, 12));
-		lblEstado.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-
-		JLabel lblFecha = new JLabel(o.getFechaPublicacion() != null ? o.getFechaPublicacion().toString() : "");
-		lblFecha.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblFecha.setForeground(new Color(150, 150, 150));
-		lblFecha.setBorder(new EmptyBorder(2, 12, 8, 12));
-		lblFecha.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-
-		tarjeta.add(lblPuesto);
-		tarjeta.add(lblVacantes);
-		tarjeta.add(lblEstado);
-		tarjeta.add(lblFecha);
-
-		MouseAdapter listenerTarjeta = new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				mostrarDetalle(o);
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				tarjeta.setBackground(new Color(245, 245, 245));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				tarjeta.setBackground(TARJETA_BLANCA);
-			}
-		};
-		tarjeta.addMouseListener(listenerTarjeta);
-		tarjeta.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		lblPuesto.addMouseListener(listenerTarjeta);
-		lblVacantes.addMouseListener(listenerTarjeta);
-		lblEstado.addMouseListener(listenerTarjeta);
-		lblFecha.addMouseListener(listenerTarjeta);
-
-		return tarjeta;
+	private static String estadoOferta ( boolean estado )
+	{
+		if ( estado ) return "ABIERTA";
+		else return "CERRADA";
 	}
-
-	private void mostrarDetalle(Oferta o) {
-		ofertaSeleccionada = o;
-
-		puestoTxt.setText(o.getPuesto());
-		salarioTxt.setText(String.valueOf(o.getSalario()));
-		modalidadTxt.setText(o.getModalidad());
-		cantVacanteTxt.setText(String.valueOf(o.getCantVacante()));
-
-		estadoTxt.setText(o.isEstado() ? "ABIERTA" : "CERRADA");
-		estadoTxt.setForeground(o.isEstado() ? VERDE_AZULADO : ROJO);
-
-		fechaPublicacionTxt.setText(o.getFechaPublicacion() != null ? o.getFechaPublicacion().toString() : "");
-		fechaCierreTxt.setText(o.getFechaFinalizacion() != null ? o.getFechaFinalizacion().toString() : "");
-
-		cantSolicitudesTxt.setText(o.getSolicitudEmps() != null
-				? String.valueOf(o.getSolicitudEmps().size()) : "0");
-
-		txtDescripcion.setText(o.getDescripcion());
-		txtRequisitos.setText(o.getRequisitos());
-	}
+	
 }

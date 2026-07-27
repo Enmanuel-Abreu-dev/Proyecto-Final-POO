@@ -25,6 +25,7 @@ import javax.swing.BoxLayout;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import logico.SolicitudEmp;
 import logico.Institucion;
@@ -51,6 +52,10 @@ public class ListSolicitudesEmp extends JDialog {
 	private RoundedTextField rangoSalarialTxt;
 	private RoundedTextField modalidadTxt;
 	private JTextArea txtDescripcionOferta;
+
+	private Oferta seleccionado = null;
+	private static Object[] row;
+	private static DefaultTableModel model;
 
 	private final Persona candidato;
 

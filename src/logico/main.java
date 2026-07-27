@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.channels.Pipe.SourceChannel;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -155,6 +156,11 @@ public class main {
         o1.registrarSolicitudEmp(s2);
         o2.registrarSolicitudEmp(s1);
         o2.registrarSolicitudEmp(s2);
+
+        System.out.println("Cantidad Ofertas: " + BolsaTrabajo.getInstance().getOfertas().get(0).getMyEmpresa().getNombre());
+        System.out.println("Cantidad Ofertas Empresa: " + BolsaTrabajo.getInstance().getInstituciones().get(0).getMyOfertas().size());
+
+        /* 
         System.out.println(BolsaTrabajo.getInstance().iniciarSesion("Google", "123"));
         Usuario user = BolsaTrabajo.getInstance().crearUsuario(empresa1.getEmail(), empresa1, null);
         System.out.println(user.getNombre() + " " + user.getPassword());
@@ -185,7 +191,8 @@ public class main {
         if ( imagen !=  null )
             JOptionPane.showMessageDialog(null, new JLabel(new ImageIcon(imagen)));
         else System.out.println("No cargo");
-
+        */
         System.exit(0);
+
     }
 }

@@ -157,6 +157,11 @@ public class BolsaTrabajo implements Serializable {
 	{
 		this.usuarios.add(u);
 	}
+
+	public void registrarOferta(Oferta o) {
+		ofertas.add(o);
+		
+	}
 	
 	/*
 	 Se encarga de verificar que existe un usuario que concuerde con los datos recibidos.
@@ -421,5 +426,14 @@ public class BolsaTrabajo implements Serializable {
 		}
 	}
 
+	public ArrayList<Oferta> listOfertaEmpresa ( String registroSocialEmp )
+	{
+		ArrayList<Oferta> lista = new ArrayList<>();
+		for ( Oferta o : ofertas )
+			if ( o.getMyEmpresa().getRegistroSocial().equalsIgnoreCase(registroSocialEmp) )
+				lista.add(o);
+
+		return lista;
+	}
 
 }

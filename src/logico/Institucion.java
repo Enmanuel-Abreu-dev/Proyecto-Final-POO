@@ -147,6 +147,7 @@ public class Institucion implements Serializable {
     public void publicarOferta(Oferta o) {
     	o.setEstado(true);
     	this.myOfertas.add(o);
+        BolsaTrabajo.getInstance().registrarOferta(o);
     }
     
     public boolean cerrarOferta(String idOferta) {
