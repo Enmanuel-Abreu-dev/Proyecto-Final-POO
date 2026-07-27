@@ -303,7 +303,7 @@ public class RegEmpresa extends JDialog {
         lblCorreoElectronico.setBounds(44, 388, 201, 20);
         panel.add(lblCorreoElectronico);
 
-        JLabel lblNombreDeEmpresa = new JLabel("DIRECCION:");
+        JLabel lblNombreDeEmpresa = new JLabel("PROVINCIA - ESTADO:");
         lblNombreDeEmpresa.setForeground(Color.WHITE);
         lblNombreDeEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 18));
         lblNombreDeEmpresa.setBounds(44, 172, 201, 29);

@@ -4,17 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="Dont remember all I did.">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_7_2026_10_55a__m___Changes_.xml" beforeDir="false" />
+    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="RegOferta Class Updated (Fields Completed).">
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_7_2026_10_55 a_ m__[Changes]/fondoRegEmpresa.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_7_2026_10_55 a_ m__[Changes]/fondoRegPersona.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_7_2026_10_55 a_ m__[Changes]/iconoRegistrar.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_7_2026_10_55 a_ m__[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_7_2026_3_37p__m___Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_7_2026_3_37 p_ m__[Changes]/fondoRegPersona.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_7_2026_3_37 p_ m__[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/RegEmpresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegEmpresa.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/visual/RegOferta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegOferta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/RegPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegPersona.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,9 +87,9 @@
       <recent name="C:\Users\jeanr\Documents\WorkSpacePUCMM\Proyecto-Final-POO\src\imagenes" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.LoginUsuario">
-    <configuration name="LoginUsuario (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.LoginUsuario" />
+  <component name="RunManager" selected="Application.RegSolicitudEmp">
+    <configuration name="ListOfertas" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.ListOfertas" />
       <module name="POOProyectoFinal" />
       <extension name="coverage">
         <pattern>
@@ -103,8 +101,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginUsuario (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.LoginUsuario" />
+    <configuration name="ListOfertasEmpresa" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.ListOfertasEmpresa" />
       <module name="POOProyectoFinal" />
       <extension name="coverage">
         <pattern>
@@ -129,8 +127,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Principal" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.Principal" />
+    <configuration name="RegPersona" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.RegPersona" />
       <module name="POOProyectoFinal" />
       <extension name="coverage">
         <pattern>
@@ -157,11 +155,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.LoginUsuario" />
-        <item itemvalue="Application.Principal" />
-        <item itemvalue="Application.LoginUsuario (3)" />
-        <item itemvalue="Application.LoginUsuario (2)" />
         <item itemvalue="Application.RegSolicitudEmp" />
+        <item itemvalue="Application.ListOfertas" />
+        <item itemvalue="Application.LoginUsuario" />
+        <item itemvalue="Application.ListOfertasEmpresa" />
+        <item itemvalue="Application.RegPersona" />
       </list>
     </recent_temporary>
   </component>
@@ -400,14 +398,21 @@
       <option name="project" value="LOCAL" />
       <updated>1784917596122</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="RegOferta Class Updated (Fields Completed).">
+      <option name="closed" value="true" />
+      <created>1785037326388</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1785037326388</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="LoginUsuario Debugged" />
     <MESSAGE value="regEmpresa Class Created." />
     <MESSAGE value="LoginUsuario Class Updated." />
     <MESSAGE value="RegPersona Class Created." />
@@ -432,6 +437,7 @@
     <MESSAGE value="Principal Class Created." />
     <MESSAGE value="Principal Class Finished." />
     <MESSAGE value="Dont remember all I did." />
-    <option name="LAST_COMMIT_MESSAGE" value="Dont remember all I did." />
+    <MESSAGE value="RegOferta Class Updated (Fields Completed)." />
+    <option name="LAST_COMMIT_MESSAGE" value="RegOferta Class Updated (Fields Completed)." />
   </component>
 </project>

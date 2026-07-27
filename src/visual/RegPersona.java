@@ -352,7 +352,7 @@ public class RegPersona extends JDialog {
 		telefonoField.setBounds(398, 420, 248, 42);
 		panel.add(telefonoField);
 
-		JLabel lblDireccion = new JLabel("DIRECCION:");
+		JLabel lblDireccion = new JLabel("PROVINCIA - ESTADO:");
 		lblDireccion.setForeground(Color.WHITE);
 		lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblDireccion.setBounds(42, 285, 226, 19);
