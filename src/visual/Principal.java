@@ -188,6 +188,8 @@ public class Principal extends JDialog {
         panelFondo.setComponentZOrder(panelPerfil, 0);
 
         RoundedLabel lblFoto = new RoundedLabel(20);
+        lblFoto.setText(obtenerIniciales(usuarioActual.getMyInstitucion().getNombre()));
+        lblFoto.setHorizontalAlignment(SwingConstants.CENTER);
         lblFoto.setOpaque(true);
         lblFoto.setBackground(AZUL_PRINCIPAL);
         lblFoto.setForeground(Color.WHITE);
