@@ -136,6 +136,13 @@ public class Principal extends JDialog {
         panel.setLayout(null);
 
         RoundedButton btnBuscar = new RoundedButton("BUSCAR EMPLEOS", 80);
+        btnBuscar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		ListOfertas verOfertas = new ListOfertas();
+        		verOfertas.setEnabled(true);
+        		verOfertas.setVisible(true);
+        	}
+        });
         btnBuscar.setBounds(167, 10, 302, 60);
         btnBuscar.setBackground(new Color(22, 58, 95));
         btnBuscar.setForeground(Color.WHITE);
