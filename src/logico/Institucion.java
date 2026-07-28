@@ -202,6 +202,14 @@ public class Institucion implements Serializable {
     public ArrayList<Solicitud> getSolicitudesActivas() {
     	return this.mySolicitudes.stream().filter(x -> x.isEstado()).collect(Collectors.toCollection(ArrayList::new));
     }
+    
+    public ArrayList<Oferta> getOfertasActivas() {
+    	return this.myOfertas.stream().filter(x -> x.isEstado()).collect(Collectors.toCollection(ArrayList::new));
+    }
+    
+    public ArrayList<Solicitud> getSolicitudPendientes() {
+    	return this.mySolicitudes.stream().filter(x -> !x.isEstado()).collect(Collectors.toCollection(ArrayList::new));
+    }
 
     public String getRutaImagen() {
         return rutaImagen;

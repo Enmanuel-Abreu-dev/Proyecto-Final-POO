@@ -285,16 +285,7 @@ public class Principal extends JDialog {
         panelInicio.add(lblSubBienvenida);
 
         int anchoTarjetaResumen = (anchoContenido - 100) / 3;
-
-        if (esEmpresa) {
-            agregarTarjetaResumen(panelInicio, "OFERTAS ACTIVAS", "5", VERDE_AZULADO, 40, 140, anchoTarjetaResumen);
-            agregarTarjetaResumen(panelInicio, "SOLICITUDES PENDIENTES", "12", AZUL_PRINCIPAL, 60 + anchoTarjetaResumen, 140, anchoTarjetaResumen);
-            agregarTarjetaResumen(panelInicio, "CANDIDATOS NUEVOS", "8", AZUL_OSCURO, 80 + anchoTarjetaResumen * 2, 140, anchoTarjetaResumen);
-        } else {
-            agregarTarjetaResumen(panelInicio, "SOLICITUDES ENVIADAS", "3", VERDE_AZULADO, 40, 140, anchoTarjetaResumen);
-            agregarTarjetaResumen(panelInicio, "EN PROCESO", "1", AZUL_PRINCIPAL, 60 + anchoTarjetaResumen, 140, anchoTarjetaResumen);
-            agregarTarjetaResumen(panelInicio, "OFERTAS RECOMENDADAS", "6", AZUL_OSCURO, 80 + anchoTarjetaResumen * 2, 140, anchoTarjetaResumen);
-        }
+        cargarInformacionPanelPerfil(anchoTarjetaResumen, esEmpresa);
 
         RoundedPanel tarjetaAccesos = new RoundedPanel(30, TARJETA_BLANCA, new Color(225, 228, 232));
         tarjetaAccesos.setBackground(TARJETA_BLANCA);
@@ -570,6 +561,7 @@ public class Principal extends JDialog {
         btnVerMiPerfil.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 panelInicio.setVisible(false);
+                cargarInformacionPanelPerfil(anchoTarjetaResumen, esEmpresa);
                 panelPerfilUsuario.setVisible(true);
             }
         });
@@ -695,5 +687,23 @@ public class Principal extends JDialog {
         Principal principal = new Principal(usuarioActual);
         principal.setModal(true);
         principal.setVisible(true);
+    }
+    
+    public void cargarInformacionPanelPerfil(int anchoTarjetaResumen, boolean esEmpresa) {
+        if (esEmpresa) {
+        	String ofertasActivas = "" + usuarioActual.getMyInstitucion().getOfertasActivas().size();
+        	String solicitudesPend = "" + usuarioActual.getMyInstitucion().getSolicitudPendientes().size();
+        	
+            agregarTarjetaResumen(panelInicio, "OFERTAS ACTIVAS", ofertasActivas, VERDE_AZULADO, 40, 140, anchoTarjetaResumen);
+            agregarTarjetaResumen(panelInicio, "SOLICITUDES PENDIENTES", solicitudesPend, AZUL_PRINCIPAL, 60 + anchoTarjetaResumen, 140, anchoTarjetaResumen);
+            agregarTarjetaResumen(panelInicio, "CANDIDATOS NUEVOS", "8", AZUL_OSCURO, 80 + anchoTarjetaResumen * 2, 140, anchoTarjetaResumen);
+        } else {
+        	String solicitudesSend = "" + usuarioActual.getMyPersona().getSolicitudEmps().size();
+        	
+            agregarTarjetaResumen(panelInicio, "SOLICITUDES ENVIADAS", solicitudesSend, VERDE_AZULADO, 40, 140, anchoTarjetaResumen);
+            agregarTarjetaResumen(panelInicio, "EN PROCESO", "1", AZUL_PRINCIPAL, 60 + anchoTarjetaResumen, 140, anchoTarjetaResumen);
+            agregarTarjetaResumen(panelInicio, "OFERTAS RECOMENDADAS", "6", AZUL_OSCURO, 80 + anchoTarjetaResumen * 2, 140, anchoTarjetaResumen);
+        }
+        panelInicio.repaint();
     }
 }

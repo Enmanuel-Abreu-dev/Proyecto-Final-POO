@@ -87,5 +87,4 @@ public class Usuario implements Serializable {
 		this.password = nueva;
 		return true;
 	}
-
 }
