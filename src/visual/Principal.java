@@ -85,14 +85,14 @@ public class Principal extends JDialog {
      * @param usuario el usuario que inicio sesion (empresa o candidato)
      */
     public Principal(Usuario usuario) {
+    	this.usuarioActual = usuario;
+    	this.esEmpresa = (usuarioActual != null && usuarioActual.getMyInstitucion() != null);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				saveData();
 			}
 		});
-		this.usuarioActual = usuario;
-        this.esEmpresa = (usuarioActual != null && usuarioActual.getMyInstitucion() != null);
         
         setBounds(100, 100, 450, 300);
         Dimension dim = getToolkit().getScreenSize();
@@ -188,7 +188,7 @@ public class Principal extends JDialog {
         panelFondo.setComponentZOrder(panelPerfil, 0);
 
         RoundedLabel lblFoto = new RoundedLabel(20);
-        lblFoto.setText(obtenerIniciales(usuarioActual.getMyInstitucion().getNombre()));
+        lblFoto.setText(obtenerIniciales((usuarioActual.getMyInstitucion() != null) ? usuarioActual.getMyInstitucion().getNombre() : usuarioActual.getNombre()));
         lblFoto.setHorizontalAlignment(SwingConstants.CENTER);
         lblFoto.setOpaque(true);
         lblFoto.setBackground(AZUL_PRINCIPAL);
