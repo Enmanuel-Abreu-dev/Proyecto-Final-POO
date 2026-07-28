@@ -205,4 +205,8 @@ public abstract class Persona implements Serializable {
     public ArrayList<SolicitudEmp> getSolicitudesActivas() {
     	return this.solicitudEmps.stream().filter(x -> x.isEstado()).collect(Collectors.toCollection(ArrayList::new));
     }
+    
+    public ArrayList<SolicitudEmp> getSolicitudesEnProceso() {
+    	return this.solicitudEmps.stream().filter(x -> !x.isEstado()).collect(Collectors.toCollection(ArrayList::new));
+    }
 }

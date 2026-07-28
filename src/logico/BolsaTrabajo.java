@@ -486,5 +486,15 @@ public class BolsaTrabajo implements Serializable {
 			return false;
 		}
 	}
+	
+	public ArrayList<Oferta> getOfertasRecomendadasByPersona(Persona persona) {
+		ArrayList<Oferta> result = new ArrayList<Oferta>();
+		
+		for (Oferta actual : this.ofertas) {
+			if (actual.isEstado() && actual.getPais().equalsIgnoreCase(persona.getPais()) && actual.getAniosExperiencia() == persona.calcularAniosExperiencia())
+				result.add(actual);
+		}
+		return result;
+	}
 
 }

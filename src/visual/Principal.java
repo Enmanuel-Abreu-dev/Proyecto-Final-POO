@@ -693,16 +693,19 @@ public class Principal extends JDialog {
         if (esEmpresa) {
         	String ofertasActivas = "" + usuarioActual.getMyInstitucion().getOfertasActivas().size();
         	String solicitudesPend = "" + usuarioActual.getMyInstitucion().getSolicitudPendientes().size();
+        	String candidatos = "" + usuarioActual.getMyInstitucion().getMySolicitudes().size();
         	
             agregarTarjetaResumen(panelInicio, "OFERTAS ACTIVAS", ofertasActivas, VERDE_AZULADO, 40, 140, anchoTarjetaResumen);
             agregarTarjetaResumen(panelInicio, "SOLICITUDES PENDIENTES", solicitudesPend, AZUL_PRINCIPAL, 60 + anchoTarjetaResumen, 140, anchoTarjetaResumen);
-            agregarTarjetaResumen(panelInicio, "CANDIDATOS NUEVOS", "8", AZUL_OSCURO, 80 + anchoTarjetaResumen * 2, 140, anchoTarjetaResumen);
+            agregarTarjetaResumen(panelInicio, "CANDIDATOS NUEVOS", candidatos, AZUL_OSCURO, 80 + anchoTarjetaResumen * 2, 140, anchoTarjetaResumen);
         } else {
         	String solicitudesSend = "" + usuarioActual.getMyPersona().getSolicitudEmps().size();
+        	String solicitudesProceso = "" + usuarioActual.getMyPersona().getSolicitudesEnProceso().size();
+        	String ofertasRecomendadas = "" + BolsaTrabajo.getInstance().getOfertasRecomendadasByPersona(usuarioActual.getMyPersona()).size();
         	
             agregarTarjetaResumen(panelInicio, "SOLICITUDES ENVIADAS", solicitudesSend, VERDE_AZULADO, 40, 140, anchoTarjetaResumen);
-            agregarTarjetaResumen(panelInicio, "EN PROCESO", "1", AZUL_PRINCIPAL, 60 + anchoTarjetaResumen, 140, anchoTarjetaResumen);
-            agregarTarjetaResumen(panelInicio, "OFERTAS RECOMENDADAS", "6", AZUL_OSCURO, 80 + anchoTarjetaResumen * 2, 140, anchoTarjetaResumen);
+            agregarTarjetaResumen(panelInicio, "EN PROCESO", solicitudesProceso, AZUL_PRINCIPAL, 60 + anchoTarjetaResumen, 140, anchoTarjetaResumen);
+            agregarTarjetaResumen(panelInicio, "OFERTAS RECOMENDADAS", ofertasRecomendadas, AZUL_OSCURO, 80 + anchoTarjetaResumen * 2, 140, anchoTarjetaResumen);
         }
         panelInicio.repaint();
     }
