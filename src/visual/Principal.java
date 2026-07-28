@@ -372,13 +372,15 @@ public class Principal extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 if (esEmpresa) {
                     RegEmpresa editEmpresa = new RegEmpresa(usuarioActual.getMyInstitucion());
-                    editEmpresa.setVisible(true);
                     editEmpresa.setModal(true);
+                    editEmpresa.setVisible(true);
                 } else {
                     RegPersona editPersona = new RegPersona(usuarioActual.getMyPersona());
-                    editPersona.setVisible(true);
                     editPersona.setModal(true);
+                    editPersona.setVisible(true);
                 }
+                dispose();
+                actualizarVentana();
             }
         });
         btnEditarPerfil.setBackground(AZUL_OSCURO);
@@ -686,5 +688,12 @@ public class Principal extends JDialog {
     	} catch (IOException e) {
     		e.printStackTrace();
     	}
+    }
+    
+    private void actualizarVentana()
+    {
+        Principal principal = new Principal(usuarioActual);
+        principal.setModal(true);
+        principal.setVisible(true);
     }
 }

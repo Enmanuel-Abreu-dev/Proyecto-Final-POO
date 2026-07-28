@@ -182,16 +182,17 @@ public class main {
 
             System.out.println();
         }
-
+        */
         p1.setRutaImagen(BolsaTrabajo.getInstance().buscarImagen(p1.getNombre(), p1.getCedula()));
-        p2.setRutaImagen(BolsaTrabajo.getInstance().buscarImagen(p2.getNombre(), p2.getCedula()));
+        
+        System.out.println(p1.getRutaImagen());
 
         BufferedImage imagen = BolsaTrabajo.getInstance().cargarImagenPersona(p1);
 
         if ( imagen !=  null )
             JOptionPane.showMessageDialog(null, new JLabel(new ImageIcon(imagen)));
         else System.out.println("No cargo");
-        */
+        
         System.exit(0);
 
     }

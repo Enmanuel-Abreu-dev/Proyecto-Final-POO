@@ -187,10 +187,6 @@ public class RegEmpresa extends JDialog {
 
                     Institucion nueva = new Institucion(identificador, nombre, rnc, pais, razonSocial, direccion, telefono, email, rutaImagen, cantEmpleado, privado);
 
-                    if (rutaLogoSeleccionado != null) {
-                        nueva.setRutaImagen(rutaLogoSeleccionado);
-                    }
-
                     BolsaTrabajo.getInstance().registrarInstitucion(nueva);
                     Usuario user = BolsaTrabajo.getInstance().crearUsuario(nueva.getEmail(), nueva, null);
                     BolsaTrabajo.getInstance().registrarUsuario(user);
@@ -214,10 +210,8 @@ public class RegEmpresa extends JDialog {
                     myInstitucion.setEmail(correoField.getText());
                     myInstitucion.setCantEmpleado((Integer) cantTrabsSpinner.getValue());
                     myInstitucion.setPrivado(privado);
-
-                    if (rutaLogoSeleccionado != null) {
-                        myInstitucion.setRutaImagen(rutaLogoSeleccionado);
-                    }
+                    myInstitucion.setRutaImagen(rutaLogoSeleccionado);
+                    BolsaTrabajo.getInstance().modificarEmpresa(institucion);
 
                     JOptionPane.showMessageDialog(null, "Empresa Modificada Exitosamente",
                             "Modificacion", JOptionPane.INFORMATION_MESSAGE);
@@ -278,14 +272,26 @@ public class RegEmpresa extends JDialog {
         lblLogo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if ( nombreField.getText().isEmpty() || registroSocialField.getText(). isEmpty() )
+                if ( myInstitucion == null )
                 {
-                    JOptionPane.showMessageDialog(null, "Debe rellenar el Nombre y el Registro social", "Error", JOptionPane.INFORMATION_MESSAGE);
+                    if ( nombreField.getText().isEmpty() || registroSocialField.getText(). isEmpty() )
+                    {
+                        JOptionPane.showMessageDialog(null, "Debe rellenar el Nombre y el Registro social", "Error", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else
+                    {
+                        rutaLogoSeleccionado = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), registroSocialField.getText());
+                        cargarLogo();
+                    }
                 }
                 else
                 {
-                    rutaLogoSeleccionado = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), registroSocialField.getText());
-                    cargarLogo();
+                    String rutaNueva = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), registroSocialField.getText());
+                    if ( rutaNueva != null)
+                    {
+                        rutaLogoSeleccionado = rutaNueva;
+                        cargarLogo();
+                    }
                 }
             }
         });

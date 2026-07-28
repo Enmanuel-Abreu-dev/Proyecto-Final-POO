@@ -426,6 +426,9 @@ public class BolsaTrabajo implements Serializable {
 		}
 	}
 
+	/*
+		!Devolvemos todas las ofertas de una empresa en especifico
+	*/
 	public ArrayList<Oferta> listOfertaEmpresa ( String registroSocialEmp )
 	{
 		ArrayList<Oferta> lista = new ArrayList<>();
@@ -434,6 +437,54 @@ public class BolsaTrabajo implements Serializable {
 				lista.add(o);
 
 		return lista;
+	}
+
+	/*
+		!Modificamos una empresa 
+	*/
+	public void modificarEmpresa ( Institucion myInsti )
+	{
+		int index = buscarEmpresa(myInsti.getIdentificador());
+		instituciones.set(index, myInsti);
+	}
+
+	/*
+		!buscamos el id de la empresa para poder modificar la empresa
+	*/
+	private int buscarEmpresa(String identificador) {
+		int i = 0, index = 0;
+		boolean encontrar = false;
+		
+		while ( !encontrar && i < instituciones.size() )
+		{
+			if ( instituciones.get(i).getIdentificador().equalsIgnoreCase(identificador) )
+			{
+				index = i;
+				encontrar = true;
+			}
+			i++;
+		}
+
+		return index;
+	}	
+
+	/*
+		!Metodo para eliminar la imagen en la ruta especifica
+	*/
+	public boolean eliminarArchivo ( Institucion i )
+	{
+		try 
+		{
+			if ( i.getRutaImagen() == null || i.getRutaImagen().trim().isEmpty() ) return true;
+		
+			Path ruta = Paths.get(i.getRutaImagen());
+			Files.delete(ruta);
+			return true;	
+
+		} catch (Exception e) {
+			System.out.println("Error al eliminar Imagen");
+			return false;
+		}
 	}
 
 }
