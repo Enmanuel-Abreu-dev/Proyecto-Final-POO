@@ -1,13 +1,20 @@
 package visual;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import java.util.ArrayList;
+
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -16,10 +23,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
 import logico.Institucion;
+import logico.SolicitudEmp;
+import logico.Persona;
+import logico.Universitario;
+import logico.Tecnico;
+import logico.Obrero;
+import logico.Experiencia;
 
 
 public class ListSolicitudesRecibidas extends JDialog {
@@ -32,6 +46,7 @@ public class ListSolicitudesRecibidas extends JDialog {
 	private static final Color FONDO_GRIS = new Color(0xF4, 0xF6, 0xF8);
 	private static final Color TARJETA_BLANCA = Color.WHITE;
 	private static final Color TEXTO_OSCURO = new Color(0x1F, 0x29, 0x37);
+	private static final Color ROJO = new Color(0xC0, 0x5B, 0x5B);
 
 	private JPanel panelListado;
 	private RoundedTextField nombreCandidatoTxt;
@@ -220,7 +235,7 @@ public class ListSolicitudesRecibidas extends JDialog {
 
 		JButton btnRechazar = new JButton("RECHAZAR");
 		btnRechazar.setForeground(Color.WHITE);
-		btnRechazar.setBackground(new Color(0xC0, 0x5B, 0x5B));
+		btnRechazar.setBackground(ROJO);
 		btnRechazar.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnRechazar.setBounds(330, 615, 280, 42);
 		panelDetalle.add(btnRechazar);
@@ -234,5 +249,114 @@ public class ListSolicitudesRecibidas extends JDialog {
 		setTitle("SOLICITUDES RECIBIDAS");
 		setSize(1280, 720);
 		setLocationRelativeTo(null);
+	}
+
+	public void cargarSolicitudes(ArrayList<SolicitudEmp> solicitudes) {
+		panelListado.removeAll();
+		for (final SolicitudEmp s : solicitudes) {
+			JPanel tarjeta = crearTarjeta(s);
+			panelListado.add(tarjeta);
+			panelListado.add(Box.createRigidArea(new Dimension(0, 10)));
+		}
+		panelListado.revalidate();
+		panelListado.repaint();
+
+		if (!solicitudes.isEmpty()) {
+			mostrarDetalle(solicitudes.get(0));
+		}
+	}
+
+	private JPanel crearTarjeta(final SolicitudEmp s) {
+		JPanel tarjeta = new JPanel();
+		tarjeta.setLayout(new BoxLayout(tarjeta, BoxLayout.Y_AXIS));
+		tarjeta.setBackground(TARJETA_BLANCA);
+		tarjeta.setBorder(new MatteBorder(1, 1, 1, 1, new Color(220, 220, 220)));
+		tarjeta.setAlignmentX(Component.LEFT_ALIGNMENT);
+		tarjeta.setMaximumSize(new Dimension(Integer.MAX_VALUE, 110));
+
+		JLabel lblCandidato = new JLabel(s.getPersona().getNombre() + " " + s.getPersona().getApellido());
+		lblCandidato.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblCandidato.setForeground(AZUL_OSCURO);
+		lblCandidato.setBorder(new EmptyBorder(8, 12, 2, 12));
+		lblCandidato.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		JLabel lblPuesto = new JLabel(s.getOferta().getPuesto());
+		lblPuesto.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPuesto.setForeground(AZUL_PRINCIPAL);
+		lblPuesto.setBorder(new EmptyBorder(2, 12, 2, 12));
+		lblPuesto.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		JLabel lblFecha = new JLabel(s.getFecha().toString());
+		lblFecha.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblFecha.setForeground(new Color(150, 150, 150));
+		lblFecha.setBorder(new EmptyBorder(2, 12, 2, 12));
+		lblFecha.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		JLabel lblEstado = new JLabel(s.isEstado() ? "ACEPTADA" : "RECHAZADA");
+		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblEstado.setForeground(s.isEstado() ? VERDE_AZULADO : ROJO);
+		lblEstado.setBorder(new EmptyBorder(2, 12, 8, 12));
+		lblEstado.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		tarjeta.add(lblCandidato);
+		tarjeta.add(lblPuesto);
+		tarjeta.add(lblFecha);
+		tarjeta.add(lblEstado);
+
+		MouseAdapter listenerTarjeta = new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mostrarDetalle(s);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				tarjeta.setBackground(new Color(245, 245, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				tarjeta.setBackground(TARJETA_BLANCA);
+			}
+		};
+		tarjeta.addMouseListener(listenerTarjeta);
+		tarjeta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblCandidato.addMouseListener(listenerTarjeta);
+		lblPuesto.addMouseListener(listenerTarjeta);
+		lblFecha.addMouseListener(listenerTarjeta);
+		lblEstado.addMouseListener(listenerTarjeta);
+
+		return tarjeta;
+	}
+
+	private void mostrarDetalle(SolicitudEmp s) {
+		Persona p = s.getPersona();
+
+		String tipo;
+		if (p instanceof Universitario) {
+			tipo = "Universitario";
+		} else if (p instanceof Tecnico) {
+			tipo = "Tecnico";
+		} else if (p instanceof Obrero) {
+			tipo = "Obrero";
+		} else {
+			tipo = "";
+		}
+
+		nombreCandidatoTxt.setText(p.getNombre() + " " + p.getApellido());
+		cedulaTxt.setText(p.getCedula());
+		tipoCandidatoTxt.setText(tipo);
+		fechaSolicitudTxt.setText(s.getFecha().toString());
+
+		estadoTxt.setText(s.isEstado() ? "ACEPTADA" : "RECHAZADA");
+		estadoTxt.setForeground(s.isEstado() ? VERDE_AZULADO : ROJO);
+
+		dispViajarTxt.setText(p.isDispViajar() ? "SI" : "NO");
+		dispResidenciaTxt.setText(p.isDispResidencia() ? "SI" : "NO");
+
+		String experiencias = "";
+		for (Experiencia e : p.getExperiencia()) {
+			experiencias += e.getCargo() + " - " + e.getInstitucion() + " (" + e.getFechaInicio() + " / "
+					+ e.getFechaFinalizacion() + ")\n";
+		}
+		txtExperiencia.setText(experiencias);
 	}
 }

@@ -4,15 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="RegOferta Class Updated (Fields Completed).">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_7_2026_10_55 a_ m__[Changes]/fondoRegEmpresa.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_7_2026_10_55 a_ m__[Changes]/fondoRegPersona.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_7_2026_10_55 a_ m__[Changes]/iconoRegistrar.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_7_2026_3_37 p_ m__[Changes]/fondoRegPersona.png" beforeDir="false" />
+    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="Alineando mis archivos.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/ListCandidatos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListCandidatos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/ListOfertas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListOfertas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/ListOfertasEmpresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListOfertasEmpresa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/ListSolicitudesEmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListSolicitudesEmp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/ListSolicitudesRecibidas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListSolicitudesRecibidas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/Principal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/visual/RegEmpresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegEmpresa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/RegOferta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegOferta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/RegPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegPersona.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/VentanaMatcheo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/VentanaMatcheo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +36,7 @@
   }
 }</component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="Security Analysis" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0,
@@ -87,7 +88,7 @@
       <recent name="C:\Users\jeanr\Documents\WorkSpacePUCMM\Proyecto-Final-POO\src\imagenes" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.RegSolicitudEmp">
+  <component name="RunManager" selected="Application.LoginUsuario">
     <configuration name="ListOfertas" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="visual.ListOfertas" />
       <module name="POOProyectoFinal" />
@@ -155,9 +156,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.LoginUsuario" />
         <item itemvalue="Application.RegSolicitudEmp" />
         <item itemvalue="Application.ListOfertas" />
-        <item itemvalue="Application.LoginUsuario" />
         <item itemvalue="Application.ListOfertasEmpresa" />
         <item itemvalue="Application.RegPersona" />
       </list>
@@ -406,14 +407,21 @@
       <option name="project" value="LOCAL" />
       <updated>1785037326388</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Alineando mis archivos.">
+      <option name="closed" value="true" />
+      <created>1785164078457</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1785164078458</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="regEmpresa Class Created." />
     <MESSAGE value="LoginUsuario Class Updated." />
     <MESSAGE value="RegPersona Class Created." />
     <MESSAGE value="listOferta Class Created." />
@@ -438,6 +446,7 @@
     <MESSAGE value="Principal Class Finished." />
     <MESSAGE value="Dont remember all I did." />
     <MESSAGE value="RegOferta Class Updated (Fields Completed)." />
-    <option name="LAST_COMMIT_MESSAGE" value="RegOferta Class Updated (Fields Completed)." />
+    <MESSAGE value="Alineando mis archivos." />
+    <option name="LAST_COMMIT_MESSAGE" value="Alineando mis archivos." />
   </component>
 </project>

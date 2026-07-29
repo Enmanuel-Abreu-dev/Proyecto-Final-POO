@@ -1,10 +1,11 @@
 package visual;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Cursor;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -12,24 +13,22 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JLayeredPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.BoxLayout;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
 
 import logico.Oferta;
 import logico.BolsaTrabajo;
 import logico.Institucion;
-import javax.swing.JTable;
 
 public class ListOfertasEmpresa extends JDialog {
 
@@ -58,11 +57,6 @@ public class ListOfertasEmpresa extends JDialog {
 
 	private final Institucion empresa;
 	private Oferta ofertaSeleccionada;
-	private JTable table;
-
-	private Oferta seleccionado = null;
-	private static Object[] row;
-	private static DefaultTableModel model;
 
 	/**
 	 * Lanza la ventana de forma independiente (para pruebas visuales).
@@ -92,7 +86,6 @@ public class ListOfertasEmpresa extends JDialog {
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				
 			}
 		});
 		btnSalir.setForeground(Color.WHITE);
@@ -102,42 +95,24 @@ public class ListOfertasEmpresa extends JDialog {
 		layeredPane.add(btnSalir);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(24, 80, 535, 590);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(24, 154, 535, 516);
 		layeredPane.add(scrollPane);
 
 		panelListado = new JPanel();
 		panelListado.setBackground(FONDO_GRIS);
 		scrollPane.setViewportView(panelListado);
-		panelListado.setLayout(new BorderLayout(0, 0));
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		panelListado.add(scrollPane_1, BorderLayout.CENTER);
-		
-		String[] headers = {"Puesto", "Estado", "Salario", "Modalidad", "Vacantes", "Fecha Cierre"};
-		model = new DefaultTableModel();
-		model.setColumnIdentifiers(headers);
-
-		table = new JTable();
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				int index = table.getSelectedRow();
-				if ( index >= 0 )
-					cargarDetalles(BolsaTrabajo.getInstance().getUsuarioActual().getMyInstitucion().getMyOfertas().get(index));
-			}
-		});
-		table.setModel(model);
-		scrollPane_1.setViewportView(table);
+		panelListado.setLayout(new BoxLayout(panelListado, BoxLayout.Y_AXIS));
 
 		JPanel panelDetalle = new JPanel();
 		panelDetalle.setBackground(TARJETA_BLANCA);
 		panelDetalle.setBorder(new MatteBorder(1, 1, 1, 1, new Color(220, 220, 220)));
 		panelDetalle.setLayout(null);
-		panelDetalle.setPreferredSize(new Dimension(645, 780));
+		panelDetalle.setPreferredSize(new Dimension(630, 780));
 
 		JScrollPane scrollDetalle = new JScrollPane(panelDetalle);
 		scrollDetalle.setViewportBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		scrollDetalle.setBounds(603, 80, 663, 590);
+		scrollDetalle.setBounds(603, 154, 663, 516);
 		layeredPane.add(scrollDetalle);
 
 		JLabel lblPuestoLbl = new JLabel("PUESTO:");
@@ -289,7 +264,7 @@ public class ListOfertasEmpresa extends JDialog {
 		txtRequisitos.setBackground(new Color(204, 204, 204));
 		txtRequisitos.setBounds(20, 620, 590, 150);
 		panelDetalle.add(txtRequisitos);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Mis Ofertas Publicadas");
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setFont(new Font("Lucida Handwriting", Font.PLAIN, 41));
@@ -302,9 +277,92 @@ public class ListOfertasEmpresa extends JDialog {
 		cargarOferta();
 	}
 
+	public void cargarOferta() {
+		String codigoSocial = BolsaTrabajo.getInstance().getUsuarioActual().getMyInstitucion().getRegistroSocial();
+		ArrayList<Oferta> ofertas = BolsaTrabajo.getInstance().listOfertaEmpresa(codigoSocial);
+
+		panelListado.removeAll();
+		for (final Oferta o : ofertas) {
+			panelListado.add(crearTarjeta(o));
+			panelListado.add(Box.createRigidArea(new Dimension(0, 10)));
+		}
+		panelListado.revalidate();
+		panelListado.repaint();
+
+		if (!ofertas.isEmpty()) {
+			cargarDetalles(ofertas.get(0));
+		}
+	}
+
+	private JPanel crearTarjeta(final Oferta o) {
+		JPanel tarjeta = new JPanel();
+		tarjeta.setLayout(new BoxLayout(tarjeta, BoxLayout.Y_AXIS));
+		tarjeta.setBackground(TARJETA_BLANCA);
+		tarjeta.setBorder(new MatteBorder(1, 1, 1, 1, new Color(220, 220, 220)));
+		tarjeta.setAlignmentX(Component.LEFT_ALIGNMENT);
+		tarjeta.setMaximumSize(new Dimension(Integer.MAX_VALUE, 110));
+
+		JLabel lblPuesto = new JLabel(o.getPuesto());
+		lblPuesto.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 16));
+		lblPuesto.setForeground(AZUL_OSCURO);
+		lblPuesto.setBorder(new EmptyBorder(8, 12, 2, 12));
+		lblPuesto.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		JLabel lblModalidad = new JLabel(o.getModalidad() + "  -  " + o.getCantVacante() + " vacante(s)");
+		lblModalidad.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblModalidad.setForeground(AZUL_PRINCIPAL);
+		lblModalidad.setBorder(new EmptyBorder(2, 12, 2, 12));
+		lblModalidad.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		JLabel lblEstado = new JLabel(estadoOferta(o.isEstado()));
+		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblEstado.setForeground(o.isEstado() ? VERDE_AZULADO : ROJO);
+		lblEstado.setBorder(new EmptyBorder(2, 12, 2, 12));
+		lblEstado.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		JLabel lblFecha = new JLabel(o.getFechaFinalizacion().toString());
+		lblFecha.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblFecha.setForeground(new Color(150, 150, 150));
+		lblFecha.setBorder(new EmptyBorder(2, 12, 8, 12));
+		lblFecha.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		tarjeta.add(lblPuesto);
+		tarjeta.add(lblModalidad);
+		tarjeta.add(lblEstado);
+		tarjeta.add(lblFecha);
+
+		MouseAdapter listenerTarjeta = new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				cargarDetalles(o);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				tarjeta.setBackground(new Color(245, 245, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				tarjeta.setBackground(TARJETA_BLANCA);
+			}
+		};
+		tarjeta.addMouseListener(listenerTarjeta);
+		tarjeta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblPuesto.addMouseListener(listenerTarjeta);
+		lblModalidad.addMouseListener(listenerTarjeta);
+		lblEstado.addMouseListener(listenerTarjeta);
+		lblFecha.addMouseListener(listenerTarjeta);
+
+		return tarjeta;
+	}
+
 	protected void cargarDetalles(Oferta oferta) {
+		ofertaSeleccionada = oferta;
+
 		puestoTxt.setText(oferta.getPuesto());
+
 		estadoTxt.setText(estadoOferta(oferta.isEstado()));
+		estadoTxt.setForeground(oferta.isEstado() ? VERDE_AZULADO : ROJO);
+
 		salarioTxt.setText(""+oferta.getSalario());
 		modalidadTxt.setText(oferta.getModalidad());
 		cantVacanteTxt.setText(""+oferta.getCantVacante());
@@ -313,25 +371,6 @@ public class ListOfertasEmpresa extends JDialog {
 		cantSolicitudesTxt.setText(""+oferta.getSolicitudEmps().size());
 		txtDescripcion.setText(oferta.getDescripcion());
 		txtRequisitos.setText(oferta.getRequisitos());
-
-	}
-
-	public static void cargarOferta()
-	{
-		String codigoSocial = BolsaTrabajo.getInstance().getUsuarioActual().getMyInstitucion().getRegistroSocial();
-		model.setRowCount(0);
-		row = new Object[model.getColumnCount()];
-
-		for ( Oferta o : BolsaTrabajo.getInstance().listOfertaEmpresa(codigoSocial) )
-		{
-			row[0] = o.getPuesto();
-			row[1] = estadoOferta(o.isEstado());
-			row[2] = o.getSalario();
-			row[3] = o.getModalidad();
-			row[4] = o.getCantVacante();
-			row[5] = o.getFechaFinalizacion();
-			model.addRow(row);
-		}
 	}
 
 	private static String estadoOferta ( boolean estado )
@@ -339,5 +378,4 @@ public class ListOfertasEmpresa extends JDialog {
 		if ( estado ) return "ABIERTA";
 		else return "CERRADA";
 	}
-	
 }

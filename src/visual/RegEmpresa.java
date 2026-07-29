@@ -80,7 +80,6 @@ public class RegEmpresa extends JDialog {
     private RoundedTextField direccionField;
     private RoundedTextField razonSocialField;
     private RoundedTextField registroSocialField;
-    private JSpinner cantVacantesSpinner;
     private JSpinner cantTrabsSpinner;
     private JComboBox sectorComboBox;
     private JComboBox paisComboBox;
@@ -425,24 +424,6 @@ public class RegEmpresa extends JDialog {
         cantTrabsSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
         cantTrabsSpinner.setBounds(392, 614, 305, 42);
         panel.add(cantTrabsSpinner);
-
-        JLabel lblCantidadDeVacantes = new JLabel("CANTIDAD DE VACANTES:");
-        lblCantidadDeVacantes.setForeground(Color.WHITE);
-        lblCantidadDeVacantes.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblCantidadDeVacantes.setBounds(44, 683, 262, 19);
-        panel.add(lblCantidadDeVacantes);
-
-        cantVacantesSpinner = new JSpinner();
-        cantVacantesSpinner.setBackground(new Color(102, 255, 255));
-        cantVacantesSpinner.setModel(new SpinnerNumberModel(
-                Integer.valueOf(0),
-                Integer.valueOf(0),
-                null,
-                Integer.valueOf(1)
-        ));
-        cantVacantesSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        cantVacantesSpinner.setBounds(44, 709, 305, 42);
-        panel.add(cantVacantesSpinner);
 
         aplicarMascaraTelefono(telefonoField);
         aplicarMascaraRNC(registroSocialField);

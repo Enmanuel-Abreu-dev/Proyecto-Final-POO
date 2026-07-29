@@ -557,6 +557,40 @@ public class Principal extends JDialog {
             btnMisSolicitudes.setBackground(new Color(0, 0, 102));
             btnMisSolicitudes.setBounds(10, 202, 200, 128);
             panel_2.add(btnMisSolicitudes);
+
+            RoundedButton btnRegistrarExperiencia = new RoundedButton("Registrar Experiencia", 40);
+            btnRegistrarExperiencia.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    panelInicio.setVisible(false);
+                    panelPerfilUsuario.setVisible(false);
+                    RegExperiencia newExperiencia = new RegExperiencia();
+                    newExperiencia.setVisible(true);
+                    newExperiencia.setModal(true);
+                    panelInicio.setVisible(true);
+                }
+            });
+            btnRegistrarExperiencia.setForeground(Color.WHITE);
+            btnRegistrarExperiencia.setFont(new Font("Tw Cen MT", Font.PLAIN, 19));
+            btnRegistrarExperiencia.setBackground(new Color(0, 0, 102));
+            btnRegistrarExperiencia.setBounds(10, 367, 200, 128);
+            panel_2.add(btnRegistrarExperiencia);
+
+            RoundedButton btnMisExperiencias = new RoundedButton("Mis Experiencias", 40);
+            btnMisExperiencias.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    panelInicio.setVisible(false);
+                    panelPerfilUsuario.setVisible(false);
+                    ListExperiencia myExperiencias = new ListExperiencia(usuarioActual.getMyPersona());
+                    myExperiencias.setVisible(true);
+                    myExperiencias.setModal(true);
+                    panelInicio.setVisible(true);
+                }
+            });
+            btnMisExperiencias.setForeground(Color.WHITE);
+            btnMisExperiencias.setFont(new Font("Tw Cen MT", Font.PLAIN, 22));
+            btnMisExperiencias.setBackground(new Color(0, 0, 102));
+            btnMisExperiencias.setBounds(10, 532, 200, 128);
+            panel_2.add(btnMisExperiencias);
         }
 
         RoundedButton btnVerMiPerfil = new RoundedButton("Ver Mi Perfil", 40);
@@ -596,9 +630,6 @@ public class Principal extends JDialog {
         lblNombre.addMouseListener(listenerPanelPerfil);
         lblVerPerfil.addMouseListener(listenerPanelPerfil);
 
-        // A partir de aqui, cualquier boton/label/campo que quieras agregar
-        // se añade con panelFondo.add(...) para que quede pintado ENCIMA
-        // de la imagen de fondo.
     }
 
     /**

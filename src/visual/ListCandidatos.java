@@ -1,13 +1,22 @@
 package visual;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.util.ArrayList;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -16,12 +25,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.BoxLayout;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
+import logico.BolsaTrabajo;
 import logico.Institucion;
+import logico.Persona;
+import logico.Universitario;
+import logico.Tecnico;
+import logico.Obrero;
+import logico.Experiencia;
 
 
 public class ListCandidatos extends JDialog {
@@ -34,6 +50,7 @@ public class ListCandidatos extends JDialog {
 	private static final Color FONDO_GRIS = new Color(0xF4, 0xF6, 0xF8);
 	private static final Color TARJETA_BLANCA = Color.WHITE;
 	private static final Color TEXTO_OSCURO = new Color(0x1F, 0x29, 0x37);
+	private static final Color ROJO = new Color(0xC0, 0x5B, 0x5B);
 
 	private JPanel panelListado;
 	private JComboBox tipoComboBox;
@@ -50,6 +67,8 @@ public class ListCandidatos extends JDialog {
 	private RoundedTextField dispResidenciaTxt;
 	private RoundedTextField estadoLaboralTxt;
 	private JTextArea txtExperiencia;
+
+	private Persona seleccionado = null;
 
 	private final Institucion empresa;
 
@@ -94,6 +113,7 @@ public class ListCandidatos extends JDialog {
 		layeredPane.add(tipoComboBox);
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(24, 154, 535, 516);
 		layeredPane.add(scrollPane);
 
@@ -106,7 +126,7 @@ public class ListCandidatos extends JDialog {
 		panelDetalle.setBackground(TARJETA_BLANCA);
 		panelDetalle.setBorder(new MatteBorder(1, 1, 1, 1, new Color(220, 220, 220)));
 		panelDetalle.setLayout(null);
-		panelDetalle.setPreferredSize(new Dimension(645, 760));
+		panelDetalle.setPreferredSize(new Dimension(630, 760));
 
 		JScrollPane scrollDetalle = new JScrollPane(panelDetalle);
 		scrollDetalle.setViewportBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -269,5 +289,133 @@ public class ListCandidatos extends JDialog {
 		setTitle("LISTADO DE CANDIDATOS");
 		setSize(1280, 720);
 		setLocationRelativeTo(null);
+		cargarCandidato();
+	}
+
+	public void cargarCandidato() {
+		ArrayList<Persona> personas = BolsaTrabajo.getInstance().getPersonas();
+
+		panelListado.removeAll();
+		for (final Persona p : personas) {
+			panelListado.add(crearTarjeta(p));
+			panelListado.add(Box.createRigidArea(new Dimension(0, 10)));
+		}
+		panelListado.revalidate();
+		panelListado.repaint();
+
+		if (!personas.isEmpty()) {
+			mostrarDetalle(personas.get(0));
+		}
+	}
+
+	private JPanel crearTarjeta(final Persona p) {
+		JPanel tarjeta = new JPanel();
+		tarjeta.setLayout(new BoxLayout(tarjeta, BoxLayout.Y_AXIS));
+		tarjeta.setBackground(TARJETA_BLANCA);
+		tarjeta.setBorder(new MatteBorder(1, 1, 1, 1, new Color(220, 220, 220)));
+		tarjeta.setAlignmentX(Component.LEFT_ALIGNMENT);
+		tarjeta.setMaximumSize(new Dimension(Integer.MAX_VALUE, 110));
+
+		JLabel lblNombre = new JLabel(p.getNombre() + " " + p.getApellido());
+		lblNombre.setFont(new Font("Franklin Gothic Medium", Font.BOLD, 16));
+		lblNombre.setForeground(AZUL_OSCURO);
+		lblNombre.setBorder(new EmptyBorder(8, 12, 2, 12));
+		lblNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		JLabel lblTipo = new JLabel(tipoCandidato(p));
+		lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTipo.setForeground(AZUL_PRINCIPAL);
+		lblTipo.setBorder(new EmptyBorder(2, 12, 2, 12));
+		lblTipo.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		JLabel lblEstado = new JLabel(p.isEmpleado() ? "EMPLEADO" : "DISPONIBLE");
+		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblEstado.setForeground(p.isEmpleado() ? ROJO : VERDE_AZULADO);
+		lblEstado.setBorder(new EmptyBorder(2, 12, 2, 12));
+		lblEstado.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		JLabel lblPais = new JLabel(p.getPais());
+		lblPais.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblPais.setForeground(new Color(150, 150, 150));
+		lblPais.setBorder(new EmptyBorder(2, 12, 8, 12));
+		lblPais.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		tarjeta.add(lblNombre);
+		tarjeta.add(lblTipo);
+		tarjeta.add(lblEstado);
+		tarjeta.add(lblPais);
+
+		MouseAdapter listenerTarjeta = new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mostrarDetalle(p);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				tarjeta.setBackground(new Color(245, 245, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				tarjeta.setBackground(TARJETA_BLANCA);
+			}
+		};
+		tarjeta.addMouseListener(listenerTarjeta);
+		tarjeta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblNombre.addMouseListener(listenerTarjeta);
+		lblTipo.addMouseListener(listenerTarjeta);
+		lblEstado.addMouseListener(listenerTarjeta);
+		lblPais.addMouseListener(listenerTarjeta);
+
+		return tarjeta;
+	}
+
+	private void mostrarDetalle(Persona p) {
+		seleccionado = p;
+
+		String rutaImagen = p.getRutaImagen();
+
+		if (rutaImagen != null && new File(rutaImagen).exists()) {
+			ImageIcon fotoOriginal = new ImageIcon(rutaImagen);
+			Image fotoEscalada = fotoOriginal.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+			fotoCandidatoLbl.setIcon(new ImageIcon(fotoEscalada));
+			fotoCandidatoLbl.setText("");
+		} else {
+			ImageIcon iconoProfesionIcon = new ImageIcon(getClass().getResource("/imagenes/iconoProfesion.png"));
+			Image iconoProfesionImg = iconoProfesionIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+			fotoCandidatoLbl.setIcon(new ImageIcon(iconoProfesionImg));
+			fotoCandidatoLbl.setText("");
+		}
+
+		nombreCandidatoTxt.setText(p.getNombre() + " " + p.getApellido());
+		tipoCandidatoTxt.setText(tipoCandidato(p));
+
+		estadoLaboralTxt.setText(p.isEmpleado() ? "EMPLEADO" : "DISPONIBLE");
+		estadoLaboralTxt.setForeground(p.isEmpleado() ? ROJO : VERDE_AZULADO);
+
+		cedulaTxt.setText(p.getCedula());
+		edadTxt.setText("" + p.calcularEdad());
+		paisTxt.setText(p.getPais());
+		telefonoTxt.setText(p.getTelefono());
+		emailTxt.setText(p.getEmail());
+
+		dispViajarTxt.setText(p.isDispViajar() ? "SI" : "NO");
+		dispViajarTxt.setForeground(p.isDispViajar() ? VERDE_AZULADO : ROJO);
+
+		dispResidenciaTxt.setText(p.isDispResidencia() ? "SI" : "NO");
+		dispResidenciaTxt.setForeground(p.isDispResidencia() ? VERDE_AZULADO : ROJO);
+
+		String experiencias = "";
+		for ( Experiencia e : p.getExperiencia() )
+			experiencias += e.getCargo() + " - " + e.getInstitucion() + " (" + e.getFechaInicio() + " / "
+					+ e.getFechaFinalizacion() + ")\n";
+		txtExperiencia.setText(experiencias);
+	}
+
+	private static String tipoCandidato ( Persona p )
+	{
+		if ( p instanceof Universitario ) return "Universitario";
+		if ( p instanceof Tecnico ) return "Tecnico";
+		if ( p instanceof Obrero ) return "Obrero";
+		return "";
 	}
 }

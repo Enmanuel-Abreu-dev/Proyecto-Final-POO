@@ -5,9 +5,11 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.border.TitledBorder;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 import logico.SolicitudEmp;
 import logico.Oferta;
@@ -25,22 +27,24 @@ public class VentanaMatcheo extends JDialog {
 	private JPanel panelDetalle;
 	private JPanel panelPodio;
 
+	private static final Color AZUL_PRINCIPAL = new Color(0x25, 0x63, 0xA6);
+	private static final Color TEXTO_OSCURO = new Color(0x1F, 0x29, 0x37);
+	private static final Color TARJETA_BLANCA = Color.WHITE;
 	private static final Color VERDE = new Color(0x0F, 0x8B, 0x8D);
 	private static final Color ROJO = new Color(0xC0, 0x5B, 0x5B);
 
-	// Labels del panel de detalle que se actualizan al hacer clic
-	private JLabel lblNombreCandidato;
-	private JLabel lblApellidoCandidato;
-	private JLabel lblProfesion;
-	private JLabel lblPais;
-	private JLabel lblModalidadDelEmpleado;
-	private JLabel lblCantYearsExp;
-	private JLabel lblXAos;
-	private JLabel lblPaisDelEmpleado;
-	private JLabel lblSexoDelEmpleado;
-	private JLabel lblCantidad;
-	private JLabel lblCantidad_1;
-	private JLabel lblProfesionDelEmpleado;
+	// Campos del panel de detalle que se actualizan al hacer clic
+	private RoundedLabel fotoCandidatoLbl;
+	private RoundedTextField nombreCandidatoTxt;
+	private RoundedTextField tipoCandidatoTxt;
+	private RoundedTextField profesionTxt;
+	private RoundedTextField modalidadTxt;
+	private RoundedTextField experienciaTxt;
+	private RoundedTextField edadTxt;
+	private RoundedTextField paisTxt;
+	private RoundedTextField sexoTxt;
+	private RoundedTextField dispViajarTxt;
+	private RoundedTextField dispResidenciaTxt;
 
 	private Oferta ofertaActual;
 	private JButton btnSalir;
@@ -75,169 +79,178 @@ public class VentanaMatcheo extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
 		contentPanel.setLayout(new BorderLayout(0, 0));
-		
+
 		JLayeredPane layeredPane = new JLayeredPane();
 		contentPanel.add(layeredPane, BorderLayout.CENTER);
 		layeredPane.setLayout(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 339, 650, 334);
 		layeredPane.add(scrollPane);
-		
+
 		JPanel panel = new JPanel();
 		scrollPane.setViewportView(panel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Mejores Candidatos");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Lucida Handwriting", Font.PLAIN, 62));
 		lblNewLabel_1.setBounds(24, -11, 761, 93);
 		layeredPane.add(lblNewLabel_1);
-		
+
 		panelPodio = new JPanel();
 		panelPodio.setBounds(0, 92, 650, 200);
 		layeredPane.add(panelPodio);
 		panelPodio.setLayout(new GridLayout(1, 0, 0, 0));
 
 		panelDetalle = new JPanel();
-		panelDetalle.setBackground(Color.WHITE);
-		panelDetalle.setBorder(new EmptyBorder(20, 20, 20, 20));
-		panelDetalle.setBounds(700, 92, 462, 551);
-		layeredPane.add(panelDetalle);
+		panelDetalle.setBackground(TARJETA_BLANCA);
+		panelDetalle.setBorder(new MatteBorder(1, 1, 1, 1, new Color(220, 220, 220)));
 		panelDetalle.setLayout(null);
-		
-		lblNombreCandidato = new JLabel("NOMBRE  NOMBRE");
-		lblNombreCandidato.setForeground(new Color(0, 0, 0));
-		lblNombreCandidato.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 22));
-		lblNombreCandidato.setBounds(159, 36, 238, 19);
-		panelDetalle.add(lblNombreCandidato);
-		
-		
-		ImageIcon iconoEmpresaIcon = new ImageIcon(getClass().getResource("/imagenes/iconoProfesion.png"));
-		Image iconoEmpresaImg = iconoEmpresaIcon.getImage().getScaledInstance(90, 90, Image.SCALE_SMOOTH);
-		JLabel panel_2 = new JLabel(new ImageIcon(iconoEmpresaImg));
-		panel_2.setBounds(41, 25, 99, 90);
-		panelDetalle.add(panel_2);
-		
-		lblApellidoCandidato = new JLabel("APELLIDO  APELLIDO");
-		lblApellidoCandidato.setForeground(Color.BLACK);
-		lblApellidoCandidato.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 22));
-		lblApellidoCandidato.setBounds(159, 57, 307, 19);
-		panelDetalle.add(lblApellidoCandidato);
-		
-		lblProfesion = new JLabel("nivel (Univ, Obrero, Tecnico)");
-		lblProfesion.setForeground(Color.BLACK);
-		lblProfesion.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblProfesion.setBounds(159, 80, 196, 19);
-		panelDetalle.add(lblProfesion);
-		
-		lblPais = new JLabel("Pais");
-		lblPais.setForeground(Color.BLACK);
-		lblPais.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblPais.setBounds(159, 96, 93, 19);
-		panelDetalle.add(lblPais);
-		
-		JLabel lblNombreNombre = new JLabel("MODALIDAD:");
-		lblNombreNombre.setForeground(Color.BLACK);
-		lblNombreNombre.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblNombreNombre.setBounds(53, 193, 103, 19);
-		panelDetalle.add(lblNombreNombre);
-		
-		lblModalidadDelEmpleado = new JLabel("Modalidad del empleado");
-		lblModalidadDelEmpleado.setForeground(Color.BLACK);
-		lblModalidadDelEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblModalidadDelEmpleado.setBounds(158, 193, 176, 19);
-		panelDetalle.add(lblModalidadDelEmpleado);
-		
-		JLabel lblModalidad = new JLabel("AÑOS DE EXPERIENCIA:");
-		lblModalidad.setForeground(Color.BLACK);
-		lblModalidad.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblModalidad.setBounds(52, 230, 182, 19);
-		panelDetalle.add(lblModalidad);
-		
-		lblCantYearsExp = new JLabel("cantidad");
-		lblCantYearsExp.setForeground(Color.BLACK);
-		lblCantYearsExp.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCantYearsExp.setBounds(233, 230, 64, 19);
-		panelDetalle.add(lblCantYearsExp);
-		
-		JLabel lblEdad = new JLabel("EDAD:");
-		lblEdad.setForeground(Color.BLACK);
-		lblEdad.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblEdad.setBounds(53, 266, 54, 19);
-		panelDetalle.add(lblEdad);
-		
-		lblXAos = new JLabel("x años");
-		lblXAos.setForeground(Color.BLACK);
-		lblXAos.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblXAos.setBounds(110, 266, 196, 19);
-		panelDetalle.add(lblXAos);
-		
-		JLabel lblPais_1 = new JLabel("PAIS:");
-		lblPais_1.setForeground(Color.BLACK);
-		lblPais_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblPais_1.setBounds(53, 301, 48, 19);
-		panelDetalle.add(lblPais_1);
-		
-		lblPaisDelEmpleado = new JLabel("Pais del empleado");
-		lblPaisDelEmpleado.setForeground(Color.BLACK);
-		lblPaisDelEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblPaisDelEmpleado.setBounds(110, 301, 196, 19);
-		panelDetalle.add(lblPaisDelEmpleado);
-		
-		JLabel lblPais_1_1 = new JLabel("SEXO:");
-		lblPais_1_1.setForeground(Color.BLACK);
-		lblPais_1_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblPais_1_1.setBounds(53, 339, 54, 19);
-		panelDetalle.add(lblPais_1_1);
-		
-		lblSexoDelEmpleado = new JLabel("Sexo del empleado");
-		lblSexoDelEmpleado.setForeground(Color.BLACK);
-		lblSexoDelEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblSexoDelEmpleado.setBounds(110, 339, 196, 19);
-		panelDetalle.add(lblSexoDelEmpleado);
-		
-		JLabel lblDisponibilidadParaViajar = new JLabel("DISPONIBILIDAD PARA VIAJAR:");
-		lblDisponibilidadParaViajar.setForeground(Color.BLACK);
-		lblDisponibilidadParaViajar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblDisponibilidadParaViajar.setBounds(52, 375, 237, 19);
-		panelDetalle.add(lblDisponibilidadParaViajar);
-		
-		lblCantidad = new JLabel("Si / No  ");
-		lblCantidad.setForeground(Color.BLACK);
-		lblCantidad.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCantidad.setBounds(298, 375, 79, 19);
-		panelDetalle.add(lblCantidad);
-		
-		JLabel lblDisponibilidadDeResidir = new JLabel("DISPONIBILIDAD DE RESIDIR:");
-		lblDisponibilidadDeResidir.setForeground(Color.BLACK);
-		lblDisponibilidadDeResidir.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblDisponibilidadDeResidir.setBounds(53, 411, 237, 19);
-		panelDetalle.add(lblDisponibilidadDeResidir);
-		
-		lblCantidad_1 = new JLabel("Si / No  ");
-		lblCantidad_1.setForeground(Color.BLACK);
-		lblCantidad_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblCantidad_1.setBounds(288, 411, 79, 19);
-		panelDetalle.add(lblCantidad_1);
-		
-		JLabel lblProfesion_1 = new JLabel("PROFESION:");
-		lblProfesion_1.setForeground(Color.BLACK);
-		lblProfesion_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 14));
-		lblProfesion_1.setBounds(54, 156, 103, 19);
-		panelDetalle.add(lblProfesion_1);
-		
-		lblProfesionDelEmpleado = new JLabel("Profesion del Empleado");
-		lblProfesionDelEmpleado.setForeground(Color.BLACK);
-		lblProfesionDelEmpleado.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblProfesionDelEmpleado.setBounds(149, 156, 176, 19);
-		panelDetalle.add(lblProfesionDelEmpleado);
-		
+		panelDetalle.setPreferredSize(new Dimension(540, 520));
+
+		JScrollPane scrollDetalle = new JScrollPane(panelDetalle);
+		scrollDetalle.setViewportBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		scrollDetalle.setBounds(700, 92, 562, 551);
+		layeredPane.add(scrollDetalle);
+
+		fotoCandidatoLbl = new RoundedLabel(20);
+		fotoCandidatoLbl.setHorizontalAlignment(JLabel.CENTER);
+		fotoCandidatoLbl.setBackground(new Color(204, 204, 204));
+		fotoCandidatoLbl.setForeground(TEXTO_OSCURO);
+		fotoCandidatoLbl.setText("FOTO");
+		fotoCandidatoLbl.setFont(new Font("Tahoma", Font.BOLD, 16));
+		fotoCandidatoLbl.setBounds(20, 20, 150, 150);
+		panelDetalle.add(fotoCandidatoLbl);
+
+		nombreCandidatoTxt = new RoundedTextField(20);
+		nombreCandidatoTxt.setText("NOMBRE CANDIDATO");
+		nombreCandidatoTxt.setFont(new Font("Tahoma", Font.BOLD, 18));
+		nombreCandidatoTxt.setEditable(false);
+		nombreCandidatoTxt.setBackground(new Color(204, 204, 204));
+		nombreCandidatoTxt.setBounds(185, 30, 330, 40);
+		panelDetalle.add(nombreCandidatoTxt);
+
+		tipoCandidatoTxt = new RoundedTextField(20);
+		tipoCandidatoTxt.setText("TIPO DE CANDIDATO");
+		tipoCandidatoTxt.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		tipoCandidatoTxt.setEditable(false);
+		tipoCandidatoTxt.setForeground(AZUL_PRINCIPAL);
+		tipoCandidatoTxt.setBackground(new Color(204, 204, 204));
+		tipoCandidatoTxt.setBounds(185, 80, 330, 34);
+		panelDetalle.add(tipoCandidatoTxt);
+
+		profesionTxt = new RoundedTextField(20);
+		profesionTxt.setText("PROFESION");
+		profesionTxt.setFont(new Font("Tahoma", Font.BOLD, 14));
+		profesionTxt.setEditable(false);
+		profesionTxt.setBackground(new Color(204, 204, 204));
+		profesionTxt.setBounds(185, 124, 330, 34);
+		panelDetalle.add(profesionTxt);
+
+		JLabel lblModalidadLbl = new JLabel("MODALIDAD:");
+		lblModalidadLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblModalidadLbl.setForeground(TEXTO_OSCURO);
+		lblModalidadLbl.setBounds(20, 190, 230, 25);
+		panelDetalle.add(lblModalidadLbl);
+
+		modalidadTxt = new RoundedTextField(20);
+		modalidadTxt.setText("MODALIDAD");
+		modalidadTxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		modalidadTxt.setEditable(false);
+		modalidadTxt.setBackground(new Color(204, 204, 204));
+		modalidadTxt.setBounds(20, 216, 230, 34);
+		panelDetalle.add(modalidadTxt);
+
+		JLabel lblExperienciaLbl = new JLabel("AÑOS DE EXPERIENCIA:");
+		lblExperienciaLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblExperienciaLbl.setForeground(TEXTO_OSCURO);
+		lblExperienciaLbl.setBounds(285, 190, 230, 25);
+		panelDetalle.add(lblExperienciaLbl);
+
+		experienciaTxt = new RoundedTextField(20);
+		experienciaTxt.setText("EXPERIENCIA");
+		experienciaTxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		experienciaTxt.setEditable(false);
+		experienciaTxt.setBackground(new Color(204, 204, 204));
+		experienciaTxt.setBounds(285, 216, 230, 34);
+		panelDetalle.add(experienciaTxt);
+
+		JLabel lblEdadLbl = new JLabel("EDAD:");
+		lblEdadLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblEdadLbl.setForeground(TEXTO_OSCURO);
+		lblEdadLbl.setBounds(20, 265, 230, 25);
+		panelDetalle.add(lblEdadLbl);
+
+		edadTxt = new RoundedTextField(20);
+		edadTxt.setText("EDAD");
+		edadTxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		edadTxt.setEditable(false);
+		edadTxt.setBackground(new Color(204, 204, 204));
+		edadTxt.setBounds(20, 291, 230, 34);
+		panelDetalle.add(edadTxt);
+
+		JLabel lblPaisLbl = new JLabel("PAIS:");
+		lblPaisLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblPaisLbl.setForeground(TEXTO_OSCURO);
+		lblPaisLbl.setBounds(285, 265, 230, 25);
+		panelDetalle.add(lblPaisLbl);
+
+		paisTxt = new RoundedTextField(20);
+		paisTxt.setText("PAIS");
+		paisTxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		paisTxt.setEditable(false);
+		paisTxt.setBackground(new Color(204, 204, 204));
+		paisTxt.setBounds(285, 291, 230, 34);
+		panelDetalle.add(paisTxt);
+
+		JLabel lblSexoLbl = new JLabel("SEXO:");
+		lblSexoLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblSexoLbl.setForeground(TEXTO_OSCURO);
+		lblSexoLbl.setBounds(20, 340, 230, 25);
+		panelDetalle.add(lblSexoLbl);
+
+		sexoTxt = new RoundedTextField(20);
+		sexoTxt.setText("SEXO");
+		sexoTxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		sexoTxt.setEditable(false);
+		sexoTxt.setBackground(new Color(204, 204, 204));
+		sexoTxt.setBounds(20, 366, 230, 34);
+		panelDetalle.add(sexoTxt);
+
+		JLabel lblDispViajarLbl = new JLabel("DISPONIBILIDAD DE VIAJE:");
+		lblDispViajarLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblDispViajarLbl.setForeground(TEXTO_OSCURO);
+		lblDispViajarLbl.setBounds(285, 340, 230, 25);
+		panelDetalle.add(lblDispViajarLbl);
+
+		dispViajarTxt = new RoundedTextField(20);
+		dispViajarTxt.setText("DISP. VIAJE");
+		dispViajarTxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		dispViajarTxt.setEditable(false);
+		dispViajarTxt.setBackground(new Color(204, 204, 204));
+		dispViajarTxt.setBounds(285, 366, 230, 34);
+		panelDetalle.add(dispViajarTxt);
+
+		JLabel lblDispResidenciaLbl = new JLabel("DISPONIBILIDAD DE MUDANZA:");
+		lblDispResidenciaLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblDispResidenciaLbl.setForeground(TEXTO_OSCURO);
+		lblDispResidenciaLbl.setBounds(20, 415, 280, 25);
+		panelDetalle.add(lblDispResidenciaLbl);
+
+		dispResidenciaTxt = new RoundedTextField(20);
+		dispResidenciaTxt.setText("DISP. MUDANZA");
+		dispResidenciaTxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		dispResidenciaTxt.setEditable(false);
+		dispResidenciaTxt.setBackground(new Color(204, 204, 204));
+		dispResidenciaTxt.setBounds(20, 441, 230, 34);
+		panelDetalle.add(dispResidenciaTxt);
+
 		JLabel lblOtrasSolicitudes = new JLabel("OTRAS SOLICITUDES:");
 		lblOtrasSolicitudes.setForeground(Color.WHITE);
 		lblOtrasSolicitudes.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 22));
 		lblOtrasSolicitudes.setBounds(10, 310, 283, 19);
 		layeredPane.add(lblOtrasSolicitudes);
-		
+
 		btnSalir = new JButton("SALIR");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -252,12 +265,6 @@ public class VentanaMatcheo extends JDialog {
 
 	}
 
-	/**
-	 * Llena el podio con las solicitudes recibidas para la oferta dada.
-	 * @param solicitudes lista de solicitudes YA ordenadas de mayor a menor % (viene de tu logica de matcheo)
-	 * @param porcentajes porcentaje de cada solicitud, en el mismo orden que solicitudes
-	 * @param oferta la oferta contra la que se esta comparando
-	 */
 	public void cargarPodio(java.util.ArrayList<SolicitudEmp> solicitudes,
 			java.util.ArrayList<Float> porcentajes, Oferta oferta) {
 		this.ofertaActual = oferta;
@@ -268,7 +275,7 @@ public class VentanaMatcheo extends JDialog {
 		panelPodio.revalidate();
 		panelPodio.repaint();
 	}
-	
+
 	private JPanel crearTarjetaPodio(SolicitudEmp sol, float porcentaje, Oferta oferta, int posicion) {
 
 	    JPanel tarjeta = new JPanel();
@@ -317,11 +324,6 @@ public class VentanaMatcheo extends JDialog {
 	    return tarjeta;
 	}
 
-	/**
-	 * Actualiza el panel de detalle con los datos del candidato (sacados de la
-	 * SolicitudEmp / Persona) comparados contra la oferta. Verde si coincide,
-	 * rojo si no.
-	 */
 	public void mostrarDetalle(SolicitudEmp sol, Oferta oferta) {
 		Persona p = sol.getPersona();
 
@@ -341,39 +343,54 @@ public class VentanaMatcheo extends JDialog {
 			profesion = "";
 		}
 
-		lblNombreCandidato.setText(p.getNombre());
-		lblApellidoCandidato.setText(p.getApellido());
-		lblProfesion.setText(nivel);
-		lblPais.setText(p.getPais());
+		String rutaImagen = p.getRutaImagen();
 
-		lblModalidadDelEmpleado.setText(sol.getModalidad());
-		lblModalidadDelEmpleado.setForeground(
+		if (rutaImagen != null && new File(rutaImagen).exists()) {
+			ImageIcon fotoOriginal = new ImageIcon(rutaImagen);
+			Image fotoEscalada = fotoOriginal.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+			fotoCandidatoLbl.setIcon(new ImageIcon(fotoEscalada));
+			fotoCandidatoLbl.setText("");
+		} else {
+			ImageIcon iconoProfesionIcon = new ImageIcon(getClass().getResource("/imagenes/iconoProfesion.png"));
+			Image iconoProfesionImg = iconoProfesionIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+			fotoCandidatoLbl.setIcon(new ImageIcon(iconoProfesionImg));
+			fotoCandidatoLbl.setText("");
+		}
+
+		nombreCandidatoTxt.setText(p.getNombre() + " " + p.getApellido());
+		tipoCandidatoTxt.setText(nivel);
+
+		profesionTxt.setText(profesion);
+		profesionTxt.setForeground(
+				oferta.getPuesto() != null && oferta.getPuesto().equalsIgnoreCase(nivel)
+						? VERDE : ROJO);
+
+		modalidadTxt.setText(sol.getModalidad());
+		modalidadTxt.setForeground(
 				sol.getModalidad() != null && sol.getModalidad().equalsIgnoreCase(oferta.getModalidad())
 						? VERDE : ROJO);
 
-		lblCantYearsExp.setText(p.getExperiencia().size() + "");
+		experienciaTxt.setText(p.calcularAniosExperiencia() + "");
+		experienciaTxt.setForeground(
+				p.calcularAniosExperiencia() >= oferta.getAniosExperiencia() ? VERDE : ROJO);
 
-		lblXAos.setText(p.getFechaNacim() != null ? p.getFechaNacim().toString() : "");
+		edadTxt.setText(p.calcularEdad() + "");
+		edadTxt.setForeground(p.calcularEdad() <= oferta.getEdad() ? VERDE : ROJO);
 
-		lblPaisDelEmpleado.setText(p.getPais());
-		lblPaisDelEmpleado.setForeground(
+		paisTxt.setText(p.getPais());
+		paisTxt.setForeground(
 				p.getPais() != null && p.getPais().equalsIgnoreCase(oferta.getPais())
 						? VERDE : ROJO);
 
-		lblSexoDelEmpleado.setText(p.getSexo());
-		lblSexoDelEmpleado.setForeground(
+		sexoTxt.setText(p.getSexo());
+		sexoTxt.setForeground(
 				p.getSexo() != null && p.getSexo().equalsIgnoreCase(oferta.getSexo())
 						? VERDE : ROJO);
 
-		lblCantidad.setText(p.isDispViajar() ? "Si" : "No");
-		lblCantidad.setForeground(p.isDispViajar() ? VERDE : ROJO);
+		dispViajarTxt.setText(p.isDispViajar() ? "SI" : "NO");
+		dispViajarTxt.setForeground(p.isDispViajar() ? VERDE : ROJO);
 
-		lblCantidad_1.setText(p.isDispResidencia() ? "Si" : "No");
-		lblCantidad_1.setForeground(p.isDispResidencia() ? VERDE : ROJO);
-
-		lblProfesionDelEmpleado.setText(profesion);
-		lblProfesionDelEmpleado.setForeground(
-				oferta.getPuesto() != null && oferta.getPuesto().equalsIgnoreCase(nivel)
-						? VERDE : ROJO);
+		dispResidenciaTxt.setText(p.isDispResidencia() ? "SI" : "NO");
+		dispResidenciaTxt.setForeground(p.isDispResidencia() ? VERDE : ROJO);
 	}
 }
