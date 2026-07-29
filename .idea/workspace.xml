@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="Alineando mis archivos.">
+    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="ListExperiencia and RegExperiencia Classes Created.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/ListCandidatos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListCandidatos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/ListOfertas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListOfertas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/ListOfertasEmpresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListOfertasEmpresa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/ListSolicitudesEmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListSolicitudesEmp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/ListSolicitudesRecibidas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListSolicitudesRecibidas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/save.bin" beforeDir="false" afterPath="$PROJECT_DIR$/save.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/visual/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/Principal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/RegEmpresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/RegEmpresa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/VentanaMatcheo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/VentanaMatcheo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -415,15 +409,29 @@
       <option name="project" value="LOCAL" />
       <updated>1785164078458</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Classes Design Updated.">
+      <option name="closed" value="true" />
+      <created>1785299688189</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1785299688189</updated>
+    </task>
+    <task id="LOCAL-00031" summary="ListExperiencia and RegExperiencia Classes Created.">
+      <option name="closed" value="true" />
+      <created>1785299798590</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1785299798590</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="LoginUsuario Class Updated." />
-    <MESSAGE value="RegPersona Class Created." />
     <MESSAGE value="listOferta Class Created." />
     <MESSAGE value="profesion added to Oferta class." />
     <MESSAGE value="RegPersona class Updated [herencia]." />
@@ -447,6 +455,8 @@
     <MESSAGE value="Dont remember all I did." />
     <MESSAGE value="RegOferta Class Updated (Fields Completed)." />
     <MESSAGE value="Alineando mis archivos." />
-    <option name="LAST_COMMIT_MESSAGE" value="Alineando mis archivos." />
+    <MESSAGE value="Classes Design Updated." />
+    <MESSAGE value="ListExperiencia and RegExperiencia Classes Created." />
+    <option name="LAST_COMMIT_MESSAGE" value="ListExperiencia and RegExperiencia Classes Created." />
   </component>
 </project>
