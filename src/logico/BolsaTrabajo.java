@@ -533,5 +533,33 @@ public class BolsaTrabajo implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public Oferta getOfertaById(String id) {
+		boolean encontrado = false;
+		Oferta result;
+		int indice = 0;
+		
+		while (!encontrado && indice < this.ofertas.size()) {
+			if (this.ofertas.get(indice).getIdentificador().equalsIgnoreCase(id))
+			{
+				result = this.ofertas.get(indice);
+				encontrado = true;
+			}
+			indice++;
+		}
+		
+		return result;
+	}
+	
+	public boolean puedeSolicitar(Oferta of, Persona per) {
+		Oferta ofertaActual = this.getOfertaById(of.getIdentificador());
+		boolean result = true;
+		
+		for (SolicitudEmp actual : ofertaActual.getSolicitudEmps()) {
+			if (actual.getPersona().getIdentificador().equalsIgnoreCase(per.getIdentificador()))
+				result = false;
+		}
+		return result;
+	}
 
 }
