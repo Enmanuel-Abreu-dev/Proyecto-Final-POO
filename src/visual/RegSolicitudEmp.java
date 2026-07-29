@@ -9,7 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
+import logico.BolsaTrabajo;
 import logico.Oferta;
+import logico.SolicitudEmp;
+import logico.Usuario;
 
 public class RegSolicitudEmp extends JDialog {
 
@@ -169,6 +172,21 @@ public class RegSolicitudEmp extends JDialog {
        panel_1.add(lblIconoSolicitud);
 
        RoundedButton btnEnviarSolicitud = new RoundedButton("ENVIAR SOLICITUD", 20);
+       btnEnviarSolicitud.addActionListener(new ActionListener() {
+       	public void actionPerformed(ActionEvent e) {
+       		if (textFieldRangoSalarial.getText().isEmpty() || editorPaneMensaje.getText().isEmpty() || ((String)comboBoxModalidad.getSelectedItem()).isEmpty()) {
+       			JOptionPane.showMessageDialog(null, "No puedes crear una Solicitud dejando campos vacios.");
+       			return;
+       		}
+       		
+       		Usuario usr = BolsaTrabajo.getInstance().getUsuarioActual();
+       		SolicitudEmp soli = new SolicitudEmp(BolsaTrabajo.getInstance().generarIdSolicitud(), ofertaSeleccionada, usr.getMyPersona(), textFieldRangoSalarial.getText(), ((String)comboBoxModalidad.getSelectedItem()));
+       		usr.getMyPersona().agregarSolicitud(soli);
+       		BolsaTrabajo.getInstance().registrarSolicitud(soli);
+       		
+       	}
+       });
+       
        btnEnviarSolicitud.setForeground(Color.WHITE);
        btnEnviarSolicitud.setFont(new Font("Tahoma", Font.BOLD, 20));
        btnEnviarSolicitud.setBackground(new Color(255, 153, 0));

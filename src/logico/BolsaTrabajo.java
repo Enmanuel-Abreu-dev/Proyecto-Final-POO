@@ -165,6 +165,10 @@ public class BolsaTrabajo implements Serializable {
 		
 	}
 	
+	public void registrarSolicitud(Solicitud soli) {
+		this.solicitudes.add(soli);
+	}
+	
 	/*
 	 Se encarga de verificar que existe un usuario que concuerde con los datos recibidos.
 	 @return null si no se encontro, o el usuario encontrado si lo encontro. 
