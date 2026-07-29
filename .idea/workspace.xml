@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="ListExperiencia and RegExperiencia Classes Created.">
+    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="Principal user view upgraded (Exps).">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save.bin" beforeDir="false" afterPath="$PROJECT_DIR$/save.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/Principal.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +81,7 @@
       <recent name="C:\Users\jeanr\Documents\WorkSpacePUCMM\Proyecto-Final-POO\src\imagenes" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.LoginUsuario">
+  <component name="RunManager" selected="Application.LoginUsuario (1)">
     <configuration name="ListOfertas" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="visual.ListOfertas" />
       <module name="POOProyectoFinal" />
@@ -109,7 +108,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginUsuario" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="LoginUsuario (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="visual.LoginUsuario" />
       <module name="POOProyectoFinal" />
       <extension name="coverage">
@@ -122,8 +121,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RegPersona" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.RegPersona" />
+    <configuration name="LoginUsuario" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.LoginUsuario" />
       <module name="POOProyectoFinal" />
       <extension name="coverage">
         <pattern>
@@ -150,11 +149,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.LoginUsuario (1)" />
         <item itemvalue="Application.LoginUsuario" />
         <item itemvalue="Application.RegSolicitudEmp" />
         <item itemvalue="Application.ListOfertas" />
         <item itemvalue="Application.ListOfertasEmpresa" />
-        <item itemvalue="Application.RegPersona" />
       </list>
     </recent_temporary>
   </component>
@@ -425,14 +424,21 @@
       <option name="project" value="LOCAL" />
       <updated>1785299798590</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Principal user view upgraded (Exps).">
+      <option name="closed" value="true" />
+      <created>1785334716550</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1785334716550</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="listOferta Class Created." />
     <MESSAGE value="profesion added to Oferta class." />
     <MESSAGE value="RegPersona class Updated [herencia]." />
     <MESSAGE value="RegOferta class Created." />
@@ -457,6 +463,7 @@
     <MESSAGE value="Alineando mis archivos." />
     <MESSAGE value="Classes Design Updated." />
     <MESSAGE value="ListExperiencia and RegExperiencia Classes Created." />
-    <option name="LAST_COMMIT_MESSAGE" value="ListExperiencia and RegExperiencia Classes Created." />
+    <MESSAGE value="Principal user view upgraded (Exps)." />
+    <option name="LAST_COMMIT_MESSAGE" value="Principal user view upgraded (Exps)." />
   </component>
 </project>
