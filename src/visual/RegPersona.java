@@ -160,6 +160,8 @@ public class RegPersona extends JDialog {
 		if (myPersona != null) {
 			registrarBtn.setText("MODIFICAR");
 		}
+		System.out.println(BolsaTrabajo.getInstance().getUsuarios().size());
+		System.out.println(BolsaTrabajo.getInstance().getUsuarios().get(2).getNombre());
 		registrarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -209,6 +211,9 @@ public class RegPersona extends JDialog {
 					BolsaTrabajo.getInstance().registrarPersona(nuevo);
 					Usuario user = BolsaTrabajo.getInstance().crearUsuario(email, null, nuevo);
 					BolsaTrabajo.getInstance().registrarUsuario(user);
+					BolsaTrabajo.guardarDatos();
+
+					System.out.println(BolsaTrabajo.getInstance().getUsuarios().size());
 
 					JOptionPane.showMessageDialog(null, "Candidato Registrado Exitosamente",
 							"Registro", JOptionPane.INFORMATION_MESSAGE);

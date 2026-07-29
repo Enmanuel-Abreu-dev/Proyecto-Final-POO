@@ -157,6 +157,8 @@ public class main {
         o2.registrarSolicitudEmp(s1);
         o2.registrarSolicitudEmp(s2);
 
+
+        
         System.out.println("Cantidad Ofertas: " + BolsaTrabajo.getInstance().getOfertas().get(0).getMyEmpresa().getNombre());
         System.out.println("Cantidad Ofertas Empresa: " + BolsaTrabajo.getInstance().getInstituciones().get(0).getMyOfertas().size());
 
@@ -182,7 +184,7 @@ public class main {
 
             System.out.println();
         }
-        */
+        
         p1.setRutaImagen(BolsaTrabajo.getInstance().buscarImagen(p1.getNombre(), p1.getCedula()));
         
         System.out.println(p1.getRutaImagen());
@@ -192,7 +194,7 @@ public class main {
         if ( imagen !=  null )
             JOptionPane.showMessageDialog(null, new JLabel(new ImageIcon(imagen)));
         else System.out.println("No cargo");
-        
+        */
         System.exit(0);
 
     }
