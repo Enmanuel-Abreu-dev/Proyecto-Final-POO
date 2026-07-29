@@ -1,7 +1,9 @@
 package logico;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -495,6 +497,15 @@ public class BolsaTrabajo implements Serializable {
 				result.add(actual);
 		}
 		return result;
+	}
+
+	public static void guardarDatos() 
+	{
+		try (ObjectOutputStream io = new ObjectOutputStream(new FileOutputStream("save.bin"))) {
+			io.writeObject(BolsaTrabajo.getInstance());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
