@@ -247,6 +247,7 @@ public class RegPersona extends JDialog {
 					} else if (myPersona instanceof Obrero) {
 						((Obrero) myPersona).setProfesion(profesionField.getText());
 					}
+					BolsaTrabajo.getInstance().modificarPersona(myPersona);
 
 					JOptionPane.showMessageDialog(null, "Candidato Modificado Exitosamente",
 							"Modificacion", JOptionPane.INFORMATION_MESSAGE);
@@ -318,15 +319,27 @@ public class RegPersona extends JDialog {
 		lblFoto.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if ( nombreField.getText().trim().isEmpty() && cedulaField.getText().trim().isEmpty() )
+				if ( myPersona == null )
 				{
-					JOptionPane.showMessageDialog(null, "Error debe ingresar un Nombre y una Cedula", "Error", JOptionPane.INFORMATION_MESSAGE);
+					if ( nombreField.getText().trim().isEmpty() && cedulaField.getText().trim().isEmpty() )
+					{
+						JOptionPane.showMessageDialog(null, "Error debe ingresar un Nombre y una Cedula", "Error", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else
+					{
+						rutaFotoSeleccionada = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), cedulaField.getText());
+						cargarFoto();
+					}
 				}
 				else
 				{
-					rutaFotoSeleccionada = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), cedulaField.getText());
-					cargarFoto();
-				}
+                    String rutaNueva = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), cedulaField.getText());
+                    if ( rutaNueva != null)
+                    {
+                        rutaFotoSeleccionada = rutaNueva;
+                        cargarFoto();
+                    }
+                }
 			}
 		});
 		panel.add(lblFoto);

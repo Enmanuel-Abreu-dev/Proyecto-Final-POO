@@ -3,7 +3,14 @@ package visual;
 import java.awt.*;
 
 import javax.swing.*;
+
+import logico.BolsaTrabajo;
+import logico.Experiencia;
+
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -32,9 +39,13 @@ public class RegExperiencia extends JDialog {
           }
        }
     };
-    private JTextField textField;
-    private JTextField textField_1;
-    private JTextField textField_2;
+    private JTextField txtInstitucion;
+    private JTextField txtCargo;
+    private JTextField txtEspecialidad;
+    private JSpinner fechaSpinner;
+    private JSpinner fechaSpinnerFinal;
+    private JEditorPane editorPaneFunciones;
+    private JEditorPane editorPaneLogros;
 
     /**
      * Launch the application.
@@ -89,12 +100,12 @@ public class RegExperiencia extends JDialog {
        lblInstitucion.setBounds(26, 27, 117, 19);
        panel.add(lblInstitucion);
 
-       textField = new JTextField();
-       textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-       textField.setColumns(10);
-       textField.setBackground(new Color(153, 255, 255));
-       textField.setBounds(26, 56, 395, 28);
-       panel.add(textField);
+       txtInstitucion = new JTextField();
+       txtInstitucion.setFont(new Font("Tahoma", Font.PLAIN, 14));
+       txtInstitucion.setColumns(10);
+       txtInstitucion.setBackground(new Color(153, 255, 255));
+       txtInstitucion.setBounds(26, 56, 395, 28);
+       panel.add(txtInstitucion);
 
        JLabel lblCargo = new JLabel("CARGO:");
        lblCargo.setForeground(Color.WHITE);
@@ -102,12 +113,12 @@ public class RegExperiencia extends JDialog {
        lblCargo.setBounds(26, 107, 73, 19);
        panel.add(lblCargo);
 
-       textField_1 = new JTextField();
-       textField_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-       textField_1.setColumns(10);
-       textField_1.setBackground(new Color(153, 255, 255));
-       textField_1.setBounds(26, 133, 173, 28);
-       panel.add(textField_1);
+       txtCargo = new JTextField();
+       txtCargo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+       txtCargo.setColumns(10);
+       txtCargo.setBackground(new Color(153, 255, 255));
+       txtCargo.setBounds(26, 133, 173, 28);
+       panel.add(txtCargo);
 
        JLabel lblEspecialidad = new JLabel("ESPECIALIDAD:");
        lblEspecialidad.setForeground(Color.WHITE);
@@ -115,12 +126,12 @@ public class RegExperiencia extends JDialog {
        lblEspecialidad.setBounds(248, 107, 139, 19);
        panel.add(lblEspecialidad);
 
-       textField_2 = new JTextField();
-       textField_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-       textField_2.setColumns(10);
-       textField_2.setBackground(new Color(153, 255, 255));
-       textField_2.setBounds(248, 133, 173, 28);
-       panel.add(textField_2);
+       txtEspecialidad = new JTextField();
+       txtEspecialidad.setFont(new Font("Tahoma", Font.PLAIN, 14));
+       txtEspecialidad.setColumns(10);
+       txtEspecialidad.setBackground(new Color(153, 255, 255));
+       txtEspecialidad.setBounds(248, 133, 173, 28);
+       panel.add(txtEspecialidad);
 
        JLabel lblFechaInicio = new JLabel("FECHA DE INICIO:");
        lblFechaInicio.setForeground(Color.WHITE);
@@ -128,11 +139,11 @@ public class RegExperiencia extends JDialog {
        lblFechaInicio.setBounds(26, 168, 226, 19);
        panel.add(lblFechaInicio);
 
-       JSpinner fechaSpinner = new JSpinner();
+       fechaSpinner = new JSpinner();
        SpinnerDateModel modeloFechaInicio = new SpinnerDateModel();
        fechaSpinner.setModel(modeloFechaInicio);
-       JSpinner.DateEditor editorFechaInicio = new JSpinner.DateEditor(fechaSpinner, "dd/MM/yyyy");
-       fechaSpinner.setEditor(editorFechaInicio);
+       JSpinner.DateEditor de_fechaSpinner = new JSpinner.DateEditor(fechaSpinner, "dd/MM/yyyy");
+       fechaSpinner.setEditor(de_fechaSpinner);
        fechaSpinner.setFont(new Font("Tahoma", Font.PLAIN, 15));
        fechaSpinner.setBackground(new Color(102, 255, 255));
        fechaSpinner.setBounds(26, 195, 173, 28);
@@ -144,15 +155,15 @@ public class RegExperiencia extends JDialog {
        lblFechaFinalizacion.setBounds(248, 168, 226, 19);
        panel.add(lblFechaFinalizacion);
 
-       JSpinner fechaSpinner_1 = new JSpinner();
+       fechaSpinnerFinal = new JSpinner();
        SpinnerDateModel modeloFechaFin = new SpinnerDateModel();
-       fechaSpinner_1.setModel(modeloFechaFin);
-       JSpinner.DateEditor editorFechaFin = new JSpinner.DateEditor(fechaSpinner_1, "dd/MM/yyyy");
-       fechaSpinner_1.setEditor(editorFechaFin);
-       fechaSpinner_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-       fechaSpinner_1.setBackground(new Color(102, 255, 255));
-       fechaSpinner_1.setBounds(248, 195, 173, 28);
-       panel.add(fechaSpinner_1);
+       fechaSpinnerFinal.setModel(modeloFechaFin);
+       JSpinner.DateEditor de_fechaSpinnerFinal = new JSpinner.DateEditor(fechaSpinnerFinal, "dd/MM/yyyy");
+       fechaSpinnerFinal.setEditor(de_fechaSpinnerFinal);
+       fechaSpinnerFinal.setFont(new Font("Tahoma", Font.PLAIN, 15));
+       fechaSpinnerFinal.setBackground(new Color(102, 255, 255));
+       fechaSpinnerFinal.setBounds(248, 195, 173, 28);
+       panel.add(fechaSpinnerFinal);
 
        JLabel lblFunciones = new JLabel("FUNCIONES REALIZADAS:");
        lblFunciones.setForeground(Color.WHITE);
@@ -160,10 +171,10 @@ public class RegExperiencia extends JDialog {
        lblFunciones.setBounds(26, 231, 226, 19);
        panel.add(lblFunciones);
 
-       JEditorPane editorPane = new JEditorPane();
-       editorPane.setBackground(new Color(173, 216, 230));
-       editorPane.setBounds(26, 260, 395, 166);
-       panel.add(editorPane);
+       editorPaneFunciones = new JEditorPane();
+       editorPaneFunciones.setBackground(new Color(173, 216, 230));
+       editorPaneFunciones.setBounds(26, 260, 395, 166);
+       panel.add(editorPaneFunciones);
 
        JLabel lblLogros = new JLabel("LOGROS OBTENIDOS:");
        lblLogros.setForeground(Color.WHITE);
@@ -171,10 +182,10 @@ public class RegExperiencia extends JDialog {
        lblLogros.setBounds(26, 436, 226, 19);
        panel.add(lblLogros);
 
-       JEditorPane editorPane_1 = new JEditorPane();
-       editorPane_1.setBackground(new Color(173, 216, 230));
-       editorPane_1.setBounds(26, 465, 395, 149);
-       panel.add(editorPane_1);
+       editorPaneLogros = new JEditorPane();
+       editorPaneLogros.setBackground(new Color(173, 216, 230));
+       editorPaneLogros.setBounds(26, 465, 395, 149);
+       panel.add(editorPaneLogros);
 
        JLabel lblNewLabel_1 = new JLabel("Registrar    Experiencia");
        lblNewLabel_1.setBounds(106, -14, 645, 72);
@@ -201,6 +212,32 @@ public class RegExperiencia extends JDialog {
        panel_1.add(lblIconoExperiencia);
 
        JButton btnCrearExperiencia = new JButton("AGREGAR");
+       btnCrearExperiencia.addActionListener(new ActionListener() {
+       	public void actionPerformed(ActionEvent e) {
+
+            Date fechaFormatInicio = (Date) fechaSpinner.getValue();
+            LocalDate fechaInicio = fechaFormatInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            Date fechaFormatFInal = (Date) fechaSpinnerFinal.getValue();
+            LocalDate fechaFinal = fechaFormatFInal.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            Experiencia exp = new Experiencia
+            (
+               txtInstitucion.getText(), 
+               txtCargo.getText(), 
+               fechaInicio, 
+               fechaFinal, 
+               txtEspecialidad.getText(), 
+               editorPaneFunciones.getText(), 
+               editorPaneLogros.getText()
+            );
+
+            BolsaTrabajo.getInstance().getUsuarioActual().getMyPersona().agregarExperiencia(exp);
+            JOptionPane.showMessageDialog(null, "Experiencia Registrada", "Información", JOptionPane.INFORMATION_MESSAGE);
+            BolsaTrabajo.guardarDatos();
+            System.out.println(BolsaTrabajo.getInstance().getUsuarioActual().getMyPersona().getExperiencia().size());
+       	}
+       });
        btnCrearExperiencia.setForeground(Color.WHITE);
        btnCrearExperiencia.setFont(new Font("Tahoma", Font.BOLD, 20));
        btnCrearExperiencia.setBackground(new Color(25, 25, 112));

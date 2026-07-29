@@ -58,7 +58,9 @@ public class main {
             "Pasante", 
             LocalDate.of(2024, 2, 1), 
             LocalDate.of(2025, 2, 1), 
-            "Programador"
+            "Programador",
+            "SI",
+            "NO"
         );
 
         Institucion empresa1 = new Institucion

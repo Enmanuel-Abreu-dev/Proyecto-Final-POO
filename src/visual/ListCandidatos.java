@@ -283,7 +283,7 @@ public class ListCandidatos extends JDialog {
 		JLabel lblNewLabel_1 = new JLabel("Listado de Candidatos");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Lucida Handwriting", Font.PLAIN, 41));
-		lblNewLabel_1.setBounds(43, 10, 500, 72);
+		lblNewLabel_1.setBounds(43, 10, 598, 72);
 		layeredPane.add(lblNewLabel_1);
 
 		setTitle("LISTADO DE CANDIDATOS");
@@ -294,6 +294,9 @@ public class ListCandidatos extends JDialog {
 
 	public void cargarCandidato() {
 		ArrayList<Persona> personas = BolsaTrabajo.getInstance().getPersonas();
+		System.out.println("Perosnar: " + BolsaTrabajo.getInstance().getPersonas().size());
+		System.out.println("Cantidad de personas: " + personas.size());
+		System.out.println(personas.get(1).getNombre());
 
 		panelListado.removeAll();
 		for (final Persona p : personas) {

@@ -450,6 +450,11 @@ public class BolsaTrabajo implements Serializable {
 		instituciones.set(index, myInsti);
 	}
 
+	public void modificarPersona ( Persona myPerson )
+	{
+		int index = buscarPersona(myPerson.getIdentificador());
+		personas.set(index, myPerson);
+	}
 	/*
 		!buscamos el id de la empresa para poder modificar la empresa
 	*/
@@ -469,6 +474,23 @@ public class BolsaTrabajo implements Serializable {
 
 		return index;
 	}	
+
+	private int buscarPersona(String identificador) {
+		int i = 0, index = 0;
+		boolean encontrar = false;
+		
+		while ( !encontrar && i < personas.size() )
+		{
+			if ( personas.get(i).getIdentificador().equalsIgnoreCase(identificador) )
+			{
+				index = i;
+				encontrar = true;
+			}
+			i++;
+		}
+
+		return index;
+	}
 
 	/*
 		!Metodo para eliminar la imagen en la ruta especifica
