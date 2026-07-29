@@ -536,7 +536,7 @@ public class BolsaTrabajo implements Serializable {
 	
 	public Oferta getOfertaById(String id) {
 		boolean encontrado = false;
-		Oferta result;
+		Oferta result = null;
 		int indice = 0;
 		
 		while (!encontrado && indice < this.ofertas.size()) {
