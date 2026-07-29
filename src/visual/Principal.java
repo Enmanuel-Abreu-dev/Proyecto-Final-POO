@@ -64,6 +64,26 @@ public class Principal extends JDialog {
     private RoundedPanel panelInicio;
     private RoundedPanel panelPerfilUsuario;
 
+    // Referencias para refrescar el perfil sin reconstruir la ventana
+    private JLabel lblNombreTopRef;      // nombre en el panel superior (panelPerfil)
+    private RoundedLabel lblFotoTopRef;  // foto/iniciales del panel superior
+
+    private JLabel lblNombrePerfilRef;      // nombre en tarjetaEncabezado
+    private JLabel lblSubtituloPerfilRef;   // "SECTOR PRIVADO/PUBLICO" o "CANDIDATO"
+    private RoundedLabel lblLogoPerfilRef;  // logo/foto grande en tarjetaEncabezado
+
+    // Filas de tarjetaDatos
+    private JLabel lblDatoId;        // RNC o CEDULA
+    private JLabel lblDatoPais;
+    private JLabel lblDatoDireccion;
+    private JLabel lblDatoTelefono;
+    private JLabel lblDatoCorreo;
+
+    // Filas de tarjetaResumenPerfil
+    private JLabel lblResumen1;
+    private JLabel lblResumen2;
+    private JLabel lblResumen3;
+
     private final Usuario usuarioActual;
     private final boolean esEmpresa;
 
@@ -212,12 +232,14 @@ public class Principal extends JDialog {
         }
 
         panelPerfil.add(lblFoto);
+        lblFotoTopRef = lblFoto;
 
         JLabel lblNombre = new JLabel(nombreMostrado);
         lblNombre.setFont(new Font("Tahoma", Font.BOLD, 15));
         lblNombre.setForeground(TEXTO_OSCURO);
         lblNombre.setBounds(70, 12, anchoPanelPerfil - 100, 22);
         panelPerfil.add(lblNombre);
+        lblNombreTopRef = lblNombre;
 
         JLabel lblVerPerfil = new JLabel("Ver Perfil");
         lblVerPerfil.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -344,12 +366,14 @@ public class Principal extends JDialog {
         }
 
         tarjetaEncabezado.add(lblLogoPerfil);
+        lblLogoPerfilRef = lblLogoPerfil;
 
         JLabel lblNombrePerfil = new JLabel(nombreMostrado);
         lblNombrePerfil.setFont(new Font("Tahoma", Font.BOLD, 26));
         lblNombrePerfil.setForeground(TEXTO_OSCURO);
         lblNombrePerfil.setBounds(185, 32, 500, 34);
         tarjetaEncabezado.add(lblNombrePerfil);
+        lblNombrePerfilRef = lblNombrePerfil;
 
         JLabel lblSubtituloPerfil = new JLabel(esEmpresa
                 ? (usuarioActual.getMyInstitucion().isPrivado() ? "SECTOR PRIVADO" : "SECTOR PUBLICO")
@@ -358,6 +382,7 @@ public class Principal extends JDialog {
         lblSubtituloPerfil.setForeground(AZUL_PRINCIPAL);
         lblSubtituloPerfil.setBounds(185, 68, 500, 22);
         tarjetaEncabezado.add(lblSubtituloPerfil);
+        lblSubtituloPerfilRef = lblSubtituloPerfil;
 
         JLabel lblEstadoPerfil = new JLabel("CUENTA VERIFICADA");
         lblEstadoPerfil.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -377,8 +402,7 @@ public class Principal extends JDialog {
                     editPersona.setModal(true);
                     editPersona.setVisible(true);
                 }
-                dispose();
-                actualizarVentana();
+                actualizarPerfil();
             }
         });
         btnEditarPerfil.setBackground(AZUL_OSCURO);
@@ -401,18 +425,18 @@ public class Principal extends JDialog {
 
         if (esEmpresa) {
             Institucion miInstitucion = usuarioActual.getMyInstitucion();
-            agregarFilaPerfil(tarjetaDatos, "RNC:", miInstitucion.getRNC(), 60);
-            agregarFilaPerfil(tarjetaDatos, "PAIS:", miInstitucion.getPais(), 105);
-            agregarFilaPerfil(tarjetaDatos, "DIRECCION:", miInstitucion.getDireccion(), 150);
-            agregarFilaPerfil(tarjetaDatos, "TELEFONO:", miInstitucion.getTelefono(), 195);
-            agregarFilaPerfil(tarjetaDatos, "CORREO:", miInstitucion.getEmail(), 240);
+            lblDatoId        = agregarFilaPerfil(tarjetaDatos, "RNC:", miInstitucion.getRNC(), 60);
+            lblDatoPais       = agregarFilaPerfil(tarjetaDatos, "PAIS:", miInstitucion.getPais(), 105);
+            lblDatoDireccion  = agregarFilaPerfil(tarjetaDatos, "DIRECCION:", miInstitucion.getDireccion(), 150);
+            lblDatoTelefono   = agregarFilaPerfil(tarjetaDatos, "TELEFONO:", miInstitucion.getTelefono(), 195);
+            lblDatoCorreo     = agregarFilaPerfil(tarjetaDatos, "CORREO:", miInstitucion.getEmail(), 240);
         } else {
             Persona miPersona = usuarioActual.getMyPersona();
-            agregarFilaPerfil(tarjetaDatos, "CEDULA:", miPersona.getCedula(), 60);
-            agregarFilaPerfil(tarjetaDatos, "PAIS:", miPersona.getPais(), 105);
-            agregarFilaPerfil(tarjetaDatos, "DIRECCION:", miPersona.getDireccion(), 150);
-            agregarFilaPerfil(tarjetaDatos, "TELEFONO:", miPersona.getTelefono(), 195);
-            agregarFilaPerfil(tarjetaDatos, "CORREO:", miPersona.getEmail(), 240);
+            lblDatoId        = agregarFilaPerfil(tarjetaDatos, "CEDULA:", miPersona.getCedula(), 60);
+            lblDatoPais       = agregarFilaPerfil(tarjetaDatos, "PAIS:", miPersona.getPais(), 105);
+            lblDatoDireccion  = agregarFilaPerfil(tarjetaDatos, "DIRECCION:", miPersona.getDireccion(), 150);
+            lblDatoTelefono   = agregarFilaPerfil(tarjetaDatos, "TELEFONO:", miPersona.getTelefono(), 195);
+            lblDatoCorreo     = agregarFilaPerfil(tarjetaDatos, "CORREO:", miPersona.getEmail(), 240);
         }
 
         RoundedPanel tarjetaResumenPerfil = new RoundedPanel(30, TARJETA_BLANCA, new Color(225, 228, 232));
@@ -429,14 +453,14 @@ public class Principal extends JDialog {
 
         if (esEmpresa) {
             Institucion miInstitucion = usuarioActual.getMyInstitucion();
-            agregarFilaPerfil(tarjetaResumenPerfil, "CANTIDAD DE EMPLEADOS:", String.valueOf(miInstitucion.getCantEmpleado()), 60);
-            agregarFilaPerfil(tarjetaResumenPerfil, "OFERTAS ACTIVAS:", "5", 105);
-            agregarFilaPerfil(tarjetaResumenPerfil, "SOLICITUDES RECIBIDAS:", "38", 150);
+            lblResumen1 = agregarFilaPerfil(tarjetaResumenPerfil, "CANTIDAD DE EMPLEADOS:", String.valueOf(miInstitucion.getCantEmpleado()), 60);
+            lblResumen2 = agregarFilaPerfil(tarjetaResumenPerfil, "OFERTAS ACTIVAS:", "5", 105);
+            lblResumen3 = agregarFilaPerfil(tarjetaResumenPerfil, "SOLICITUDES RECIBIDAS:", "38", 150);
         } else {
             Persona miPersona = usuarioActual.getMyPersona();
-            agregarFilaPerfil(tarjetaResumenPerfil, "DISPONIBLE PARA VIAJAR:", miPersona.isDispViajar() ? "SI" : "NO", 60);
-            agregarFilaPerfil(tarjetaResumenPerfil, "DISPONIBLE PARA MUDARSE:", miPersona.isDispResidencia() ? "SI" : "NO", 105);
-            agregarFilaPerfil(tarjetaResumenPerfil, "SITUACION LABORAL:", miPersona.isEmpleado() ? "EMPLEADO" : "DESEMPLEADO", 150);
+            lblResumen1 = agregarFilaPerfil(tarjetaResumenPerfil, "DISPONIBLE PARA VIAJAR:", miPersona.isDispViajar() ? "SI" : "NO", 60);
+            lblResumen2 = agregarFilaPerfil(tarjetaResumenPerfil, "DISPONIBLE PARA MUDARSE:", miPersona.isDispResidencia() ? "SI" : "NO", 105);
+            lblResumen3 = agregarFilaPerfil(tarjetaResumenPerfil, "SITUACION LABORAL:", miPersona.isEmpleado() ? "EMPLEADO" : "DESEMPLEADO", 150);
         }
 
         RoundedButton btnCerrarSesion = new RoundedButton("CERRAR SESION", 30);
@@ -557,40 +581,6 @@ public class Principal extends JDialog {
             btnMisSolicitudes.setBackground(new Color(0, 0, 102));
             btnMisSolicitudes.setBounds(10, 202, 200, 128);
             panel_2.add(btnMisSolicitudes);
-
-            RoundedButton btnRegistrarExperiencia = new RoundedButton("Registrar Experiencia", 40);
-            btnRegistrarExperiencia.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    panelInicio.setVisible(false);
-                    panelPerfilUsuario.setVisible(false);
-                    RegExperiencia newExperiencia = new RegExperiencia();
-                    newExperiencia.setVisible(true);
-                    newExperiencia.setModal(true);
-                    panelInicio.setVisible(true);
-                }
-            });
-            btnRegistrarExperiencia.setForeground(Color.WHITE);
-            btnRegistrarExperiencia.setFont(new Font("Tw Cen MT", Font.PLAIN, 19));
-            btnRegistrarExperiencia.setBackground(new Color(0, 0, 102));
-            btnRegistrarExperiencia.setBounds(10, 367, 200, 128);
-            panel_2.add(btnRegistrarExperiencia);
-
-            RoundedButton btnMisExperiencias = new RoundedButton("Mis Experiencias", 40);
-            btnMisExperiencias.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    panelInicio.setVisible(false);
-                    panelPerfilUsuario.setVisible(false);
-                    ListExperiencia myExperiencias = new ListExperiencia(usuarioActual.getMyPersona());
-                    myExperiencias.setVisible(true);
-                    myExperiencias.setModal(true);
-                    panelInicio.setVisible(true);
-                }
-            });
-            btnMisExperiencias.setForeground(Color.WHITE);
-            btnMisExperiencias.setFont(new Font("Tw Cen MT", Font.PLAIN, 22));
-            btnMisExperiencias.setBackground(new Color(0, 0, 102));
-            btnMisExperiencias.setBounds(10, 532, 200, 128);
-            panel_2.add(btnMisExperiencias);
         }
 
         RoundedButton btnVerMiPerfil = new RoundedButton("Ver Mi Perfil", 40);
@@ -630,6 +620,9 @@ public class Principal extends JDialog {
         lblNombre.addMouseListener(listenerPanelPerfil);
         lblVerPerfil.addMouseListener(listenerPanelPerfil);
 
+        // A partir de aqui, cualquier boton/label/campo que quieras agregar
+        // se añade con panelFondo.add(...) para que quede pintado ENCIMA
+        // de la imagen de fondo.
     }
 
     /**
@@ -660,7 +653,7 @@ public class Principal extends JDialog {
      * Metodo de apoyo puramente visual: dibuja una fila "ETIQUETA: valor"
      * dentro de una tarjeta de perfil, siguiendo el mismo estilo en todas.
      */
-    private void agregarFilaPerfil(JPanel contenedor, String etiqueta, String valor, int y) {
+    private JLabel agregarFilaPerfil(JPanel contenedor, String etiqueta, String valor, int y) {
         JLabel lblEtiqueta = new JLabel(etiqueta);
         lblEtiqueta.setFont(new Font("Tahoma", Font.BOLD, 13));
         lblEtiqueta.setForeground(new Color(120, 128, 138));
@@ -672,6 +665,8 @@ public class Principal extends JDialog {
         lblValor.setForeground(TEXTO_OSCURO);
         lblValor.setBounds(25, y + 20, 320, 22);
         contenedor.add(lblValor);
+
+        return lblValor;
     }
 
     /**
@@ -720,11 +715,71 @@ public class Principal extends JDialog {
     	}
     }
     
-    private void actualizarVentana()
-    {
-        Principal principal = new Principal(usuarioActual);
-        principal.setModal(true);
-        principal.setVisible(true);
+    /**
+     * Vuelve a leer los datos del usuario actual (empresa o persona) y
+     * actualiza todos los labels visibles sin reconstruir la ventana.
+     */
+    private void actualizarPerfil() {
+        String nombreMostrado;
+        String rutaImagenPerfil = null;
+
+        if (esEmpresa) {
+            Institucion miInstitucion = usuarioActual.getMyInstitucion();
+            nombreMostrado = miInstitucion.getNombre();
+            rutaImagenPerfil = miInstitucion.getRutaImagen();
+
+            lblSubtituloPerfilRef.setText(miInstitucion.isPrivado() ? "SECTOR PRIVADO" : "SECTOR PUBLICO");
+
+            lblDatoId.setText(miInstitucion.getRNC());
+            lblDatoPais.setText(miInstitucion.getPais());
+            lblDatoDireccion.setText(miInstitucion.getDireccion());
+            lblDatoTelefono.setText(miInstitucion.getTelefono());
+            lblDatoCorreo.setText(miInstitucion.getEmail());
+
+            lblResumen1.setText(String.valueOf(miInstitucion.getCantEmpleado()));
+            // lblResumen2 y lblResumen3 quedan igual (ofertas/solicitudes no cambian al editar perfil)
+        } else {
+            Persona miPersona = usuarioActual.getMyPersona();
+            nombreMostrado = miPersona.getNombre() + " " + miPersona.getApellido();
+            rutaImagenPerfil = miPersona.getRutaImagen();
+
+            lblDatoId.setText(miPersona.getCedula());
+            lblDatoPais.setText(miPersona.getPais());
+            lblDatoDireccion.setText(miPersona.getDireccion());
+            lblDatoTelefono.setText(miPersona.getTelefono());
+            lblDatoCorreo.setText(miPersona.getEmail());
+
+            lblResumen1.setText(miPersona.isDispViajar() ? "SI" : "NO");
+            lblResumen2.setText(miPersona.isDispResidencia() ? "SI" : "NO");
+            lblResumen3.setText(miPersona.isEmpleado() ? "EMPLEADO" : "DESEMPLEADO");
+        }
+
+        
+
+        // Foto / logo (grande y del panel superior)
+        if (rutaImagenPerfil != null && new File(rutaImagenPerfil).exists()) {
+            ImageIcon icono = new ImageIcon(rutaImagenPerfil);
+
+            Image escalada130 = icono.getImage().getScaledInstance(130, 130, Image.SCALE_SMOOTH);
+            lblLogoPerfilRef.setIcon(new ImageIcon(escalada130));
+            lblLogoPerfilRef.setText("");
+
+            Image escalada46 = icono.getImage().getScaledInstance(46, 46, Image.SCALE_SMOOTH);
+            lblFotoTopRef.setIcon(new ImageIcon(escalada46));
+            lblFotoTopRef.setText("");
+        } else {
+            // si no hay imagen, vuelve a mostrar iniciales
+            String iniciales = obtenerIniciales(nombreMostrado);
+            lblLogoPerfilRef.setIcon(null);
+            lblLogoPerfilRef.setText(iniciales);
+            lblFotoTopRef.setIcon(null);
+            lblFotoTopRef.setText(iniciales);
+        }
+
+        panelPerfilUsuario.revalidate();
+        panelPerfilUsuario.repaint();
+        panelPerfil.revalidate();
+        panelPerfil.repaint();
     }
     
     public void cargarInformacionPanelPerfil(int anchoTarjetaResumen, boolean esEmpresa) {
