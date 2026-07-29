@@ -182,7 +182,11 @@ public class RegSolicitudEmp extends JDialog {
        		Usuario usr = BolsaTrabajo.getInstance().getUsuarioActual();
        		SolicitudEmp soli = new SolicitudEmp(BolsaTrabajo.getInstance().generarIdSolicitud(), ofertaSeleccionada, usr.getMyPersona(), textFieldRangoSalarial.getText(), ((String)comboBoxModalidad.getSelectedItem()));
        		usr.getMyPersona().agregarSolicitud(soli);
+
        		BolsaTrabajo.getInstance().registrarSolicitud(soli);
+            ofertaSeleccionada.getSolicitudEmps().add(soli);
+            JOptionPane.showMessageDialog(null, "Solicitud Registrada Exitosamente",
+							"Solicitud", JOptionPane.INFORMATION_MESSAGE);
        		
        	}
        });
