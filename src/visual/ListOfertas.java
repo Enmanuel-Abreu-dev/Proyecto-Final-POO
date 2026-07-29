@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
@@ -318,6 +319,11 @@ public class ListOfertas extends JDialog {
 		JButton btnPostularme = new JButton("POSTULARME");
 		btnPostularme.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if (BolsaTrabajo.getInstance().puedeSolicitar(ofertaSeleccionada, BolsaTrabajo.getInstance().getUsuarioActual().getMyPersona())) {
+					JOptionPane.showMessageDialog(null, "Ya solicitaste a esta oferta. No puedes hacerlo 2 veces");
+					return;
+				}
+				
 				if (ofertaSeleccionada != null) {
 					RegSolicitudEmp dialogSolicitud = new RegSolicitudEmp(ofertaSeleccionada);
 					dialogSolicitud.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
