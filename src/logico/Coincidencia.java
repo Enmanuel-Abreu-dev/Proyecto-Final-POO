@@ -1,12 +1,20 @@
 package logico;
 
 public class Coincidencia {
-	private SolicitudEmp persona;
+	private Persona persona;
     private float porcentaje;
-
-    public Coincidencia(SolicitudEmp persona, float porcentaje) {
+   
+    public Coincidencia(Persona persona, float porcentaje) {
         this.persona = persona;
         this.porcentaje = porcentaje;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
     }
 
     public float getPorcentaje() {
@@ -17,12 +25,7 @@ public class Coincidencia {
         this.porcentaje = porcentaje;
     }
 
-    public SolicitudEmp getPersona() {
-        return persona;
-    }
-
-    public void setPersona(SolicitudEmp persona) {
-        this.persona = persona;
-    }
+    
+    
 
 }

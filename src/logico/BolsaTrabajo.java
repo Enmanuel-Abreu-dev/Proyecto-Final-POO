@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;
 
 import java.awt.FileDialog;
 import java.awt.Frame;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
@@ -232,13 +231,13 @@ public class BolsaTrabajo implements Serializable {
 		{
 			Oferta oferta = buscarOfertabyNombre(institucion.getMyOfertas(), nombreOferta);
 			
-			for ( SolicitudEmp emp : oferta.getSolicitudEmps() )
+			for ( Persona p : personas )
 			{
-				if ( emp.estado )
+				if ( !p.empleado )
 				{
-					int cantidadCoincidencias = sumaCoincidencia(emp, oferta);
-					float totalCoincidencia = (cantidadCoincidencias * 100f) / 9;
-					Coincidencia coincidencia = new Coincidencia(emp, totalCoincidencia);
+					int cantidadCoincidencias = sumaCoincidencia(p, oferta);
+					float totalCoincidencia = (cantidadCoincidencias * 100f) / 85f;
+					Coincidencia coincidencia = new Coincidencia(p, totalCoincidencia);
 					listaMacheo.add(coincidencia);
 				}else continue;
 			}
@@ -273,19 +272,28 @@ public class BolsaTrabajo implements Serializable {
 	/*
 		!Sumamos todas laas coincidencia que se a encontrado en ese solicitante y la oferta realizada 
 	*/
-	private int sumaCoincidencia ( SolicitudEmp emp, Oferta oferta )
+	private int sumaCoincidencia ( Persona pers, Oferta oferta )
 	{
 		int cantidadCoincidencias = 0;
 
-		if ( emp.getModalidad().equalsIgnoreCase(oferta.getModalidad()) )	 cantidadCoincidencias++;
-		if ( emp.getPersona().getSexo().equalsIgnoreCase(oferta.getSexo()) ) cantidadCoincidencias++;
-		if ( emp.getPersona().isDispResidencia() )							 cantidadCoincidencias++;
-		if ( emp.getPersona().isDispViajar() )                               cantidadCoincidencias++;
-		if ( emp.getPersona().getPais().equalsIgnoreCase(oferta.getPais()) ) cantidadCoincidencias++;
-		if ( emp.getPersona().calcularEdad() <= oferta.getEdad() )			 cantidadCoincidencias++;
-		if ( emp.getPersona().calcularAniosExperiencia() >= oferta.getAniosExperiencia() ) cantidadCoincidencias++;
-		if ( emp.getPersona().getDireccion().equalsIgnoreCase(oferta.getUbicacion()) ) cantidadCoincidencias++;
-		if ( oferta.getProfesion().equalsIgnoreCase(puestoEmpSolicitante(emp)) ) cantidadCoincidencias++;
+		if ( profesionPersona(pers).equalsIgnoreCase(oferta.getPuesto()) )
+			cantidadCoincidencias += 20;
+		if ( pers.getSexo().equalsIgnoreCase(oferta.getSexo()) )
+			cantidadCoincidencias += 5;
+		if ( pers.isDispViajar() )							 
+			cantidadCoincidencias += 5;
+		if ( pers.isDispResidencia() ) 
+			cantidadCoincidencias += 5;
+		if ( pers.getPais().equalsIgnoreCase(oferta.getPais()) ) 
+			cantidadCoincidencias += 10;
+		if ( pers.calcularEdad() <= oferta.getEdad() )			 
+			cantidadCoincidencias += 5;
+		if ( pers.calcularAniosExperiencia() >= oferta.getAniosExperiencia() ) 
+			cantidadCoincidencias += 10;
+		if ( pers.getDireccion().equalsIgnoreCase(oferta.getUbicacion()) ) 
+			cantidadCoincidencias += 5;
+		if ( puestoEmpSolicitante(pers) ) 
+			cantidadCoincidencias += 20;
 
 		return cantidadCoincidencias;
 	}
@@ -293,11 +301,32 @@ public class BolsaTrabajo implements Serializable {
 	/*
 		!Verificamos que clase es la persona que esta solicitando y devolvemos y String para comparar con la oferta 
 	*/
-	private String puestoEmpSolicitante ( SolicitudEmp emp )
+	private boolean puestoEmpSolicitante ( Persona p )
 	{
-		if ( emp.getPersona() instanceof Universitario ) return "Universitario";
-		if ( emp.getPersona() instanceof Tecnico )	return "Tecnico";
-		if ( emp.getPersona() instanceof Obrero ) return "Obrero";
+		if ( p instanceof Universitario ) return true;
+		if ( p instanceof Tecnico )	return true;
+		if ( p instanceof Obrero ) return true;
+		return false;
+	}
+
+	private String profesionPersona ( Persona p )
+	{
+		if ( p.getClass() == Universitario.class )
+		{
+			Universitario u = (Universitario) p;
+			return u.getCarrera();
+		}
+		else if ( p.getClass() == Tecnico.class )
+		{
+			Tecnico t = (Tecnico) p;
+			return t.getEspecialidad();
+		}
+		else if ( p.getClass() == Obrero.class )
+		{
+			Obrero o = (Obrero) p;
+			return o.getProfesion();
+		}
+
 		return null;
 	}
 	

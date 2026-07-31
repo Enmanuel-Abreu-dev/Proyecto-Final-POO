@@ -149,6 +149,7 @@ public class main {
 
         BolsaTrabajo.getInstance().registrarInstitucion(empresa1);
         BolsaTrabajo.getInstance().registrarPersona(p2);
+        BolsaTrabajo.getInstance().registrarPersona(p1);
         empresa1.setUsuario(user1);
         empresa1.publicarOferta(o1);
         empresa1.publicarOferta(o2);
@@ -158,13 +159,12 @@ public class main {
         o1.registrarSolicitudEmp(s2);
         o2.registrarSolicitudEmp(s1);
         o2.registrarSolicitudEmp(s2);
-
-
         
         System.out.println("Cantidad Ofertas: " + BolsaTrabajo.getInstance().getOfertas().get(0).getMyEmpresa().getNombre());
         System.out.println("Cantidad Ofertas Empresa: " + BolsaTrabajo.getInstance().getInstituciones().get(0).getMyOfertas().size());
+        System.out.println("Cantidad personas: " + BolsaTrabajo.getInstance().getPersonas().size());
 
-        /* 
+        
         System.out.println(BolsaTrabajo.getInstance().iniciarSesion("Google", "123"));
         Usuario user = BolsaTrabajo.getInstance().crearUsuario(empresa1.getEmail(), empresa1, null);
         System.out.println(user.getNombre() + " " + user.getPassword());
@@ -177,7 +177,7 @@ public class main {
                 ArrayList<Coincidencia> listaCoinci = BolsaTrabajo.getInstance().calcularCoincidencia(empresa1.getMyOfertas().get(i).getPuesto());
 
                 for ( Coincidencia c : listaCoinci )
-                    System.out.printf("Nombre: %s --> %.2f %n", c.getPersona().getPersona().getNombre(), c.getPorcentaje());
+                    System.out.printf("Nombre: %s --> %.2f %n", c.getPersona().getNombre(), c.getPorcentaje());
                     
             } catch ( NullPointerException e )
             {
@@ -186,7 +186,7 @@ public class main {
 
             System.out.println();
         }
-        
+        /*
         p1.setRutaImagen(BolsaTrabajo.getInstance().buscarImagen(p1.getNombre(), p1.getCedula()));
         
         System.out.println(p1.getRutaImagen());
