@@ -98,6 +98,7 @@ public class RegPersona extends JDialog {
 	private String rutaFotoSeleccionada;
 
 	private Persona myPersona = null;
+	private JComboBox sexComboBox;
 
 	/**
 	 * Launch the application.
@@ -196,15 +197,15 @@ public class RegPersona extends JDialog {
 					Persona nuevo = null;
 
 					if (rbUniversitario.isSelected()) {
-						nuevo = new Universitario(identificador, cedula, nombre, apellido, email, direccion, null,
+						nuevo = new Universitario(identificador, cedula, nombre, apellido, email, direccion, sexComboBox.getSelectedItem().toString(),
 								telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia, carreraField.getText(), universidadField.getText());
 					}
 					if (rbTecnico.isSelected()) {
-						nuevo = new Tecnico(identificador, cedula, nombre, apellido, email, direccion, null,
+						nuevo = new Tecnico(identificador, cedula, nombre, apellido, email, direccion, sexComboBox.getSelectedItem().toString(),
 								telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia, especialidadField.getText(), politecnicoField.getText());
 					}
 					if (rbObrero.isSelected()) {
-						nuevo = new Obrero(identificador, cedula, nombre, apellido, email, direccion, null,
+						nuevo = new Obrero(identificador, cedula, nombre, apellido, email, direccion, sexComboBox.getSelectedItem().toString(),
 								telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia,
 								profesionField.getText());
 					}
@@ -609,6 +610,19 @@ public class RegPersona extends JDialog {
 		aplicarMascaraCedula(cedulaField);
 		aplicarMascaraTelefono(telefonoField);
 		aplicarPlaceholder(textField_5, "ejemplo@correo.com");
+		
+		JLabel lblSexo = new JLabel("SEXO:");
+		lblSexo.setForeground(Color.WHITE);
+		lblSexo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblSexo.setBounds(494, 595, 166, 19);
+		panel.add(lblSexo);
+		
+		sexComboBox = new JComboBox();
+		sexComboBox.setModel(new DefaultComboBoxModel(new String[] {"MASCULINO", "FEMENINO"}));
+		sexComboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		sexComboBox.setBackground(new Color(102, 255, 255));
+		sexComboBox.setBounds(494, 624, 190, 42);
+		panel.add(sexComboBox);
 
 		inicializarVentana();
 		cargarDatos();
