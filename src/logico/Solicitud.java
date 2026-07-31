@@ -14,7 +14,7 @@ public abstract class Solicitud implements Serializable {
     public Solicitud(String identificador, Oferta oferta) {
         this.identificador = identificador;
         this.fecha = LocalDate.now();
-        this.estado = true;
+        this.estado = false;
         this.oferta = oferta;
     }
 

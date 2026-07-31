@@ -33,6 +33,8 @@ import logico.Persona;
 import logico.Universitario;
 import logico.Tecnico;
 import logico.Obrero;
+import logico.Oferta;
+import logico.BolsaTrabajo;
 import logico.Experiencia;
 
 
@@ -249,6 +251,7 @@ public class ListSolicitudesRecibidas extends JDialog {
 		setTitle("SOLICITUDES RECIBIDAS");
 		setSize(1280, 720);
 		setLocationRelativeTo(null);
+		cargarSolicitudes(solicitudesEmp());
 	}
 
 	public void cargarSolicitudes(ArrayList<SolicitudEmp> solicitudes) {
@@ -264,6 +267,19 @@ public class ListSolicitudesRecibidas extends JDialog {
 		if (!solicitudes.isEmpty()) {
 			mostrarDetalle(solicitudes.get(0));
 		}
+		System.out.println(solicitudes.get(1).isEstado());
+		System.out.println(solicitudes.get(1).getPersona().getNombre());
+	}
+
+	private ArrayList<SolicitudEmp> solicitudesEmp()
+	{
+		ArrayList<SolicitudEmp> lista = new ArrayList<>();
+		ArrayList<Oferta> ofertas = BolsaTrabajo.getInstance().getUsuarioActual().getMyInstitucion().getMyOfertas();
+
+		for ( Oferta o : ofertas )
+			for ( SolicitudEmp s : o.getSolicitudEmps() )
+				lista.add(s);
+		return lista;
 	}
 
 	private JPanel crearTarjeta(final SolicitudEmp s) {

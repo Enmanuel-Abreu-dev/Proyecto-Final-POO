@@ -107,10 +107,12 @@ public class Principal extends JDialog {
     public Principal(Usuario usuario) {
     	this.usuarioActual = usuario;
     	this.esEmpresa = (usuarioActual != null && usuarioActual.getMyInstitucion() != null);
-		addWindowListener(new WindowAdapter() {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				saveData();
+                saveData();
+                System.exit(0);
 			}
 		});
         

@@ -354,7 +354,7 @@ public class ListOfertasEmpresa extends JDialog {
 
 		return tarjeta;
 	}
-
+	
 	protected void cargarDetalles(Oferta oferta) {
 		ofertaSeleccionada = oferta;
 
