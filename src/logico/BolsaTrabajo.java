@@ -591,4 +591,22 @@ public class BolsaTrabajo implements Serializable {
 		return result;
 	}
 
+	public ArrayList<Institucion> getInstitucionMasOfertas() {
+		ArrayList<Institucion> result = new ArrayList<Institucion>();
+		int max = this.getInstitucionMasOfertas().get(0).getMyOfertas().size();
+		
+		for (Institucion actual : this.getInstituciones()) {
+			if (actual.getMyOfertas().size() > max)
+				max = actual.getMyOfertas().size();
+		}
+		
+		for (Institucion actual : this.getInstituciones()) {
+			if (result.size() >= 10)
+				break;
+			if (actual.getMyOfertas().size() >= max && actual.getMyOfertas().size() >= max - (max * 0.10));
+				result.add(actual);
+		}
+		
+		return result;
+	}
 }
