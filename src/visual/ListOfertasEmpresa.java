@@ -229,7 +229,7 @@ public class ListOfertasEmpresa extends JDialog {
 		btnVerCandidatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				VentanaMatcheo match = new VentanaMatcheo();
+				VentanaMatcheo match = new VentanaMatcheo(ofertaSeleccionada);
 				match.setVisible(true);
 				match.setModal(true);
 			}
@@ -336,6 +336,7 @@ public class ListOfertasEmpresa extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				cargarDetalles(o);
+				ofertaSeleccionada = o;
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {

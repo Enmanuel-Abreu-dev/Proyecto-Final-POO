@@ -3,7 +3,10 @@ package visual;
 import logico.BolsaTrabajo;
 import logico.Usuario;
 import logico.Institucion;
+import logico.Obrero;
 import logico.Persona;
+import logico.Tecnico;
+import logico.Universitario;
 
 import java.awt.*;
 import java.io.File;
@@ -479,6 +482,7 @@ public class Principal extends JFrame {
         btnCerrarSesion.setFont(new Font("Tahoma", Font.BOLD, 13));
         btnCerrarSesion.setBounds(25, 240, 220, 40);
         tarjetaResumenPerfil.add(btnCerrarSesion);
+
 
         // ---------------- Menu lateral: opciones segun el rol ----------------
         if (esEmpresa) {

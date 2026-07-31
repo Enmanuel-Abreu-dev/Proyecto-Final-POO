@@ -10,12 +10,15 @@ import javax.swing.border.TitledBorder;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.ArrayList;
 
 import logico.SolicitudEmp;
 import logico.Oferta;
 import logico.Persona;
 import logico.Universitario;
 import logico.Tecnico;
+import logico.BolsaTrabajo;
+import logico.Coincidencia;
 import logico.Obrero;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -54,7 +57,7 @@ public class VentanaMatcheo extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			VentanaMatcheo dialog = new VentanaMatcheo();
+			VentanaMatcheo dialog = new VentanaMatcheo(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -65,7 +68,8 @@ public class VentanaMatcheo extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public VentanaMatcheo() {
+	public VentanaMatcheo(Oferta oferta) {
+		this.ofertaActual = oferta;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaMatcheo.class.getResource("/imagenes/iconoBuscarOferta.png")));
 		setBounds(100, 100, 450, 300);
 		setTitle("LISTADO DE CANDIDATOS");
@@ -263,20 +267,25 @@ public class VentanaMatcheo extends JDialog {
 		btnSalir.setBounds(1118, 22, 100, 36);
 		layeredPane.add(btnSalir);
 
+		try {
+			cargarPodio(BolsaTrabajo.getInstance().calcularCoincidencia(ofertaActual.getPuesto()));	
+		} catch (NullPointerException npe) {
+			System.out.println("Error");
+		}
 	}
 
-	public void cargarPodio(java.util.ArrayList<SolicitudEmp> solicitudes,
-			java.util.ArrayList<Float> porcentajes, Oferta oferta) {
-		this.ofertaActual = oferta;
+	public void cargarPodio( ArrayList<Coincidencia> coincidencia ) {
 		panelPodio.removeAll();
-		for (int i = 0; i < solicitudes.size() && i < 3; i++) {
-			panelPodio.add(crearTarjetaPodio(solicitudes.get(i), porcentajes.get(i), oferta, i + 1));
+		for ( int i = 0; i < coincidencia.size(); i++ ) {
+			Coincidencia c = coincidencia.get(i);
+			System.out.println(c.getPersona().getNombre());
+			panelPodio.add(crearTarjetaPodio(c.getPersona(), c.getPorcentaje(), i + 1));
 		}
 		panelPodio.revalidate();
 		panelPodio.repaint();
 	}
 
-	private JPanel crearTarjetaPodio(SolicitudEmp sol, float porcentaje, Oferta oferta, int posicion) {
+	private JPanel crearTarjetaPodio(Persona p, float porcentaje, int posicion) {
 
 	    JPanel tarjeta = new JPanel();
 	    tarjeta.setLayout(new BoxLayout(tarjeta, BoxLayout.Y_AXIS));
@@ -295,7 +304,7 @@ public class VentanaMatcheo extends JDialog {
 		tarjeta.setBorder(BorderFactory.createCompoundBorder( new MatteBorder(0, 0, 4, 0, acento),
 				new EmptyBorder(14, 10, 14, 10)));
 
-		String nombreCompleto = sol.getPersona().getNombre() + " " + sol.getPersona().getApellido();
+		String nombreCompleto = p.getNombre() + " " + p.getApellido();
 
 	    JLabel lblPosicion = new JLabel(posicion + "º lugar");
 	    lblPosicion.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -317,15 +326,14 @@ public class VentanaMatcheo extends JDialog {
 		tarjeta.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				mostrarDetalle(sol, oferta);
+				mostrarDetalle(p, ofertaActual);
 			}
 		});
 
 	    return tarjeta;
 	}
 
-	public void mostrarDetalle(SolicitudEmp sol, Oferta oferta) {
-		Persona p = sol.getPersona();
+	public void mostrarDetalle(Persona p, Oferta oferta) {
 
 		String nivel;
 		String profesion;
@@ -363,11 +371,6 @@ public class VentanaMatcheo extends JDialog {
 		profesionTxt.setText(profesion);
 		profesionTxt.setForeground(
 				oferta.getPuesto() != null && oferta.getPuesto().equalsIgnoreCase(nivel)
-						? VERDE : ROJO);
-
-		modalidadTxt.setText(sol.getModalidad());
-		modalidadTxt.setForeground(
-				sol.getModalidad() != null && sol.getModalidad().equalsIgnoreCase(oferta.getModalidad())
 						? VERDE : ROJO);
 
 		experienciaTxt.setText(p.calcularAniosExperiencia() + "");
