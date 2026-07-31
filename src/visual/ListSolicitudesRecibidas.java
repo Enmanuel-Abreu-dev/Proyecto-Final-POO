@@ -73,6 +73,7 @@ public class ListSolicitudesRecibidas extends JDialog {
 	}
 
 	public ListSolicitudesRecibidas(Institucion empresa) {
+		
 		this.empresa = empresa;
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(

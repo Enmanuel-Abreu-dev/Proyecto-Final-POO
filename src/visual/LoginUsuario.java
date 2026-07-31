@@ -147,7 +147,6 @@ public class LoginUsuario extends JDialog {
                 if (ok) {
                     Principal myPrincipal = new Principal(BolsaTrabajo.getInstance().getUsuarioActual());
                     myPrincipal.setVisible(true);
-                    myPrincipal.setModal(true);
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Error", JOptionPane.ERROR_MESSAGE);

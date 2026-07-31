@@ -110,7 +110,6 @@ public class RegEmpresa extends JDialog {
      * Create the dialog.
      */
     public RegEmpresa(Institucion institucion) {
-
         myInstitucion = institucion;
 
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/iconoRegistrar.png")).getImage());

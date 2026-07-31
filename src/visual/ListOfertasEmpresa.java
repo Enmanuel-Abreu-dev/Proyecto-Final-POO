@@ -72,6 +72,7 @@ public class ListOfertasEmpresa extends JDialog {
 	}
 
 	public ListOfertasEmpresa(Institucion empresa) {
+		
 		this.empresa = empresa;
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(

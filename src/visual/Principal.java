@@ -22,7 +22,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Principal extends JDialog {
+public class Principal extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
@@ -397,12 +397,12 @@ public class Principal extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 if (esEmpresa) {
                     RegEmpresa editEmpresa = new RegEmpresa(usuarioActual.getMyInstitucion());
-                    editEmpresa.setModal(true);
                     editEmpresa.setVisible(true);
+                    editEmpresa.setModal(true);
                 } else {
                     RegPersona editPersona = new RegPersona(usuarioActual.getMyPersona());
-                    editPersona.setModal(true);
                     editPersona.setVisible(true);
+                    editPersona.setModal(true);
                 }
                 actualizarPerfil();
             }
@@ -485,11 +485,9 @@ public class Principal extends JDialog {
             RoundedButton btnPublicarOferta = new RoundedButton("Publicar Oferta", 40);
             btnPublicarOferta.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    panelInicio.setVisible(false);
-                    panelPerfilUsuario.setVisible(false);
                     RegOferta newOferta = new RegOferta();
-                    newOferta.setVisible(true);
                     newOferta.setModal(true);
+                    newOferta.setVisible(true);
                     panelInicio.setVisible(true);
                 }
             });
@@ -502,11 +500,9 @@ public class Principal extends JDialog {
             RoundedButton btnVerOfertas = new RoundedButton("Ver Mis Ofertas", 40);
             btnVerOfertas.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    panelInicio.setVisible(false);
-                    panelPerfilUsuario.setVisible(false);
                     ListOfertasEmpresa myOfertas = new ListOfertasEmpresa(usuarioActual.getMyInstitucion());
-                    myOfertas.setVisible(true);
                     myOfertas.setModal(true);
+                    myOfertas.setVisible(true);
                     panelInicio.setVisible(true);
                 }
             });
@@ -519,11 +515,9 @@ public class Principal extends JDialog {
             RoundedButton btnSolicitudesRecibidas = new RoundedButton("Solicitudes Recibidas", 40);
             btnSolicitudesRecibidas.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    panelInicio.setVisible(false);
-                    panelPerfilUsuario.setVisible(false);
                     ListSolicitudesRecibidas mySolicitudes = new ListSolicitudesRecibidas(usuarioActual.getMyInstitucion());
-                    mySolicitudes.setVisible(true);
                     mySolicitudes.setModal(true);
+                    mySolicitudes.setVisible(true);
                     panelInicio.setVisible(true);
                 }
             });
@@ -536,11 +530,9 @@ public class Principal extends JDialog {
             RoundedButton btnCandidatos = new RoundedButton("Candidatos", 40);
             btnCandidatos.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    panelInicio.setVisible(false);
-                    panelPerfilUsuario.setVisible(false);
                     ListCandidatos myCandidatos = new ListCandidatos(usuarioActual.getMyInstitucion());
-                    myCandidatos.setVisible(true);
                     myCandidatos.setModal(true);
+                    myCandidatos.setVisible(true);
                     panelInicio.setVisible(true);
                 }
             });
@@ -553,11 +545,9 @@ public class Principal extends JDialog {
             RoundedButton btnBuscarOfertas = new RoundedButton("Buscar Ofertas", 40);
             btnBuscarOfertas.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    panelInicio.setVisible(false);
-                    panelPerfilUsuario.setVisible(false);
                     ListOfertas myOfertas = new ListOfertas();
-                    myOfertas.setVisible(true);
                     myOfertas.setModal(true);
+                    myOfertas.setVisible(true);
                     panelInicio.setVisible(true);
                 }
             });
@@ -570,11 +560,9 @@ public class Principal extends JDialog {
             RoundedButton btnMisSolicitudes = new RoundedButton("Mis Solicitudes", 40);
             btnMisSolicitudes.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    panelInicio.setVisible(false);
-                    panelPerfilUsuario.setVisible(false);
                     ListSolicitudesEmp mySolicitudes = new ListSolicitudesEmp(usuarioActual.getMyPersona());
-                    mySolicitudes.setVisible(true);
                     mySolicitudes.setModal(true);
+                    mySolicitudes.setVisible(true);
                     panelInicio.setVisible(true);
                 }
             });
@@ -587,11 +575,9 @@ public class Principal extends JDialog {
             RoundedButton btnRegistrarExperiencia = new RoundedButton("Registrar Experiencia", 40);
             btnRegistrarExperiencia.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    panelInicio.setVisible(false);
-                    panelPerfilUsuario.setVisible(false);
                     RegExperiencia newExperiencia = new RegExperiencia();
-                    newExperiencia.setVisible(true);
                     newExperiencia.setModal(true);
+                    newExperiencia.setVisible(true);
                     panelInicio.setVisible(true);
                 }
             });
@@ -604,11 +590,9 @@ public class Principal extends JDialog {
             RoundedButton btnMisExperiencias = new RoundedButton("Mis Experiencias", 40);
             btnMisExperiencias.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    panelInicio.setVisible(false);
-                    panelPerfilUsuario.setVisible(false);
                     ListExperiencia myExperiencias = new ListExperiencia(usuarioActual.getMyPersona());
-                    myExperiencias.setVisible(true);
                     myExperiencias.setModal(true);
+                    myExperiencias.setVisible(true);
                     panelInicio.setVisible(true);
                 }
             });

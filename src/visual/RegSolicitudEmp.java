@@ -63,8 +63,8 @@ public class RegSolicitudEmp extends JDialog {
      * Create the dialog.
      * @param oferta la oferta ya seleccionada en ListOfertas, sobre la cual se postula
      */
-    public RegSolicitudEmp(Oferta oferta) {
-       this.ofertaSeleccionada = oferta;
+    public RegSolicitudEmp(Oferta oferta) { 
+      this.ofertaSeleccionada = oferta;
        setIconImage(new ImageIcon(getClass().getResource("/imagenes/fondoRegOferta.png")).getImage());
        setTitle("REGISTRAR SOLICITUD");
        URL rutaImagen = getClass().getResource("/imagenes/fondoRegOferta.png");

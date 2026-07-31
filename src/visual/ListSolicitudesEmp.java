@@ -76,6 +76,7 @@ public class ListSolicitudesEmp extends JDialog {
 	}
 
 	public ListSolicitudesEmp(Persona candidato) {
+		
 		this.candidato = candidato;
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
