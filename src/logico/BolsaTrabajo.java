@@ -209,11 +209,19 @@ public class BolsaTrabajo implements Serializable {
 	{
 		Institucion institucion = null;
 
-		for ( Usuario users : usuarios )
+		if (usuarioActual.getMyInstitucion() == null)
+			return null;
+		
+
+		for (Usuario users : usuarios) 
 		{
-			if ( users.getMyInstitucion().getNombre().equalsIgnoreCase(usuarioActual.getMyInstitucion().getNombre()) )
+			System.out.println("Cantidad usuarios totales: " + usuarios.size());
+			System.out.println("Nombre: " + users.getNombre());
+			if (users.getMyInstitucion() != null && users.getMyInstitucion().getNombre().equalsIgnoreCase(usuarioActual.getMyInstitucion().getNombre())) 
 				institucion = users.getMyInstitucion();
+			
 		}
+		
 
 		return institucion;
 	}
@@ -275,6 +283,8 @@ public class BolsaTrabajo implements Serializable {
 	private int sumaCoincidencia ( Persona pers, Oferta oferta )
 	{
 		int cantidadCoincidencias = 0;
+		System.out.println(pers.getNombre());
+		System.out.println(pers.getSexo());
 
 		if ( profesionPersona(pers).equalsIgnoreCase(oferta.getPuesto()) )
 			cantidadCoincidencias += 20;
