@@ -64,13 +64,12 @@ public class Principal extends JFrame {
     private RoundedPanel panelInicio;
     private RoundedPanel panelPerfilUsuario;
 
-    // Referencias para refrescar el perfil sin reconstruir la ventana
-    private JLabel lblNombreTopRef;      // nombre en el panel superior (panelPerfil)
-    private RoundedLabel lblFotoTopRef;  // foto/iniciales del panel superior
+    private JLabel lblNombreTopRef;
+    private RoundedLabel lblFotoTopRef;
 
-    private JLabel lblNombrePerfilRef;      // nombre en tarjetaEncabezado
-    private JLabel lblSubtituloPerfilRef;   // "SECTOR PRIVADO/PUBLICO" o "CANDIDATO"
-    private RoundedLabel lblLogoPerfilRef;  // logo/foto grande en tarjetaEncabezado
+    private JLabel lblNombrePerfilRef;
+    private JLabel lblSubtituloPerfilRef;
+    private RoundedLabel lblLogoPerfilRef;
 
     // Filas de tarjetaDatos
     private JLabel lblDatoId;        // RNC o CEDULA
@@ -641,9 +640,6 @@ public class Principal extends JFrame {
         lblNombre.addMouseListener(listenerPanelPerfil);
         lblVerPerfil.addMouseListener(listenerPanelPerfil);
 
-        // A partir de aqui, cualquier boton/label/campo que quieras agregar
-        // se añade con panelFondo.add(...) para que quede pintado ENCIMA
-        // de la imagen de fondo.
     }
 
     /**

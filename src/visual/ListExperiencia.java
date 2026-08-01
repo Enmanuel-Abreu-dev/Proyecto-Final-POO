@@ -37,13 +37,13 @@ public class ListExperiencia extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final Color AZUL_OSCURO = new Color(0x16, 0x3A, 0x5F);
-	private static final Color AZUL_PRINCIPAL = new Color(0x25, 0x63, 0xA6);
-	private static final Color VERDE_AZULADO = new Color(0x0F, 0x8B, 0x8D);
-	private static final Color FONDO_GRIS = new Color(0xF4, 0xF6, 0xF8);
+	private static final Color AZUL_OSCURO = new Color(22, 58, 95);
+	private static final Color AZUL_PRINCIPAL = new Color(37, 99, 166);
+	private static final Color VERDE_AZULADO = new Color(15, 139, 141);
+	private static final Color FONDO_GRIS = new Color(244, 246, 248);
 	private static final Color TARJETA_BLANCA = Color.WHITE;
-	private static final Color TEXTO_OSCURO = new Color(0x1F, 0x29, 0x37);
-	private static final Color ROJO = new Color(0xC0, 0x5B, 0x5B);
+	private static final Color TEXTO_OSCURO = new Color(31, 41, 55);
+	private static final Color ROJO = new Color(255, 0, 0);
 
 	private JPanel panelListado;
 

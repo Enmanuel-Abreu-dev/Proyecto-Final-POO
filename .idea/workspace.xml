@@ -4,17 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="Ups.">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2026_2_43p__m___Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2026_2_43 p_ m__[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2026_5_54p__m___Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2026_5_54 p_ m__[Changes]/shelved.patch" beforeDir="false" />
+    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="VentanaMatcheo Class Updated.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/POOProyectoFinal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/POOProyectoFinal.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save.bin" beforeDir="false" afterPath="$PROJECT_DIR$/save.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/visual/ListCandidatos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListSolicitudesAceptadas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/ListExperiencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListExperiencia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/ListOfertas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListOfertas.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/visual/ListOfertasEmpresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListOfertasEmpresa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/ListSolicitudesAceptadas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListSolicitudesAceptadas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/ListSolicitudesEmp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListSolicitudesEmp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/visual/ListSolicitudesRecibidas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListSolicitudesRecibidas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/LoginUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/LoginUsuario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/visual/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/Principal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/visual/VentanaMatcheo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/VentanaMatcheo.java" afterDir="false" />
     </list>
@@ -65,6 +64,7 @@
     "Application.LoginUsuario (5).executor": "Run",
     "Application.LoginUsuario.executor": "Run",
     "Application.Principal.executor": "Run",
+    "Application.PrincipalAdmin.executor": "Run",
     "Application.RegEmpresa (1).executor": "Run",
     "Application.RegEmpresa.executor": "Run",
     "Application.RegOferta.executor": "Run",
@@ -100,21 +100,8 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.LoginUsuario">
-    <configuration name="ListCandidatos" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.ListCandidatos" />
-      <module name="POOProyectoFinal" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="visual.ListCandidatos" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ListSolicitudesAceptadas" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.ListSolicitudesAceptadas" />
+    <configuration name="LoginUsuario (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.LoginUsuario" />
       <module name="POOProyectoFinal" />
       <extension name="coverage">
         <pattern>
@@ -152,6 +139,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LoginUsuario (4)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.LoginUsuario" />
+      <module name="POOProyectoFinal" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="visual.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="LoginUsuario" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="visual.LoginUsuario" />
       <module name="POOProyectoFinal" />
@@ -168,8 +168,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.LoginUsuario" />
-        <item itemvalue="Application.ListSolicitudesAceptadas" />
-        <item itemvalue="Application.ListCandidatos" />
+        <item itemvalue="Application.LoginUsuario (1)" />
+        <item itemvalue="Application.LoginUsuario (4)" />
         <item itemvalue="Application.LoginUsuario (3)" />
         <item itemvalue="Application.LoginUsuario (2)" />
       </list>
@@ -466,15 +466,29 @@
       <option name="project" value="LOCAL" />
       <updated>1785540266066</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="ListSolicitudesAceptadas Class created and Principal Class Updated.">
+      <option name="closed" value="true" />
+      <created>1785585668835</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1785585668835</updated>
+    </task>
+    <task id="LOCAL-00036" summary="VentanaMatcheo Class Updated.">
+      <option name="closed" value="true" />
+      <created>1785585734886</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1785585734886</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="RegOferta class Created." />
-    <MESSAGE value="VentanaMatcheo class Created." />
     <MESSAGE value="Rounded Classes Implemented (textF, button and Panel)." />
     <MESSAGE value="LoginUsuario class Upgraded." />
     <MESSAGE value="TipoDeUsuario class Created." />
@@ -498,6 +512,8 @@
     <MESSAGE value="Principal user view upgraded (Exps)." />
     <MESSAGE value="ListOfertas class aligned." />
     <MESSAGE value="Ups." />
-    <option name="LAST_COMMIT_MESSAGE" value="Ups." />
+    <MESSAGE value="ListSolicitudesAceptadas Class created and Principal Class Updated." />
+    <MESSAGE value="VentanaMatcheo Class Updated." />
+    <option name="LAST_COMMIT_MESSAGE" value="VentanaMatcheo Class Updated." />
   </component>
 </project>

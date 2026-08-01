@@ -144,7 +144,11 @@ public class LoginUsuario extends JDialog {
 
                 boolean ok = BolsaTrabajo.getInstance().iniciarSesion(usuario, pass);
 
-                if (ok) {
+                if (ok && usuario.equalsIgnoreCase("admin")) {
+                    PrincipalAdmin miPrincipalAdmin = new PrincipalAdmin();
+                    miPrincipalAdmin.setVisible(true);
+                    dispose();
+                } else if (ok) {
                     Principal myPrincipal = new Principal(BolsaTrabajo.getInstance().getUsuarioActual());
                     myPrincipal.setVisible(true);
                     dispose();
