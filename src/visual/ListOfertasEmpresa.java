@@ -373,8 +373,6 @@ public class ListOfertasEmpresa extends JDialog {
 		cantSolicitudesTxt.setText(""+oferta.getSolicitudEmps().size());
 		txtDescripcion.setText(oferta.getDescripcion());
 		txtRequisitos.setText(oferta.getRequisitos());
-
-		System.out.println(oferta.getSolicitudEmps().get(0).getPersona().getNombre());
 	}
 
 	private static String estadoOferta ( boolean estado )

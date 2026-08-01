@@ -3,10 +3,7 @@ package visual;
 import logico.BolsaTrabajo;
 import logico.Usuario;
 import logico.Institucion;
-import logico.Obrero;
 import logico.Persona;
-import logico.Tecnico;
-import logico.Universitario;
 
 import java.awt.*;
 import java.io.File;
@@ -531,20 +528,20 @@ public class Principal extends JFrame {
             btnSolicitudesRecibidas.setBounds(10, 367, 200, 128);
             panel_2.add(btnSolicitudesRecibidas);
 
-            RoundedButton btnCandidatos = new RoundedButton("Candidatos", 40);
-            btnCandidatos.addActionListener(new ActionListener() {
+            RoundedButton btnSolAceptadas = new RoundedButton("Solicitudes Aceptadas", 40);
+            btnSolAceptadas.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    ListCandidatos myCandidatos = new ListCandidatos(usuarioActual.getMyInstitucion());
+                    ListSolicitudesAceptadas myCandidatos = new ListSolicitudesAceptadas(usuarioActual.getMyInstitucion());
                     myCandidatos.setModal(true);
                     myCandidatos.setVisible(true);
                     panelInicio.setVisible(true);
                 }
             });
-            btnCandidatos.setForeground(Color.WHITE);
-            btnCandidatos.setFont(new Font("Tw Cen MT", Font.PLAIN, 22));
-            btnCandidatos.setBackground(new Color(0, 0, 102));
-            btnCandidatos.setBounds(10, 532, 200, 128);
-            panel_2.add(btnCandidatos);
+            btnSolAceptadas.setForeground(Color.WHITE);
+            btnSolAceptadas.setFont(new Font("Tw Cen MT", Font.PLAIN, 19));
+            btnSolAceptadas.setBackground(new Color(0, 0, 102));
+            btnSolAceptadas.setBounds(10, 532, 200, 128);
+            panel_2.add(btnSolAceptadas);
         } else {
             RoundedButton btnBuscarOfertas = new RoundedButton("Buscar Ofertas", 40);
             btnBuscarOfertas.addActionListener(new ActionListener() {

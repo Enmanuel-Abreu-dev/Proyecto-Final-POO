@@ -24,15 +24,14 @@ import javax.swing.JLayeredPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
-import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
-import logico.BolsaTrabajo;
 import logico.Institucion;
+import logico.Oferta;
+import logico.SolicitudEmp;
 import logico.Persona;
 import logico.Universitario;
 import logico.Tecnico;
@@ -40,7 +39,7 @@ import logico.Obrero;
 import logico.Experiencia;
 
 
-public class ListCandidatos extends JDialog {
+public class ListSolicitudesAceptadas extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
@@ -53,7 +52,6 @@ public class ListCandidatos extends JDialog {
 	private static final Color ROJO = new Color(0xC0, 0x5B, 0x5B);
 
 	private JPanel panelListado;
-	private JComboBox tipoComboBox;
 
 	private RoundedLabel fotoCandidatoLbl;
 	private RoundedTextField nombreCandidatoTxt;
@@ -68,13 +66,11 @@ public class ListCandidatos extends JDialog {
 	private RoundedTextField estadoLaboralTxt;
 	private JTextArea txtExperiencia;
 
-	private Persona seleccionado = null;
-
 	private final Institucion empresa;
 
 	public static void main(String[] args) {
 		try {
-			ListCandidatos dialog = new ListCandidatos(null);
+			ListSolicitudesAceptadas dialog = new ListSolicitudesAceptadas(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -82,11 +78,11 @@ public class ListCandidatos extends JDialog {
 		}
 	}
 
-	public ListCandidatos(Institucion empresa) {
+	public ListSolicitudesAceptadas(Institucion empresa) {
 		this.empresa = empresa;
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
-				ListCandidatos.class.getResource("/imagenes/iconoBuscarOferta.png")));
+				ListSolicitudesAceptadas.class.getResource("/imagenes/iconoBuscarOferta.png")));
 		getContentPane().setBackground(new Color(0, 0, 102));
 
 		JLayeredPane layeredPane = new JLayeredPane();
@@ -105,16 +101,9 @@ public class ListCandidatos extends JDialog {
 		btnSalir.setBounds(1150, 24, 100, 36);
 		layeredPane.add(btnSalir);
 
-		tipoComboBox = new JComboBox();
-		tipoComboBox.setModel(new DefaultComboBoxModel(new String[] {"Tipo de Candidato", "Universitario", "Tecnico", "Obrero"}));
-		tipoComboBox.setFont(new Font("Tahoma", Font.ITALIC, 15));
-		tipoComboBox.setBackground(Color.WHITE);
-		tipoComboBox.setBounds(24, 105, 250, 38);
-		layeredPane.add(tipoComboBox);
-
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(24, 154, 535, 516);
+		scrollPane.setBounds(24, 80, 535, 590);
 		layeredPane.add(scrollPane);
 
 		panelListado = new JPanel();
@@ -130,7 +119,7 @@ public class ListCandidatos extends JDialog {
 
 		JScrollPane scrollDetalle = new JScrollPane(panelDetalle);
 		scrollDetalle.setViewportBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		scrollDetalle.setBounds(603, 154, 663, 516);
+		scrollDetalle.setBounds(603, 80, 663, 590);
 		layeredPane.add(scrollDetalle);
 
 		fotoCandidatoLbl = new RoundedLabel(20);
@@ -280,38 +269,48 @@ public class ListCandidatos extends JDialog {
 		txtExperiencia.setBounds(20, 520, 590, 200);
 		panelDetalle.add(txtExperiencia);
 
-		JLabel lblNewLabel_1 = new JLabel("Listado de Candidatos");
+		JLabel lblNewLabel_1 = new JLabel("Solicitudes Aceptadas");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Lucida Handwriting", Font.PLAIN, 41));
 		lblNewLabel_1.setBounds(43, 10, 598, 72);
 		layeredPane.add(lblNewLabel_1);
 
-		setTitle("LISTADO DE CANDIDATOS");
+		setTitle("SOLICITUDES ACEPTADAS");
 		setSize(1280, 720);
 		setLocationRelativeTo(null);
-		cargarCandidato();
+		cargarSolicitudesAceptadas();
 	}
 
-	public void cargarCandidato() {
-		ArrayList<Persona> personas = BolsaTrabajo.getInstance().getPersonas();
-		System.out.println("Perosnar: " + BolsaTrabajo.getInstance().getPersonas().size());
-		System.out.println("Cantidad de personas: " + personas.size());
-		System.out.println(personas.get(1).getNombre());
+	public void cargarSolicitudesAceptadas() {
+		ArrayList<SolicitudEmp> solicitudes = solicitudesAceptadas();
 
 		panelListado.removeAll();
-		for (final Persona p : personas) {
-			panelListado.add(crearTarjeta(p));
+		for (final SolicitudEmp s : solicitudes) {
+			panelListado.add(crearTarjeta(s));
 			panelListado.add(Box.createRigidArea(new Dimension(0, 10)));
 		}
 		panelListado.revalidate();
 		panelListado.repaint();
 
-		if (!personas.isEmpty()) {
-			mostrarDetalle(personas.get(0));
+		if (!solicitudes.isEmpty()) {
+			mostrarDetalle(solicitudes.get(0).getPersona());
 		}
 	}
 
-	private JPanel crearTarjeta(final Persona p) {
+	private ArrayList<SolicitudEmp> solicitudesAceptadas() {
+		ArrayList<SolicitudEmp> lista = new ArrayList<>();
+		ArrayList<Oferta> ofertas = empresa.getMyOfertas();
+
+		for (Oferta o : ofertas)
+			for (SolicitudEmp s : o.getSolicitudEmps())
+				if (s.isEstado())
+					lista.add(s);
+		return lista;
+	}
+
+	private JPanel crearTarjeta(final SolicitudEmp s) {
+		final Persona p = s.getPersona();
+
 		JPanel tarjeta = new JPanel();
 		tarjeta.setLayout(new BoxLayout(tarjeta, BoxLayout.Y_AXIS));
 		tarjeta.setBackground(TARJETA_BLANCA);
@@ -325,28 +324,28 @@ public class ListCandidatos extends JDialog {
 		lblNombre.setBorder(new EmptyBorder(8, 12, 2, 12));
 		lblNombre.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-		JLabel lblTipo = new JLabel(tipoCandidato(p));
-		lblTipo.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTipo.setForeground(AZUL_PRINCIPAL);
-		lblTipo.setBorder(new EmptyBorder(2, 12, 2, 12));
-		lblTipo.setAlignmentX(Component.LEFT_ALIGNMENT);
+		JLabel lblPuesto = new JLabel(s.getOferta().getPuesto());
+		lblPuesto.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPuesto.setForeground(AZUL_PRINCIPAL);
+		lblPuesto.setBorder(new EmptyBorder(2, 12, 2, 12));
+		lblPuesto.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-		JLabel lblEstado = new JLabel(p.isEmpleado() ? "EMPLEADO" : "DISPONIBLE");
+		JLabel lblFecha = new JLabel(s.getFecha().toString());
+		lblFecha.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblFecha.setForeground(new Color(150, 150, 150));
+		lblFecha.setBorder(new EmptyBorder(2, 12, 2, 12));
+		lblFecha.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		JLabel lblEstado = new JLabel("ACEPTADA");
 		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblEstado.setForeground(p.isEmpleado() ? ROJO : VERDE_AZULADO);
-		lblEstado.setBorder(new EmptyBorder(2, 12, 2, 12));
+		lblEstado.setForeground(VERDE_AZULADO);
+		lblEstado.setBorder(new EmptyBorder(2, 12, 8, 12));
 		lblEstado.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-		JLabel lblPais = new JLabel(p.getPais());
-		lblPais.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblPais.setForeground(new Color(150, 150, 150));
-		lblPais.setBorder(new EmptyBorder(2, 12, 8, 12));
-		lblPais.setAlignmentX(Component.LEFT_ALIGNMENT);
-
 		tarjeta.add(lblNombre);
-		tarjeta.add(lblTipo);
+		tarjeta.add(lblPuesto);
+		tarjeta.add(lblFecha);
 		tarjeta.add(lblEstado);
-		tarjeta.add(lblPais);
 
 		MouseAdapter listenerTarjeta = new MouseAdapter() {
 			@Override
@@ -365,16 +364,14 @@ public class ListCandidatos extends JDialog {
 		tarjeta.addMouseListener(listenerTarjeta);
 		tarjeta.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblNombre.addMouseListener(listenerTarjeta);
-		lblTipo.addMouseListener(listenerTarjeta);
+		lblPuesto.addMouseListener(listenerTarjeta);
+		lblFecha.addMouseListener(listenerTarjeta);
 		lblEstado.addMouseListener(listenerTarjeta);
-		lblPais.addMouseListener(listenerTarjeta);
 
 		return tarjeta;
 	}
 
 	private void mostrarDetalle(Persona p) {
-		seleccionado = p;
-
 		String rutaImagen = p.getRutaImagen();
 
 		if (rutaImagen != null && new File(rutaImagen).exists()) {
@@ -408,17 +405,16 @@ public class ListCandidatos extends JDialog {
 		dispResidenciaTxt.setForeground(p.isDispResidencia() ? VERDE_AZULADO : ROJO);
 
 		String experiencias = "";
-		for ( Experiencia e : p.getExperiencia() )
+		for (Experiencia e : p.getExperiencia())
 			experiencias += e.getCargo() + " - " + e.getInstitucion() + " (" + e.getFechaInicio() + " / "
 					+ e.getFechaFinalizacion() + ")\n";
 		txtExperiencia.setText(experiencias);
 	}
 
-	private static String tipoCandidato ( Persona p )
-	{
-		if ( p instanceof Universitario ) return "Universitario";
-		if ( p instanceof Tecnico ) return "Tecnico";
-		if ( p instanceof Obrero ) return "Obrero";
+	private static String tipoCandidato(Persona p) {
+		if (p instanceof Universitario) return "Universitario";
+		if (p instanceof Tecnico) return "Tecnico";
+		if (p instanceof Obrero) return "Obrero";
 		return "";
 	}
 }
