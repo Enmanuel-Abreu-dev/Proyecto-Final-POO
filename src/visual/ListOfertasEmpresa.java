@@ -230,8 +230,8 @@ public class ListOfertasEmpresa extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				VentanaMatcheo match = new VentanaMatcheo(ofertaSeleccionada);
-				match.setVisible(true);
 				match.setModal(true);
+				match.setVisible(true);
 			}
 		});
 		panelDetalle.add(btnVerCandidatos);

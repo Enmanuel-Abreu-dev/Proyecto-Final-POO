@@ -29,6 +29,7 @@ public class VentanaMatcheo extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JPanel panelDetalle;
 	private JPanel panelPodio;
+	private JPanel panelListado;
 
 	private static final Color AZUL_PRINCIPAL = new Color(0x25, 0x63, 0xA6);
 	private static final Color TEXTO_OSCURO = new Color(0x1F, 0x29, 0x37);
@@ -92,8 +93,11 @@ public class VentanaMatcheo extends JDialog {
 		scrollPane.setBounds(0, 339, 650, 334);
 		layeredPane.add(scrollPane);
 
-		JPanel panel = new JPanel();
-		scrollPane.setViewportView(panel);
+		JPanel panelOtras = new JPanel();
+		scrollPane.setViewportView(panelOtras);
+		panelListado = new JPanel(); 
+		panelListado.setLayout(new BoxLayout(panelListado, BoxLayout.Y_AXIS));
+		scrollPane.setViewportView(panelListado);
 
 		JLabel lblNewLabel_1 = new JLabel("Mejores Candidatos");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
@@ -104,7 +108,7 @@ public class VentanaMatcheo extends JDialog {
 		panelPodio = new JPanel();
 		panelPodio.setBounds(0, 92, 650, 200);
 		layeredPane.add(panelPodio);
-		panelPodio.setLayout(new GridLayout(1, 0, 0, 0));
+		panelPodio.setLayout(new GridLayout(1, 3, 3, 3));
 
 		panelDetalle = new JPanel();
 		panelDetalle.setBackground(TARJETA_BLANCA);
@@ -269,20 +273,35 @@ public class VentanaMatcheo extends JDialog {
 
 		try {
 			cargarPodio(BolsaTrabajo.getInstance().calcularCoincidencia(ofertaActual.getPuesto()));	
+    		cargarListado(BolsaTrabajo.getInstance().calcularCoincidencia(ofertaActual.getPuesto()));
 		} catch (NullPointerException npe) {
 			System.out.println("Error");
 		}
 	}
 
-	public void cargarPodio( ArrayList<Coincidencia> coincidencia ) {
+	public void cargarPodio(ArrayList<Coincidencia> coincidencia) {
 		panelPodio.removeAll();
-		for ( int i = 0; i < coincidencia.size(); i++ ) {
+
+		int cantidadPodio = Math.min(3, coincidencia.size());
+		for (int i = 0; i < cantidadPodio; i++) {
 			Coincidencia c = coincidencia.get(i);
-			System.out.println(c.getPersona().getNombre());
 			panelPodio.add(crearTarjetaPodio(c.getPersona(), c.getPorcentaje(), i + 1));
 		}
+
 		panelPodio.revalidate();
 		panelPodio.repaint();
+	}
+
+	public void cargarListado(ArrayList<Coincidencia> coincidencia) {
+		panelListado.removeAll();
+
+		for (int i = 3; i < coincidencia.size(); i++) {
+			Coincidencia c = coincidencia.get(i);
+			panelListado.add(crearTarjetaListado(c));
+		}
+
+		panelListado.revalidate();
+		panelListado.repaint();
 	}
 
 	private JPanel crearTarjetaPodio(Persona p, float porcentaje, int posicion) {
@@ -331,6 +350,61 @@ public class VentanaMatcheo extends JDialog {
 		});
 
 	    return tarjeta;
+	}
+
+	private JPanel crearTarjetaListado(final Coincidencia c) {
+		final Persona p = c.getPersona();
+
+		JPanel tarjeta = new JPanel();
+		tarjeta.setLayout(new BoxLayout(tarjeta, BoxLayout.Y_AXIS));
+		tarjeta.setBackground(TARJETA_BLANCA);
+		tarjeta.setBorder(new MatteBorder(1, 1, 1, 1, new Color(220, 220, 220)));
+		tarjeta.setAlignmentX(Component.LEFT_ALIGNMENT);
+		tarjeta.setMaximumSize(new Dimension(Integer.MAX_VALUE, 110));
+
+		JLabel lblCandidato = new JLabel(p.getNombre() + " " + p.getApellido());
+		lblCandidato.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblCandidato.setForeground(AZUL_PRINCIPAL);
+		lblCandidato.setBorder(new EmptyBorder(8, 12, 2, 12));
+		lblCandidato.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		JLabel lblPuesto = new JLabel(ofertaActual.getPuesto());
+		lblPuesto.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPuesto.setForeground(TEXTO_OSCURO);
+		lblPuesto.setBorder(new EmptyBorder(2, 12, 2, 12));
+		lblPuesto.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		JLabel lblPorcentaje = new JLabel("Compatibilidad: " + Math.round(c.getPorcentaje()) + "%");
+		lblPorcentaje.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblPorcentaje.setForeground(new Color(150, 150, 150));
+		lblPorcentaje.setBorder(new EmptyBorder(2, 12, 8, 12));
+		lblPorcentaje.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+		tarjeta.add(lblCandidato);
+		tarjeta.add(lblPuesto);
+		tarjeta.add(lblPorcentaje);
+
+		MouseAdapter listenerTarjeta = new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				mostrarDetalle(p, ofertaActual);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				tarjeta.setBackground(new Color(245, 245, 245));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				tarjeta.setBackground(TARJETA_BLANCA);
+			}
+		};
+		tarjeta.addMouseListener(listenerTarjeta);
+		tarjeta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblCandidato.addMouseListener(listenerTarjeta);
+		lblPuesto.addMouseListener(listenerTarjeta);
+		lblPorcentaje.addMouseListener(listenerTarjeta);
+
+		return tarjeta;
 	}
 
 	public void mostrarDetalle(Persona p, Oferta oferta) {
@@ -396,4 +470,5 @@ public class VentanaMatcheo extends JDialog {
 		dispResidenciaTxt.setText(p.isDispResidencia() ? "SI" : "NO");
 		dispResidenciaTxt.setForeground(p.isDispResidencia() ? VERDE : ROJO);
 	}
+
 }
