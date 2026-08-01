@@ -268,8 +268,8 @@ public class ListSolicitudesRecibidas extends JDialog {
 		if (!solicitudes.isEmpty()) {
 			mostrarDetalle(solicitudes.get(0));
 		}
-		System.out.println(solicitudes.get(1).isEstado());
-		System.out.println(solicitudes.get(1).getPersona().getNombre());
+		//System.out.println(solicitudes.get(1).isEstado());
+		//System.out.println(solicitudes.get(1).getPersona().getNombre());
 	}
 
 	private ArrayList<SolicitudEmp> solicitudesEmp()

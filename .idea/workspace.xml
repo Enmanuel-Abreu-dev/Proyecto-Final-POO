@@ -4,9 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="Principal user view upgraded (Exps).">
+    <list default="true" id="a6e75596-3ef2-43c9-8c17-ea4d7f5a6be3" name="Changes" comment="Ups.">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2026_2_43p__m___Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2026_2_43 p_ m__[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2026_5_54p__m___Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_7_2026_5_54 p_ m__[Changes]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/POOProyectoFinal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/POOProyectoFinal.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/save.bin" beforeDir="false" afterPath="$PROJECT_DIR$/save.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/ListCandidatos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListSolicitudesAceptadas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/ListOfertasEmpresa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListOfertasEmpresa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/ListSolicitudesRecibidas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/ListSolicitudesRecibidas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/Principal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/visual/VentanaMatcheo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/visual/VentanaMatcheo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,50 +50,71 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.DashboardEmpresa.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ListOfertas.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ListOfertasEmpresa.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ListSolicitudesEmp.executor&quot;: &quot;Run&quot;,
-    &quot;Application.LoginUsuario (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.LoginUsuario (2).executor&quot;: &quot;Run&quot;,
-    &quot;Application.LoginUsuario (3).executor&quot;: &quot;Run&quot;,
-    &quot;Application.LoginUsuario.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Principal.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegEmpresa (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegEmpresa.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegOferta.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegPersona (1).executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegPersona.executor&quot;: &quot;Run&quot;,
-    &quot;Application.RegSolicitudEmp.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TipoDeUsuario.executor&quot;: &quot;Run&quot;,
-    &quot;Application.VentanaMatcheo.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jeanr/Documents/WorkSpacePUCMM/Proyecto-Final-POO/src/imagenes&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.DashboardEmpresa.executor": "Run",
+    "Application.ListCandidatos.executor": "Run",
+    "Application.ListOfertas.executor": "Run",
+    "Application.ListOfertasEmpresa.executor": "Run",
+    "Application.ListSolicitudesAceptadas.executor": "Run",
+    "Application.ListSolicitudesEmp.executor": "Run",
+    "Application.LoginUsuario (1).executor": "Run",
+    "Application.LoginUsuario (2).executor": "Run",
+    "Application.LoginUsuario (3).executor": "Run",
+    "Application.LoginUsuario (4).executor": "Run",
+    "Application.LoginUsuario (5).executor": "Run",
+    "Application.LoginUsuario.executor": "Run",
+    "Application.Principal.executor": "Run",
+    "Application.RegEmpresa (1).executor": "Run",
+    "Application.RegEmpresa.executor": "Run",
+    "Application.RegOferta.executor": "Run",
+    "Application.RegPersona (1).executor": "Run",
+    "Application.RegPersona.executor": "Run",
+    "Application.RegSolicitudEmp.executor": "Run",
+    "Application.TipoDeUsuario.executor": "Run",
+    "Application.VentanaMatcheo.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/jeanr/Documents/WorkSpacePUCMM/Proyecto-Final-POO/src/imagenes",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jeanr\Documents\WorkSpacePUCMM\Proyecto-Final-POO\src\imagenes" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.LoginUsuario (1)">
-    <configuration name="ListOfertas" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.ListOfertas" />
+  <component name="RunManager" selected="Application.LoginUsuario">
+    <configuration name="ListCandidatos" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.ListCandidatos" />
+      <module name="POOProyectoFinal" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="visual.ListCandidatos" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ListSolicitudesAceptadas" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.ListSolicitudesAceptadas" />
       <module name="POOProyectoFinal" />
       <extension name="coverage">
         <pattern>
@@ -95,8 +126,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ListOfertasEmpresa" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.ListOfertasEmpresa" />
+    <configuration name="LoginUsuario (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="visual.LoginUsuario" />
       <module name="POOProyectoFinal" />
       <extension name="coverage">
         <pattern>
@@ -108,7 +139,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoginUsuario (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="LoginUsuario (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="visual.LoginUsuario" />
       <module name="POOProyectoFinal" />
       <extension name="coverage">
@@ -134,26 +165,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RegSolicitudEmp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="visual.RegSolicitudEmp" />
-      <module name="POOProyectoFinal" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="visual.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.LoginUsuario (1)" />
         <item itemvalue="Application.LoginUsuario" />
-        <item itemvalue="Application.RegSolicitudEmp" />
-        <item itemvalue="Application.ListOfertas" />
-        <item itemvalue="Application.ListOfertasEmpresa" />
+        <item itemvalue="Application.ListSolicitudesAceptadas" />
+        <item itemvalue="Application.ListCandidatos" />
+        <item itemvalue="Application.LoginUsuario (3)" />
+        <item itemvalue="Application.LoginUsuario (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -432,15 +450,29 @@
       <option name="project" value="LOCAL" />
       <updated>1785334716550</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="ListOfertas class aligned.">
+      <option name="closed" value="true" />
+      <created>1785349423819</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1785349423819</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Ups.">
+      <option name="closed" value="true" />
+      <created>1785540266066</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1785540266066</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="profesion added to Oferta class." />
-    <MESSAGE value="RegPersona class Updated [herencia]." />
     <MESSAGE value="RegOferta class Created." />
     <MESSAGE value="VentanaMatcheo class Created." />
     <MESSAGE value="Rounded Classes Implemented (textF, button and Panel)." />
@@ -464,6 +496,8 @@
     <MESSAGE value="Classes Design Updated." />
     <MESSAGE value="ListExperiencia and RegExperiencia Classes Created." />
     <MESSAGE value="Principal user view upgraded (Exps)." />
-    <option name="LAST_COMMIT_MESSAGE" value="Principal user view upgraded (Exps)." />
+    <MESSAGE value="ListOfertas class aligned." />
+    <MESSAGE value="Ups." />
+    <option name="LAST_COMMIT_MESSAGE" value="Ups." />
   </component>
 </project>

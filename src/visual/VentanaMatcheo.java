@@ -158,7 +158,7 @@ public class VentanaMatcheo extends JDialog {
 		JLabel lblModalidadLbl = new JLabel("MODALIDAD:");
 		lblModalidadLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblModalidadLbl.setForeground(TEXTO_OSCURO);
-		lblModalidadLbl.setBounds(20, 190, 230, 25);
+		lblModalidadLbl.setBounds(20, 180, 230, 25);
 		panelDetalle.add(lblModalidadLbl);
 
 		modalidadTxt = new RoundedTextField(20);
@@ -166,13 +166,13 @@ public class VentanaMatcheo extends JDialog {
 		modalidadTxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		modalidadTxt.setEditable(false);
 		modalidadTxt.setBackground(new Color(204, 204, 204));
-		modalidadTxt.setBounds(20, 216, 230, 34);
+		modalidadTxt.setBounds(20, 206, 230, 34);
 		panelDetalle.add(modalidadTxt);
 
 		JLabel lblExperienciaLbl = new JLabel("AÑOS DE EXPERIENCIA:");
 		lblExperienciaLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblExperienciaLbl.setForeground(TEXTO_OSCURO);
-		lblExperienciaLbl.setBounds(285, 190, 230, 25);
+		lblExperienciaLbl.setBounds(285, 180, 230, 25);
 		panelDetalle.add(lblExperienciaLbl);
 
 		experienciaTxt = new RoundedTextField(20);
@@ -180,13 +180,13 @@ public class VentanaMatcheo extends JDialog {
 		experienciaTxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		experienciaTxt.setEditable(false);
 		experienciaTxt.setBackground(new Color(204, 204, 204));
-		experienciaTxt.setBounds(285, 216, 230, 34);
+		experienciaTxt.setBounds(285, 206, 230, 34);
 		panelDetalle.add(experienciaTxt);
 
 		JLabel lblEdadLbl = new JLabel("EDAD:");
 		lblEdadLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblEdadLbl.setForeground(TEXTO_OSCURO);
-		lblEdadLbl.setBounds(20, 265, 230, 25);
+		lblEdadLbl.setBounds(20, 250, 230, 25);
 		panelDetalle.add(lblEdadLbl);
 
 		edadTxt = new RoundedTextField(20);
@@ -194,13 +194,13 @@ public class VentanaMatcheo extends JDialog {
 		edadTxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		edadTxt.setEditable(false);
 		edadTxt.setBackground(new Color(204, 204, 204));
-		edadTxt.setBounds(20, 291, 230, 34);
+		edadTxt.setBounds(20, 276, 230, 34);
 		panelDetalle.add(edadTxt);
 
 		JLabel lblPaisLbl = new JLabel("PAIS:");
 		lblPaisLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPaisLbl.setForeground(TEXTO_OSCURO);
-		lblPaisLbl.setBounds(285, 265, 230, 25);
+		lblPaisLbl.setBounds(285, 250, 230, 25);
 		panelDetalle.add(lblPaisLbl);
 
 		paisTxt = new RoundedTextField(20);
@@ -208,13 +208,13 @@ public class VentanaMatcheo extends JDialog {
 		paisTxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		paisTxt.setEditable(false);
 		paisTxt.setBackground(new Color(204, 204, 204));
-		paisTxt.setBounds(285, 291, 230, 34);
+		paisTxt.setBounds(285, 276, 230, 34);
 		panelDetalle.add(paisTxt);
 
 		JLabel lblSexoLbl = new JLabel("SEXO:");
 		lblSexoLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblSexoLbl.setForeground(TEXTO_OSCURO);
-		lblSexoLbl.setBounds(20, 340, 230, 25);
+		lblSexoLbl.setBounds(20, 320, 230, 25);
 		panelDetalle.add(lblSexoLbl);
 
 		sexoTxt = new RoundedTextField(20);
@@ -222,13 +222,13 @@ public class VentanaMatcheo extends JDialog {
 		sexoTxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		sexoTxt.setEditable(false);
 		sexoTxt.setBackground(new Color(204, 204, 204));
-		sexoTxt.setBounds(20, 366, 230, 34);
+		sexoTxt.setBounds(20, 346, 230, 34);
 		panelDetalle.add(sexoTxt);
 
 		JLabel lblDispViajarLbl = new JLabel("DISPONIBILIDAD DE VIAJE:");
 		lblDispViajarLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblDispViajarLbl.setForeground(TEXTO_OSCURO);
-		lblDispViajarLbl.setBounds(285, 340, 230, 25);
+		lblDispViajarLbl.setBounds(285, 320, 230, 25);
 		panelDetalle.add(lblDispViajarLbl);
 
 		dispViajarTxt = new RoundedTextField(20);
@@ -236,13 +236,13 @@ public class VentanaMatcheo extends JDialog {
 		dispViajarTxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		dispViajarTxt.setEditable(false);
 		dispViajarTxt.setBackground(new Color(204, 204, 204));
-		dispViajarTxt.setBounds(285, 366, 230, 34);
+		dispViajarTxt.setBounds(285, 346, 230, 34);
 		panelDetalle.add(dispViajarTxt);
 
 		JLabel lblDispResidenciaLbl = new JLabel("DISPONIBILIDAD DE MUDANZA:");
 		lblDispResidenciaLbl.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblDispResidenciaLbl.setForeground(TEXTO_OSCURO);
-		lblDispResidenciaLbl.setBounds(20, 415, 280, 25);
+		lblDispResidenciaLbl.setBounds(20, 390, 280, 25);
 		panelDetalle.add(lblDispResidenciaLbl);
 
 		dispResidenciaTxt = new RoundedTextField(20);
@@ -250,8 +250,30 @@ public class VentanaMatcheo extends JDialog {
 		dispResidenciaTxt.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		dispResidenciaTxt.setEditable(false);
 		dispResidenciaTxt.setBackground(new Color(204, 204, 204));
-		dispResidenciaTxt.setBounds(20, 441, 230, 34);
+		dispResidenciaTxt.setBounds(20, 416, 230, 34);
 		panelDetalle.add(dispResidenciaTxt);
+		
+		RoundedButton btnNewButton = new RoundedButton("New button", 30);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				/// aqui se hace el algoritmo de empolear empleado, se acepta desde la
+				/// empresa y en el empleado se pone que esta empleado
+			}
+		});
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(50, 205, 50));
+		btnNewButton.setText("ACEPTAR");
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 25));
+		btnNewButton.setBounds(64, 472, 181, 49);
+		panelDetalle.add(btnNewButton);
+		
+		RoundedButton rndbtnRechazar = new RoundedButton("New button", 30);
+		rndbtnRechazar.setBackground(new Color(255, 69, 0));
+		rndbtnRechazar.setForeground(new Color(255, 255, 255));
+		rndbtnRechazar.setText("RECHAZAR");
+		rndbtnRechazar.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 25));
+		rndbtnRechazar.setBounds(309, 472, 181, 49);
+		panelDetalle.add(rndbtnRechazar);
 
 		JLabel lblOtrasSolicitudes = new JLabel("OTRAS SOLICITUDES:");
 		lblOtrasSolicitudes.setForeground(Color.WHITE);
@@ -470,5 +492,4 @@ public class VentanaMatcheo extends JDialog {
 		dispResidenciaTxt.setText(p.isDispResidencia() ? "SI" : "NO");
 		dispResidenciaTxt.setForeground(p.isDispResidencia() ? VERDE : ROJO);
 	}
-
 }
