@@ -8,13 +8,13 @@ public abstract class Solicitud implements Serializable {
 	
 	protected String identificador;
     protected LocalDate fecha;
-    protected boolean estado;
+    protected EstadoSolicutud estado;
     protected Oferta oferta;
 
     public Solicitud(String identificador, Oferta oferta) {
         this.identificador = identificador;
         this.fecha = LocalDate.now();
-        this.estado = false;
+        this.estado = EstadoSolicutud.PENDIENTE;
         this.oferta = oferta;
     }
 
@@ -34,11 +34,11 @@ public abstract class Solicitud implements Serializable {
         this.fecha = fecha;
     }
 
-    public boolean isEstado() {
+    public EstadoSolicutud getEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(EstadoSolicutud estado) {
         this.estado = estado;
     }
 
@@ -50,5 +50,5 @@ public abstract class Solicitud implements Serializable {
         this.oferta = oferta;
     }
 
-    // Managment:    
+    
 }

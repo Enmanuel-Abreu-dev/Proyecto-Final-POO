@@ -203,10 +203,10 @@ public abstract class Persona implements Serializable {
     }
     
     public ArrayList<SolicitudEmp> getSolicitudesActivas() {
-    	return this.solicitudEmps.stream().filter(x -> x.isEstado()).collect(Collectors.toCollection(ArrayList::new));
+    	return this.solicitudEmps.stream().filter(x -> x.getEstado() == EstadoSolicutud.ACEPTADA).collect(Collectors.toCollection(ArrayList::new));
     }
     
     public ArrayList<SolicitudEmp> getSolicitudesEnProceso() {
-    	return this.solicitudEmps.stream().filter(x -> !x.isEstado()).collect(Collectors.toCollection(ArrayList::new));
+    	return this.solicitudEmps.stream().filter(x -> x.getEstado() == EstadoSolicutud.PENDIENTE).collect(Collectors.toCollection(ArrayList::new));
     }
 }

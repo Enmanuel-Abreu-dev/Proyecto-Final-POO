@@ -52,6 +52,7 @@ public class VentanaMatcheo extends JDialog {
 
 	private Oferta ofertaActual;
 	private JButton btnSalir;
+	private Persona personaActual;
 
 	/**
 	 * Launch the application.
@@ -256,8 +257,10 @@ public class VentanaMatcheo extends JDialog {
 		RoundedButton btnNewButton = new RoundedButton("New button", 30);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				/// aqui se hace el algoritmo de empolear empleado, se acepta desde la
-				/// empresa y en el empleado se pone que esta empleado
+				if ( personaActual != null )
+				{
+					
+				}
 			}
 		});
 		btnNewButton.setForeground(new Color(255, 255, 255));
@@ -368,6 +371,7 @@ public class VentanaMatcheo extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				mostrarDetalle(p, ofertaActual);
+				personaActual = p;
 			}
 		});
 

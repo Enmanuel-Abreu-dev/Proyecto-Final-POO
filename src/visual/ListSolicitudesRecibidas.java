@@ -35,6 +35,7 @@ import logico.Tecnico;
 import logico.Obrero;
 import logico.Oferta;
 import logico.BolsaTrabajo;
+import logico.EstadoSolicutud;
 import logico.Experiencia;
 
 
@@ -49,6 +50,7 @@ public class ListSolicitudesRecibidas extends JDialog {
 	private static final Color TARJETA_BLANCA = Color.WHITE;
 	private static final Color TEXTO_OSCURO = new Color(31, 41, 55);
 	private static final Color ROJO = new Color(255, 0, 0);
+	private static final Color NARANJA = new Color(0xE0, 0x8E, 0x45);
 
 	private JPanel panelListado;
 	private RoundedTextField nombreCandidatoTxt;
@@ -309,9 +311,19 @@ public class ListSolicitudesRecibidas extends JDialog {
 		lblFecha.setBorder(new EmptyBorder(2, 12, 2, 12));
 		lblFecha.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-		JLabel lblEstado = new JLabel(s.isEstado() ? "ACEPTADA" : "RECHAZADA");
+		JLabel lblEstado = new JLabel(
+			s.getEstado() == EstadoSolicutud.ACEPTADA ? "ACEPTADA" :
+			s.getEstado() == EstadoSolicutud.RECHAZADA ? "RECHAZADA" :
+			s.getEstado() == EstadoSolicutud.PENDIENTE ? "PENDIENTE" :
+			"PENDIENTE"
+		);
 		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblEstado.setForeground(s.isEstado() ? VERDE_AZULADO : ROJO);
+		lblEstado.setForeground(
+				s.getEstado() == EstadoSolicutud.ACEPTADA ? VERDE_AZULADO :
+				s.getEstado() == EstadoSolicutud.RECHAZADA ? ROJO :
+				s.getEstado() == EstadoSolicutud.PENDIENTE ? NARANJA :
+				NARANJA
+			);
 		lblEstado.setBorder(new EmptyBorder(2, 12, 8, 12));
 		lblEstado.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -363,8 +375,18 @@ public class ListSolicitudesRecibidas extends JDialog {
 		tipoCandidatoTxt.setText(tipo);
 		fechaSolicitudTxt.setText(s.getFecha().toString());
 
-		estadoTxt.setText(s.isEstado() ? "ACEPTADA" : "RECHAZADA");
-		estadoTxt.setForeground(s.isEstado() ? VERDE_AZULADO : ROJO);
+		estadoTxt.setText(
+			s.getEstado() == EstadoSolicutud.ACEPTADA ? "ACEPTADA" :
+			s.getEstado() == EstadoSolicutud.RECHAZADA ? "RECHAZADA" :
+			s.getEstado() == EstadoSolicutud.PENDIENTE ? "PENDIENTE" :
+			"PENDIENTE"
+		);
+		estadoTxt.setForeground(
+				s.getEstado() == EstadoSolicutud.ACEPTADA ? VERDE_AZULADO :
+				s.getEstado() == EstadoSolicutud.RECHAZADA ? ROJO :
+				s.getEstado() == EstadoSolicutud.PENDIENTE ? NARANJA :
+				NARANJA
+			);
 
 		dispViajarTxt.setText(p.isDispViajar() ? "SI" : "NO");
 		dispResidenciaTxt.setText(p.isDispResidencia() ? "SI" : "NO");

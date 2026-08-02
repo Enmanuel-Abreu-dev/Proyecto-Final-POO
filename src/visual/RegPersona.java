@@ -162,7 +162,6 @@ public class RegPersona extends JDialog {
 			registrarBtn.setText("MODIFICAR");
 		}
 		System.out.println(BolsaTrabajo.getInstance().getUsuarios().size());
-		System.out.println(BolsaTrabajo.getInstance().getUsuarios().get(2).getNombre());
 		registrarBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 

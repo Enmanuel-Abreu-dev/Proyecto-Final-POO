@@ -31,6 +31,7 @@ import javax.swing.border.TitledBorder;
 
 import logico.SolicitudEmp;
 import logico.BolsaTrabajo;
+import logico.EstadoSolicutud;
 import logico.Oferta;
 import logico.Persona;
 
@@ -46,6 +47,7 @@ public class ListSolicitudesEmp extends JDialog {
 	private static final Color TARJETA_BLANCA = Color.WHITE;
 	private static final Color TEXTO_OSCURO = new Color(31, 41, 55);
 	private static final Color ROJO = new Color(255, 0, 0);
+	private static final Color NARANJA = new Color(0xE0, 0x8E, 0x45);
 
 	private JPanel panelListado;
 
@@ -306,9 +308,14 @@ public class ListSolicitudesEmp extends JDialog {
 		lblEmpresa.setBorder(new EmptyBorder(2, 12, 2, 12));
 		lblEmpresa.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-		JLabel lblEstado = new JLabel(estadoSolicitud(s.isEstado()));
+		JLabel lblEstado = new JLabel(estadoSolicitud(s.getEstado()));
 		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblEstado.setForeground(s.isEstado() ? VERDE_AZULADO : ROJO);
+		lblEstado.setForeground(
+				s.getEstado() == EstadoSolicutud.ACEPTADA ? VERDE_AZULADO :
+				s.getEstado() == EstadoSolicutud.RECHAZADA ? ROJO :
+				s.getEstado() == EstadoSolicutud.PENDIENTE ? NARANJA :
+				NARANJA
+			);
 		lblEstado.setBorder(new EmptyBorder(2, 12, 2, 12));
 		lblEstado.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -383,17 +390,25 @@ public class ListSolicitudesEmp extends JDialog {
 			txtDescripcionOferta.setText("");
 		}
 
-		estadoTxt.setText(estadoSolicitud(s.isEstado()));
-		estadoTxt.setForeground(s.isEstado() ? VERDE_AZULADO : ROJO);
+		estadoTxt.setText(estadoSolicitud(s.getEstado()));
+		estadoTxt.setForeground(
+				s.getEstado() == EstadoSolicutud.ACEPTADA ? VERDE_AZULADO :
+				s.getEstado() == EstadoSolicutud.RECHAZADA ? ROJO :
+				s.getEstado() == EstadoSolicutud.PENDIENTE ? NARANJA :
+				NARANJA
+			);
 
 		fechaSolicitudTxt.setText(s.getFecha() != null ? s.getFecha().toString() : "");
 		modalidadTxt.setText(s.getModalidad());
 		rangoSalarialTxt.setText(s.getRangoSalarial());
 	}
 
-	private static String estadoSolicitud ( boolean estado )
+	private static String estadoSolicitud ( EstadoSolicutud e )
 	{
-		if ( estado ) return "ACEPTADA";
-		else return "PENDIENTE / RECHAZADA";
+		if ( e == EstadoSolicutud.ACEPTADA ) return "ACEPTADA";
+		if ( e == EstadoSolicutud.PENDIENTE ) return "PENDIENTE";
+		if ( e == EstadoSolicutud.RECHAZADA ) return "RECHAZADA";
+
+		return "Vacio";
 	}
 }

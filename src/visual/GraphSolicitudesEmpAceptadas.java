@@ -9,6 +9,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
 import logico.BolsaTrabajo;
+import logico.EstadoSolicutud;
 import logico.Solicitud;
 import logico.SolicitudEmp;
 
@@ -32,7 +33,7 @@ public class GraphSolicitudesEmpAceptadas extends JPanel {
 		int total = 0;
 		
 		for (Solicitud actual : solicitudes) {
-			if ((actual instanceof SolicitudEmp) && actual.isEstado()) 
+			if ((actual instanceof SolicitudEmp) && actual.getEstado() == EstadoSolicutud.ACEPTADA ) 
 				total++;
 		}
 		

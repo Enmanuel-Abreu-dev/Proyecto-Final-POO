@@ -200,7 +200,7 @@ public class Institucion implements Serializable {
     }
     
     public ArrayList<Solicitud> getSolicitudesActivas() {
-    	return this.mySolicitudes.stream().filter(x -> x.isEstado()).collect(Collectors.toCollection(ArrayList::new));
+    	return this.mySolicitudes.stream().filter(x -> x.getEstado() == EstadoSolicutud.ACEPTADA).collect(Collectors.toCollection(ArrayList::new));
     }
     
     public ArrayList<Oferta> getOfertasActivas() {
@@ -208,7 +208,7 @@ public class Institucion implements Serializable {
     }
     
     public ArrayList<Solicitud> getSolicitudPendientes() {
-    	return this.mySolicitudes.stream().filter(x -> !x.isEstado()).collect(Collectors.toCollection(ArrayList::new));
+    	return this.mySolicitudes.stream().filter(x -> x.getEstado() == EstadoSolicutud.PENDIENTE).collect(Collectors.toCollection(ArrayList::new));
     }
 
     public String getRutaImagen() {

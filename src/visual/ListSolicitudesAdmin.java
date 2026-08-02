@@ -20,6 +20,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 
 import logico.BolsaTrabajo;
+import logico.EstadoSolicutud;
 import logico.Persona;
 import logico.Solicitud;
 import logico.SolicitudCentro;
@@ -36,6 +37,7 @@ public class ListSolicitudesAdmin extends JPanel {
 	private static final Color TEXTO_OSCURO = new Color(0x1F, 0x29, 0x37);
 	private static final Color VERDE_AZULADO = new Color(0x0F, 0x8B, 0x8D);
 	private static final Color ROJO = new Color(0xC0, 0x5B, 0x5B);
+	private static final Color NARANJA = new Color(0xE0, 0x8E, 0x45);
 
 	private JPanel panelListado;
 
@@ -173,9 +175,20 @@ public class ListSolicitudesAdmin extends JPanel {
 		lblFecha.setBorder(new EmptyBorder(2, 12, 2, 12));
 		lblFecha.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-		JLabel lblEstado = new JLabel(s.isEstado() ? "ACEPTADA" : "RECHAZADA");
+		JLabel lblEstado = new JLabel
+		(
+			s.getEstado() == EstadoSolicutud.ACEPTADA ? "ACEPTADA" :
+			s.getEstado() == EstadoSolicutud.RECHAZADA ? "RECHAZADA" :
+			s.getEstado() == EstadoSolicutud.PENDIENTE ? "PENDIENTE" :
+			"PENDIENTE"
+		);
 		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblEstado.setForeground(s.isEstado() ? VERDE_AZULADO : ROJO);
+		lblEstado.setForeground(
+				s.getEstado() == EstadoSolicutud.ACEPTADA ? VERDE_AZULADO :
+				s.getEstado() == EstadoSolicutud.RECHAZADA ? ROJO :
+				s.getEstado() == EstadoSolicutud.PENDIENTE ? NARANJA :
+				NARANJA
+			);
 		lblEstado.setBorder(new EmptyBorder(2, 12, 8, 12));
 		lblEstado.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -214,8 +227,19 @@ public class ListSolicitudesAdmin extends JPanel {
 		candidatoTxt.setText(obtenerCandidato(s));
 		tipoSolicitudTxt.setText((s instanceof SolicitudEmp) ? "SOLICITUD DE EMPLEO" : "SOLICITUD A EMPRESA");
 
-		estadoTxt.setText(s.isEstado() ? "ACEPTADA" : "RECHAZADA");
-		estadoTxt.setForeground(s.isEstado() ? VERDE_AZULADO : ROJO);
+		estadoTxt.setText
+		(
+			s.getEstado() == EstadoSolicutud.ACEPTADA ? "ACEPTADA" :
+			s.getEstado() == EstadoSolicutud.RECHAZADA ? "RECHAZADA" :
+			s.getEstado() == EstadoSolicutud.PENDIENTE ? "PENDIENTE" :
+			"PENDIENTE"
+		);
+		estadoTxt.setForeground(
+				s.getEstado() == EstadoSolicutud.ACEPTADA ? VERDE_AZULADO :
+				s.getEstado() == EstadoSolicutud.RECHAZADA ? ROJO :
+				s.getEstado() == EstadoSolicutud.PENDIENTE ? NARANJA :
+				NARANJA
+			);
 
 		fechaTxt.setText(s.getFecha().toString());
 

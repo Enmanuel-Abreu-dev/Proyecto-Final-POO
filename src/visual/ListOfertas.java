@@ -320,6 +320,7 @@ public class ListOfertas extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				if (ofertaSeleccionada != null) {
 					RegSolicitudEmp dialogSolicitud = new RegSolicitudEmp(ofertaSeleccionada);
+					dialogSolicitud.setModal(true);
 					dialogSolicitud.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialogSolicitud.setVisible(true);
 				}

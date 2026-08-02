@@ -36,6 +36,7 @@ import logico.Persona;
 import logico.Universitario;
 import logico.Tecnico;
 import logico.Obrero;
+import logico.EstadoSolicutud;
 import logico.Experiencia;
 
 
@@ -303,7 +304,7 @@ public class ListSolicitudesAceptadas extends JDialog {
 
 		for (Oferta o : ofertas)
 			for (SolicitudEmp s : o.getSolicitudEmps())
-				if (s.isEstado())
+				if ( s.getEstado() == EstadoSolicutud.ACEPTADA )
 					lista.add(s);
 		return lista;
 	}
