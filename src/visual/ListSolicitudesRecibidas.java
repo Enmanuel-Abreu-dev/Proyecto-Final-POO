@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
@@ -63,6 +64,7 @@ public class ListSolicitudesRecibidas extends JDialog {
 	private JTextArea txtExperiencia;
 
 	private final Institucion empresa;
+	private SolicitudEmp soliActual;
 
 	public static void main(String[] args) {
 		try {
@@ -232,6 +234,26 @@ public class ListSolicitudesRecibidas extends JDialog {
 		panelDetalle.add(txtExperiencia);
 
 		JButton btnAceptar = new JButton("ACEPTAR");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if ( soliActual != null )
+				{
+					soliActual.setEstado(EstadoSolicutud.ACEPTADA);
+					JOptionPane.showMessageDialog(null, "La solicitud de " + soliActual.getPersona().getNombre() + " " + soliActual.getPersona().getApellido() + " ha sido aceptada",
+                            "Solicitud Aceptada", JOptionPane.INFORMATION_MESSAGE);
+
+					BolsaTrabajo.getInstance().actulizarCantOferta(soliActual.getOferta());
+					if ( soliActual.getOferta().getCantVacante() == 0 )
+					{
+						soliActual.getOferta().setEstado(false);
+						JOptionPane.showMessageDialog(null, "La oferta se ha cerrado, ya tiene las vacantes llenas", "Estado Oferta", JOptionPane.INFORMATION_MESSAGE);
+					}
+					cargarSolicitudes(solicitudesEmp());
+					soliActual = null;
+				}
+			
+			}
+		});
 		btnAceptar.setForeground(Color.WHITE);
 		btnAceptar.setBackground(VERDE_AZULADO);
 		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -239,6 +261,19 @@ public class ListSolicitudesRecibidas extends JDialog {
 		panelDetalle.add(btnAceptar);
 
 		JButton btnRechazar = new JButton("RECHAZAR");
+		btnRechazar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if ( soliActual != null )
+				{
+					soliActual.setEstado(EstadoSolicutud.RECHAZADA);
+					JOptionPane.showMessageDialog(null, "La solicitud de " + soliActual.getPersona().getNombre() + " " + soliActual.getPersona().getApellido() + " ha sido rechazada",
+                            "Solicitud Rechazada", JOptionPane.INFORMATION_MESSAGE);
+
+					cargarSolicitudes(solicitudesEmp());
+					soliActual = null;
+				}
+			}
+		});
 		btnRechazar.setForeground(Color.WHITE);
 		btnRechazar.setBackground(ROJO);
 		btnRechazar.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -281,7 +316,8 @@ public class ListSolicitudesRecibidas extends JDialog {
 
 		for ( Oferta o : ofertas )
 			for ( SolicitudEmp s : o.getSolicitudEmps() )
-				lista.add(s);
+				if ( s.getEstado() == EstadoSolicutud.PENDIENTE )	
+					lista.add(s);
 		return lista;
 	}
 
@@ -336,6 +372,7 @@ public class ListSolicitudesRecibidas extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				mostrarDetalle(s);
+				soliActual = s;
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {

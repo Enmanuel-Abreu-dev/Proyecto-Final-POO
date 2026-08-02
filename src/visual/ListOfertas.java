@@ -349,8 +349,11 @@ public class ListOfertas extends JDialog {
 
 		panelListado.removeAll();
 		for (final Oferta o : ofertas) {
-			panelListado.add(crearTarjeta(o));
-			panelListado.add(Box.createRigidArea(new Dimension(0, 10)));
+			if ( o.isEstado() )
+			{
+				panelListado.add(crearTarjeta(o));
+				panelListado.add(Box.createRigidArea(new Dimension(0, 10)));
+			}
 		}
 		panelListado.revalidate();
 		panelListado.repaint();

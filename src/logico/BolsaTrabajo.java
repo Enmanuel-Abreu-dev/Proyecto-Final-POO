@@ -13,6 +13,7 @@ import java.util.Comparator;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 import java.awt.FileDialog;
 import java.awt.Frame;
@@ -585,5 +586,11 @@ public class BolsaTrabajo implements Serializable {
 				result = false;
 		}
 		return result;
+	}
+
+	public void actulizarCantOferta ( Oferta o )
+	{
+		
+		o.setCantVacante( o.getCantVacante() - 1 );
 	}
 }
