@@ -396,14 +396,15 @@ public class Principal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (esEmpresa) {
                     RegEmpresa editEmpresa = new RegEmpresa(usuarioActual.getMyInstitucion());
-                    editEmpresa.setVisible(true);
                     editEmpresa.setModal(true);
+                    editEmpresa.setVisible(true);
+                    actualizarPerfil();
                 } else {
                     RegPersona editPersona = new RegPersona(usuarioActual.getMyPersona());
-                    editPersona.setVisible(true);
                     editPersona.setModal(true);
+                    editPersona.setVisible(true);   
+                    actualizarPerfil();                 
                 }
-                actualizarPerfil();
             }
         });
         btnEditarPerfil.setBackground(AZUL_OSCURO);

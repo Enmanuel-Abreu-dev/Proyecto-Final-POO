@@ -284,6 +284,7 @@ public class RegEmpresa extends JDialog {
                 }
                 else
                 {
+                    BolsaTrabajo.getInstance().eliminarArchivo(institucion);
                     String rutaNueva = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), registroSocialField.getText());
                     if ( rutaNueva != null)
                     {

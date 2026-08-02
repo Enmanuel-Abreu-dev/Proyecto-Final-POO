@@ -229,6 +229,7 @@ public class RegPersona extends JDialog {
 					myPersona.setDireccion(textField_4.getText());
 					myPersona.setEmail(textField_5.getText());
 					myPersona.setPais((String) paisComboBox.getSelectedItem());
+					myPersona.setRutaImagen(rutaFotoSeleccionada); 
 					myPersona.setFechaNacim(
 							((Date) fechaSpinner.getValue())
 									.toInstant()
@@ -334,6 +335,7 @@ public class RegPersona extends JDialog {
 				}
 				else
 				{
+					BolsaTrabajo.getInstance().eliminarArchivoP(persona);
                     String rutaNueva = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), cedulaField.getText());
                     if ( rutaNueva != null)
                     {

@@ -523,6 +523,24 @@ public class BolsaTrabajo implements Serializable {
 		}
 	}
 
+	/*
+	 * !Metodo para eliminar la imagen en la ruta especifica
+	 */
+	public boolean eliminarArchivoP(Persona i) {
+		try {
+			if (i.getRutaImagen() == null || i.getRutaImagen().trim().isEmpty())
+				return true;
+
+			Path ruta = Paths.get(i.getRutaImagen());
+			Files.delete(ruta);
+			return true;
+
+		} catch (Exception e) {
+			System.out.println("Error al eliminar Imagen");
+			return false;
+		}
+	}
+
 	public ArrayList<Oferta> getOfertasRecomendadasByPersona(Persona persona) {
 		ArrayList<Oferta> result = new ArrayList<Oferta>();
 
