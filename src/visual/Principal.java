@@ -6,10 +6,14 @@ import logico.Institucion;
 import logico.Persona;
 
 import java.awt.*;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.net.URL;
 
 import javax.swing.*;
@@ -50,8 +54,7 @@ public class Principal extends JFrame {
                         0,
                         getWidth(),
                         getHeight(),
-                        this
-                );
+                        this);
             }
         }
     };
@@ -72,7 +75,7 @@ public class Principal extends JFrame {
     private RoundedLabel lblLogoPerfilRef;
 
     // Filas de tarjetaDatos
-    private JLabel lblDatoId;        // RNC o CEDULA
+    private JLabel lblDatoId; // RNC o CEDULA
     private JLabel lblDatoPais;
     private JLabel lblDatoDireccion;
     private JLabel lblDatoTelefono;
@@ -101,20 +104,21 @@ public class Principal extends JFrame {
 
     /**
      * Create the dialog.
+     * 
      * @param usuario el usuario que inicio sesion (empresa o candidato)
      */
     public Principal(Usuario usuario) {
-    	this.usuarioActual = usuario;
-    	this.esEmpresa = (usuarioActual != null && usuarioActual.getMyInstitucion() != null);
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        this.usuarioActual = usuario;
+        this.esEmpresa = (usuarioActual != null && usuarioActual.getMyInstitucion() != null);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
+            @Override
+            public void windowClosing(WindowEvent e) {
                 saveData();
                 System.exit(0);
-			}
-		});
-        
+            }
+        });
+
         setBounds(100, 100, 450, 300);
         Dimension dim = getToolkit().getScreenSize();
         setSize(dim.width, dim.height);
@@ -158,11 +162,11 @@ public class Principal extends JFrame {
 
         RoundedButton btnBuscar = new RoundedButton("BUSCAR EMPLEOS", 80);
         btnBuscar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		ListOfertas verOfertas = new ListOfertas();
-        		verOfertas.setEnabled(true);
-        		verOfertas.setVisible(true);
-        	}
+            public void actionPerformed(ActionEvent e) {
+                ListOfertas verOfertas = new ListOfertas();
+                verOfertas.setEnabled(true);
+                verOfertas.setVisible(true);
+            }
         });
         btnBuscar.setBounds(167, 10, 302, 60);
         btnBuscar.setBackground(new Color(22, 58, 95));
@@ -216,7 +220,9 @@ public class Principal extends JFrame {
         panelFondo.setComponentZOrder(panelPerfil, 0);
 
         RoundedLabel lblFoto = new RoundedLabel(20);
-        lblFoto.setText(obtenerIniciales((usuarioActual.getMyInstitucion() != null) ? usuarioActual.getMyInstitucion().getNombre() : usuarioActual.getNombre()));
+        lblFoto.setText(obtenerIniciales(
+                (usuarioActual.getMyInstitucion() != null) ? usuarioActual.getMyInstitucion().getNombre()
+                        : usuarioActual.getNombre()));
         lblFoto.setHorizontalAlignment(SwingConstants.CENTER);
         lblFoto.setOpaque(true);
         lblFoto.setBackground(AZUL_PRINCIPAL);
@@ -247,7 +253,6 @@ public class Principal extends JFrame {
         lblVerPerfil.setForeground(AZUL_PRINCIPAL);
         lblVerPerfil.setBounds(70, 34, anchoPanelPerfil - 100, 20);
         panelPerfil.add(lblVerPerfil);
-
 
         panelDesplegable = new RoundedPanel(0, new Color(255, 255, 255));
         panelDesplegable.setBackground(new Color(255, 255, 255));
@@ -402,8 +407,8 @@ public class Principal extends JFrame {
                 } else {
                     RegPersona editPersona = new RegPersona(usuarioActual.getMyPersona());
                     editPersona.setModal(true);
-                    editPersona.setVisible(true);   
-                    actualizarPerfil();                 
+                    editPersona.setVisible(true);
+                    actualizarPerfil();
                 }
             }
         });
@@ -427,18 +432,18 @@ public class Principal extends JFrame {
 
         if (esEmpresa) {
             Institucion miInstitucion = usuarioActual.getMyInstitucion();
-            lblDatoId        = agregarFilaPerfil(tarjetaDatos, "RNC:", miInstitucion.getRNC(), 60);
-            lblDatoPais       = agregarFilaPerfil(tarjetaDatos, "PAIS:", miInstitucion.getPais(), 105);
-            lblDatoDireccion  = agregarFilaPerfil(tarjetaDatos, "DIRECCION:", miInstitucion.getDireccion(), 150);
-            lblDatoTelefono   = agregarFilaPerfil(tarjetaDatos, "TELEFONO:", miInstitucion.getTelefono(), 195);
-            lblDatoCorreo     = agregarFilaPerfil(tarjetaDatos, "CORREO:", miInstitucion.getEmail(), 240);
+            lblDatoId = agregarFilaPerfil(tarjetaDatos, "RNC:", miInstitucion.getRNC(), 60);
+            lblDatoPais = agregarFilaPerfil(tarjetaDatos, "PAIS:", miInstitucion.getPais(), 105);
+            lblDatoDireccion = agregarFilaPerfil(tarjetaDatos, "DIRECCION:", miInstitucion.getDireccion(), 150);
+            lblDatoTelefono = agregarFilaPerfil(tarjetaDatos, "TELEFONO:", miInstitucion.getTelefono(), 195);
+            lblDatoCorreo = agregarFilaPerfil(tarjetaDatos, "CORREO:", miInstitucion.getEmail(), 240);
         } else {
             Persona miPersona = usuarioActual.getMyPersona();
-            lblDatoId        = agregarFilaPerfil(tarjetaDatos, "CEDULA:", miPersona.getCedula(), 60);
-            lblDatoPais       = agregarFilaPerfil(tarjetaDatos, "PAIS:", miPersona.getPais(), 105);
-            lblDatoDireccion  = agregarFilaPerfil(tarjetaDatos, "DIRECCION:", miPersona.getDireccion(), 150);
-            lblDatoTelefono   = agregarFilaPerfil(tarjetaDatos, "TELEFONO:", miPersona.getTelefono(), 195);
-            lblDatoCorreo     = agregarFilaPerfil(tarjetaDatos, "CORREO:", miPersona.getEmail(), 240);
+            lblDatoId = agregarFilaPerfil(tarjetaDatos, "CEDULA:", miPersona.getCedula(), 60);
+            lblDatoPais = agregarFilaPerfil(tarjetaDatos, "PAIS:", miPersona.getPais(), 105);
+            lblDatoDireccion = agregarFilaPerfil(tarjetaDatos, "DIRECCION:", miPersona.getDireccion(), 150);
+            lblDatoTelefono = agregarFilaPerfil(tarjetaDatos, "TELEFONO:", miPersona.getTelefono(), 195);
+            lblDatoCorreo = agregarFilaPerfil(tarjetaDatos, "CORREO:", miPersona.getEmail(), 240);
         }
 
         RoundedPanel tarjetaResumenPerfil = new RoundedPanel(30, TARJETA_BLANCA, new Color(225, 228, 232));
@@ -455,14 +460,18 @@ public class Principal extends JFrame {
 
         if (esEmpresa) {
             Institucion miInstitucion = usuarioActual.getMyInstitucion();
-            lblResumen1 = agregarFilaPerfil(tarjetaResumenPerfil, "CANTIDAD DE EMPLEADOS:", String.valueOf(miInstitucion.getCantEmpleado()), 60);
+            lblResumen1 = agregarFilaPerfil(tarjetaResumenPerfil, "CANTIDAD DE EMPLEADOS:",
+                    String.valueOf(miInstitucion.getCantEmpleado()), 60);
             lblResumen2 = agregarFilaPerfil(tarjetaResumenPerfil, "OFERTAS ACTIVAS:", "5", 105);
             lblResumen3 = agregarFilaPerfil(tarjetaResumenPerfil, "SOLICITUDES RECIBIDAS:", "38", 150);
         } else {
             Persona miPersona = usuarioActual.getMyPersona();
-            lblResumen1 = agregarFilaPerfil(tarjetaResumenPerfil, "DISPONIBLE PARA VIAJAR:", miPersona.isDispViajar() ? "SI" : "NO", 60);
-            lblResumen2 = agregarFilaPerfil(tarjetaResumenPerfil, "DISPONIBLE PARA MUDARSE:", miPersona.isDispResidencia() ? "SI" : "NO", 105);
-            lblResumen3 = agregarFilaPerfil(tarjetaResumenPerfil, "SITUACION LABORAL:", miPersona.isEmpleado() ? "EMPLEADO" : "DESEMPLEADO", 150);
+            lblResumen1 = agregarFilaPerfil(tarjetaResumenPerfil, "DISPONIBLE PARA VIAJAR:",
+                    miPersona.isDispViajar() ? "SI" : "NO", 60);
+            lblResumen2 = agregarFilaPerfil(tarjetaResumenPerfil, "DISPONIBLE PARA MUDARSE:",
+                    miPersona.isDispResidencia() ? "SI" : "NO", 105);
+            lblResumen3 = agregarFilaPerfil(tarjetaResumenPerfil, "SITUACION LABORAL:",
+                    miPersona.isEmpleado() ? "EMPLEADO" : "DESEMPLEADO", 150);
         }
 
         RoundedButton btnCerrarSesion = new RoundedButton("CERRAR SESION", 30);
@@ -479,7 +488,6 @@ public class Principal extends JFrame {
         btnCerrarSesion.setFont(new Font("Tahoma", Font.BOLD, 13));
         btnCerrarSesion.setBounds(25, 240, 220, 40);
         tarjetaResumenPerfil.add(btnCerrarSesion);
-
 
         // ---------------- Menu lateral: opciones segun el rol ----------------
         if (esEmpresa) {
@@ -516,7 +524,8 @@ public class Principal extends JFrame {
             RoundedButton btnSolicitudesRecibidas = new RoundedButton("Solicitudes Recibidas", 40);
             btnSolicitudesRecibidas.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    ListSolicitudesRecibidas mySolicitudes = new ListSolicitudesRecibidas(usuarioActual.getMyInstitucion());
+                    ListSolicitudesRecibidas mySolicitudes = new ListSolicitudesRecibidas(
+                            usuarioActual.getMyInstitucion());
                     mySolicitudes.setModal(true);
                     mySolicitudes.setVisible(true);
                     panelInicio.setVisible(true);
@@ -531,7 +540,8 @@ public class Principal extends JFrame {
             RoundedButton btnSolAceptadas = new RoundedButton("Solicitudes Aceptadas", 40);
             btnSolAceptadas.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    ListSolicitudesAceptadas myCandidatos = new ListSolicitudesAceptadas(usuarioActual.getMyInstitucion());
+                    ListSolicitudesAceptadas myCandidatos = new ListSolicitudesAceptadas(
+                            usuarioActual.getMyInstitucion());
                     myCandidatos.setModal(true);
                     myCandidatos.setVisible(true);
                     panelInicio.setVisible(true);
@@ -623,13 +633,16 @@ public class Principal extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 panelDesplegable.setVisible(!panelDesplegable.isVisible());
-                panelFondo.setComponentZOrder(panelDesplegable, panelDesplegable.isVisible() ? 0 : panelFondo.getComponentCount() - 1);
+                panelFondo.setComponentZOrder(panelDesplegable,
+                        panelDesplegable.isVisible() ? 0 : panelFondo.getComponentCount() - 1);
                 panelFondo.setComponentZOrder(panelPerfil, 0);
             }
+
             @Override
             public void mouseEntered(MouseEvent e) {
                 panelPerfil.setBackground(new Color(240, 244, 248));
             }
+
             @Override
             public void mouseExited(MouseEvent e) {
                 panelPerfil.setBackground(new Color(255, 255, 255));
@@ -647,7 +660,8 @@ public class Principal extends JFrame {
      * Metodo de apoyo puramente visual: dibuja una tarjeta pequeña de
      * resumen (numero grande + etiqueta) como las del panel de Inicio.
      */
-    private void agregarTarjetaResumen(JPanel contenedor, String etiqueta, String valor, Color color, int x, int y, int ancho) {
+    private void agregarTarjetaResumen(JPanel contenedor, String etiqueta, String valor, Color color, int x, int y,
+            int ancho) {
         RoundedPanel tarjeta = new RoundedPanel(25, TARJETA_BLANCA, new Color(225, 228, 232));
         tarjeta.setBackground(TARJETA_BLANCA);
         tarjeta.setBounds(x, y, ancho, 110);
@@ -717,22 +731,21 @@ public class Principal extends JFrame {
                 xComponente + 15,
                 yComponente + (altoComponente - tamanoIcono) / 2,
                 tamanoIcono,
-                tamanoIcono
-        );
+                tamanoIcono);
 
         panelFondo.add(lblIcono);
         panelFondo.setComponentZOrder(lblIcono, 0);
     }
-    
+
     public void saveData() {
-    	try {
-    		ObjectOutputStream io = new ObjectOutputStream(new FileOutputStream("save.bin"));
-    		io.writeObject(BolsaTrabajo.getInstance());
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
+        try {
+            ObjectOutputStream io = new ObjectOutputStream(new FileOutputStream("save.bin"));
+            io.writeObject(BolsaTrabajo.getInstance());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    
+
     /**
      * Vuelve a leer los datos del usuario actual (empresa o persona) y
      * actualiza todos los labels visibles sin reconstruir la ventana.
@@ -755,7 +768,8 @@ public class Principal extends JFrame {
             lblDatoCorreo.setText(miInstitucion.getEmail());
 
             lblResumen1.setText(String.valueOf(miInstitucion.getCantEmpleado()));
-            // lblResumen2 y lblResumen3 quedan igual (ofertas/solicitudes no cambian al editar perfil)
+            // lblResumen2 y lblResumen3 quedan igual (ofertas/solicitudes no cambian al
+            // editar perfil)
         } else {
             Persona miPersona = usuarioActual.getMyPersona();
             nombreMostrado = miPersona.getNombre() + " " + miPersona.getApellido();
@@ -771,8 +785,6 @@ public class Principal extends JFrame {
             lblResumen2.setText(miPersona.isDispResidencia() ? "SI" : "NO");
             lblResumen3.setText(miPersona.isEmpleado() ? "EMPLEADO" : "DESEMPLEADO");
         }
-
-        
 
         // Foto / logo (grande y del panel superior)
         if (rutaImagenPerfil != null && new File(rutaImagenPerfil).exists()) {
@@ -799,25 +811,57 @@ public class Principal extends JFrame {
         panelPerfil.revalidate();
         panelPerfil.repaint();
     }
-    
+
     public void cargarInformacionPanelPerfil(int anchoTarjetaResumen, boolean esEmpresa) {
         if (esEmpresa) {
-        	String ofertasActivas = "" + usuarioActual.getMyInstitucion().getOfertasActivas().size();
-        	String solicitudesPend = "" + usuarioActual.getMyInstitucion().getSolicitudPendientes().size();
-        	String candidatos = "" + usuarioActual.getMyInstitucion().getMySolicitudes().size();
-        	
-            agregarTarjetaResumen(panelInicio, "OFERTAS ACTIVAS", ofertasActivas, VERDE_AZULADO, 40, 140, anchoTarjetaResumen);
-            agregarTarjetaResumen(panelInicio, "SOLICITUDES PENDIENTES", solicitudesPend, AZUL_PRINCIPAL, 60 + anchoTarjetaResumen, 140, anchoTarjetaResumen);
-            agregarTarjetaResumen(panelInicio, "CANDIDATOS NUEVOS", candidatos, AZUL_OSCURO, 80 + anchoTarjetaResumen * 2, 140, anchoTarjetaResumen);
+            String ofertasActivas = "" + usuarioActual.getMyInstitucion().getOfertasActivas().size();
+            String solicitudesPend = "" + usuarioActual.getMyInstitucion().getSolicitudPendientes().size();
+            String candidatos = "" + usuarioActual.getMyInstitucion().getMySolicitudes().size();
+
+            agregarTarjetaResumen(panelInicio, "OFERTAS ACTIVAS", ofertasActivas, VERDE_AZULADO, 40, 140,
+                    anchoTarjetaResumen);
+            agregarTarjetaResumen(panelInicio, "SOLICITUDES PENDIENTES", solicitudesPend, AZUL_PRINCIPAL,
+                    60 + anchoTarjetaResumen, 140, anchoTarjetaResumen);
+            agregarTarjetaResumen(panelInicio, "CANDIDATOS NUEVOS", candidatos, AZUL_OSCURO,
+                    80 + anchoTarjetaResumen * 2, 140, anchoTarjetaResumen);
         } else {
-        	String solicitudesSend = "" + usuarioActual.getMyPersona().getSolicitudEmps().size();
-        	String solicitudesProceso = "" + usuarioActual.getMyPersona().getSolicitudesEnProceso().size();
-        	String ofertasRecomendadas = "" + BolsaTrabajo.getInstance().getOfertasRecomendadasByPersona(usuarioActual.getMyPersona()).size();
-        	
-            agregarTarjetaResumen(panelInicio, "SOLICITUDES ENVIADAS", solicitudesSend, VERDE_AZULADO, 40, 140, anchoTarjetaResumen);
-            agregarTarjetaResumen(panelInicio, "EN PROCESO", solicitudesProceso, AZUL_PRINCIPAL, 60 + anchoTarjetaResumen, 140, anchoTarjetaResumen);
-            agregarTarjetaResumen(panelInicio, "OFERTAS RECOMENDADAS", ofertasRecomendadas, AZUL_OSCURO, 80 + anchoTarjetaResumen * 2, 140, anchoTarjetaResumen);
+            String solicitudesSend = "" + usuarioActual.getMyPersona().getSolicitudEmps().size();
+            String solicitudesProceso = "" + usuarioActual.getMyPersona().getSolicitudesEnProceso().size();
+            String ofertasRecomendadas = ""
+                    + BolsaTrabajo.getInstance().getOfertasRecomendadasByPersona(usuarioActual.getMyPersona()).size();
+
+            agregarTarjetaResumen(panelInicio, "SOLICITUDES ENVIADAS", solicitudesSend, VERDE_AZULADO, 40, 140,
+                    anchoTarjetaResumen);
+            agregarTarjetaResumen(panelInicio, "EN PROCESO", solicitudesProceso, AZUL_PRINCIPAL,
+                    60 + anchoTarjetaResumen, 140, anchoTarjetaResumen);
+            agregarTarjetaResumen(panelInicio, "OFERTAS RECOMENDADAS", ofertasRecomendadas, AZUL_OSCURO,
+                    80 + anchoTarjetaResumen * 2, 140, anchoTarjetaResumen);
         }
         panelInicio.repaint();
+    }
+
+    public void enviarDatosServer() {
+        try {
+            Socket sc = new Socket("127.0.0.1", 7000);
+            File archivo = new File("save.bin");
+
+            DataOutputStream send = new DataOutputStream(sc.getOutputStream());
+
+            send.writeUTF(archivo.getName());
+            send.writeLong(archivo.length());
+
+            FileInputStream entradaArchivo = new FileInputStream(archivo);
+            byte[] buffer = new byte[4096];
+            int leidos;
+            while ((leidos = entradaArchivo.read(buffer)) != -1) {
+                send.write(buffer, 0, leidos);
+            }
+
+            send.flush();
+            sc.close();
+            entradaArchivo.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
