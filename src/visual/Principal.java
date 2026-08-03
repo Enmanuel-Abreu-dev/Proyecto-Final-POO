@@ -113,6 +113,7 @@ public class Principal extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                BolsaTrabajo.getInstance().setUsuarioActual(null);
                 saveData();
                 System.exit(0);
             }
