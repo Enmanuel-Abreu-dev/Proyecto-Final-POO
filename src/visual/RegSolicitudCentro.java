@@ -185,6 +185,7 @@ public class RegSolicitudCentro extends JDialog {
 
                 BolsaTrabajo.getInstance().registrarSolicitud(soli);
                 personaSeleccionada.getSolicitudCentro().add(soli);
+                centro.getMySolicitudes().add(soli);
                 BolsaTrabajo.getInstance().actulizarCantOferta(oferta);
 
                 if (ventanaOrigen != null) {
