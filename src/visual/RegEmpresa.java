@@ -67,8 +67,7 @@ public class RegEmpresa extends JDialog {
                         0,
                         getWidth(),
                         getHeight(),
-                        this
-                );
+                        this);
             }
         }
     };
@@ -150,13 +149,22 @@ public class RegEmpresa extends JDialog {
         RoundedButton registrarBtn = new RoundedButton("CREAR CUENTA", 20);
         if (myInstitucion != null) {
             registrarBtn.setText("MODIFICAR");
-        } else{
+        } else {
             registrarBtn.setText("CREAR CUENTA");
         }
         registrarBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
 
                 // --- Validacion basica ---
+                if (correoField.getText().isEmpty() || direccionField.getText().isEmpty()
+                        || razonSocialField.getText().isEmpty() || registroSocialField.getText().isEmpty()
+                        || postalField.getText().isEmpty() || telefonoField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null,
+                            "No puede continuar con campos vacios.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 if (nombreField.getText().trim().isEmpty() || registroSocialField.getText().trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null,
                             "El nombre y el registro social (RNC) no pueden estar vacios.",
@@ -183,7 +191,8 @@ public class RegEmpresa extends JDialog {
                     String rutaImagen = rutaLogoSeleccionado;
                     int cantEmpleado = (Integer) cantTrabsSpinner.getValue();
 
-                    Institucion nueva = new Institucion(identificador, nombre, rnc, pais, razonSocial, direccion, telefono, email, rutaImagen, cantEmpleado, privado);
+                    Institucion nueva = new Institucion(identificador, nombre, rnc, pais, razonSocial, direccion,
+                            telefono, email, rutaImagen, cantEmpleado, privado);
 
                     BolsaTrabajo.getInstance().registrarInstitucion(nueva);
                     Usuario user = BolsaTrabajo.getInstance().crearUsuario(nueva.getEmail(), nueva, null);
@@ -194,7 +203,9 @@ public class RegEmpresa extends JDialog {
 
                     JOptionPane.showMessageDialog(null, "Empresa Registrada Exitosamente",
                             "Registro", JOptionPane.INFORMATION_MESSAGE);
-                    JOptionPane.showMessageDialog(null, "Nombre Usuario: " + user.getNombre() + "   " + "Contraseña: " + user.getPassword(),"Credenciales de Usuario", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null,
+                            "Nombre Usuario: " + user.getNombre() + "   " + "Contraseña: " + user.getPassword(),
+                            "Credenciales de Usuario", JOptionPane.INFORMATION_MESSAGE);
 
                 } else {
 
@@ -252,7 +263,8 @@ public class RegEmpresa extends JDialog {
         panel.add(nombreField);
         nombreField.setColumns(10);
 
-        // --- Cuadro de logo, al lado del nombre de la empresa (esquinas redondeadas) ---
+        // --- Cuadro de logo, al lado del nombre de la empresa (esquinas redondeadas)
+        // ---
         JLabel lblLogoTitulo = new JLabel("LOGO:");
         lblLogoTitulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
         lblLogoTitulo.setForeground(new Color(255, 255, 255));
@@ -271,24 +283,20 @@ public class RegEmpresa extends JDialog {
         lblLogo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if ( myInstitucion == null )
-                {
-                    if ( nombreField.getText().isEmpty() || registroSocialField.getText(). isEmpty() )
-                    {
-                        JOptionPane.showMessageDialog(null, "Debe rellenar el Nombre y el Registro social", "Error", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                    else
-                    {
-                        rutaLogoSeleccionado = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), registroSocialField.getText());
+                if (myInstitucion == null) {
+                    if (nombreField.getText().isEmpty() || registroSocialField.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Debe rellenar el Nombre y el Registro social", "Error",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        rutaLogoSeleccionado = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(),
+                                registroSocialField.getText());
                         cargarLogo();
                     }
-                }
-                else
-                {
+                } else {
                     BolsaTrabajo.getInstance().eliminarArchivo(institucion);
-                    String rutaNueva = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), registroSocialField.getText());
-                    if ( rutaNueva != null)
-                    {
+                    String rutaNueva = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(),
+                            registroSocialField.getText());
+                    if (rutaNueva != null) {
                         rutaLogoSeleccionado = rutaNueva;
                         cargarLogo();
                     }
@@ -420,8 +428,7 @@ public class RegEmpresa extends JDialog {
                 Integer.valueOf(1),
                 Integer.valueOf(1),
                 null,
-                Integer.valueOf(1)
-        ));
+                Integer.valueOf(1)));
         cantTrabsSpinner.setFont(new Font("Tahoma", Font.PLAIN, 18));
         cantTrabsSpinner.setBounds(392, 614, 305, 42);
         panel.add(cantTrabsSpinner);
@@ -505,8 +512,7 @@ public class RegEmpresa extends JDialog {
                     if (digitos.length() > posicion) {
                         resultado.insert(
                                 posicion + guionesAgregados,
-                                "-"
-                        );
+                                "-");
 
                         guionesAgregados++;
                     }
@@ -528,8 +534,7 @@ public class RegEmpresa extends JDialog {
                         offset,
                         0,
                         texto,
-                        atributos
-                );
+                        atributos);
             }
 
             @Override
@@ -543,26 +548,22 @@ public class RegEmpresa extends JDialog {
 
                 String actual = fb.getDocument().getText(
                         0,
-                        fb.getDocument().getLength()
-                );
+                        fb.getDocument().getLength());
 
                 StringBuilder nuevoTexto = new StringBuilder(actual);
 
                 nuevoTexto.replace(
                         offset,
                         offset + length,
-                        texto == null ? "" : texto
-                );
+                        texto == null ? "" : texto);
 
-                String textoFormateado =
-                        formatear(nuevoTexto.toString());
+                String textoFormateado = formatear(nuevoTexto.toString());
 
                 fb.replace(
                         0,
                         fb.getDocument().getLength(),
                         textoFormateado,
-                        atributos
-                );
+                        atributos);
             }
 
             @Override
@@ -577,8 +578,7 @@ public class RegEmpresa extends JDialog {
                         offset,
                         length,
                         "",
-                        null
-                );
+                        null);
             }
         });
     }
@@ -587,8 +587,7 @@ public class RegEmpresa extends JDialog {
             JTextField campo,
             int maxDigitos) {
 
-        PlainDocument documento =
-                (PlainDocument) campo.getDocument();
+        PlainDocument documento = (PlainDocument) campo.getDocument();
 
         documento.setDocumentFilter(new DocumentFilter() {
 
@@ -605,8 +604,7 @@ public class RegEmpresa extends JDialog {
                         offset,
                         0,
                         texto,
-                        atributos
-                );
+                        atributos);
             }
 
             @Override
@@ -624,11 +622,9 @@ public class RegEmpresa extends JDialog {
 
                 String digitos = texto.replaceAll("\\D", "");
 
-                int cantidadActual =
-                        fb.getDocument().getLength() - length;
+                int cantidadActual = fb.getDocument().getLength() - length;
 
-                int espacioDisponible =
-                        maxDigitos - cantidadActual;
+                int espacioDisponible = maxDigitos - cantidadActual;
 
                 if (espacioDisponible <= 0) {
                     return;
@@ -637,16 +633,14 @@ public class RegEmpresa extends JDialog {
                 if (digitos.length() > espacioDisponible) {
                     digitos = digitos.substring(
                             0,
-                            espacioDisponible
-                    );
+                            espacioDisponible);
                 }
 
                 fb.replace(
                         offset,
                         length,
                         digitos,
-                        atributos
-                );
+                        atributos);
             }
         });
     }

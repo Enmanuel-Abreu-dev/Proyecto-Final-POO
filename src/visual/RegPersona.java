@@ -59,8 +59,7 @@ public class RegPersona extends JDialog {
 						0,
 						getWidth(),
 						getHeight(),
-						this
-				);
+						this);
 			}
 		}
 	};
@@ -166,11 +165,43 @@ public class RegPersona extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 
 				// --- Validacion basica ---
+				if (carreraField.getText().isEmpty() || apellidoField.getText().isEmpty()
+						|| telefonoField.getText().isEmpty() || textField_4.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null,
+							"Existen datos sin ingresar.",
+							"Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 				if (nombreField.getText().trim().isEmpty() || cedulaField.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null,
 							"El nombre y la cedula no pueden estar vacios.",
 							"Error", JOptionPane.ERROR_MESSAGE);
 					return;
+				}
+
+				if (rbUniversitario.isSelected()) {
+					if (carreraField.getText().isEmpty() || universidadField.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null,
+								"El nombre y la cedula no pueden estar vacios.",
+								"Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+				}
+				if (rbTecnico.isSelected()) {
+					if (especialidadField.getText().isEmpty() || politecnicoField.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null,
+								"El nombre y la cedula no pueden estar vacios.",
+								"Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+				}
+				if (rbObrero.isSelected()) {
+					if (profesionField.getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null,
+								"El nombre y la cedula no pueden estar vacios.",
+								"Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 				}
 
 				if (myPersona == null) {
@@ -193,18 +224,30 @@ public class RegPersona extends JDialog {
 					boolean dispResidencia = "SI".equals(paisComboBox_1_1.getSelectedItem());
 					boolean empleado = "SI".equals(paisComboBox_1_1_1.getSelectedItem());
 
+					if (((LocalDate) fechaNacim).isAfter(LocalDate.now())) {
+						JOptionPane.showMessageDialog(null,
+								"No puede registrar un usuario que no ha nacido.",
+								"Error", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+
 					Persona nuevo = null;
 
 					if (rbUniversitario.isSelected()) {
-						nuevo = new Universitario(identificador, cedula, nombre, apellido, email, direccion, sexComboBox.getSelectedItem().toString(),
-								telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia, carreraField.getText(), universidadField.getText());
+						nuevo = new Universitario(identificador, cedula, nombre, apellido, email, direccion,
+								sexComboBox.getSelectedItem().toString(),
+								telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia, carreraField.getText(),
+								universidadField.getText());
 					}
 					if (rbTecnico.isSelected()) {
-						nuevo = new Tecnico(identificador, cedula, nombre, apellido, email, direccion, sexComboBox.getSelectedItem().toString(),
-								telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia, especialidadField.getText(), politecnicoField.getText());
+						nuevo = new Tecnico(identificador, cedula, nombre, apellido, email, direccion,
+								sexComboBox.getSelectedItem().toString(),
+								telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia, especialidadField.getText(),
+								politecnicoField.getText());
 					}
 					if (rbObrero.isSelected()) {
-						nuevo = new Obrero(identificador, cedula, nombre, apellido, email, direccion, sexComboBox.getSelectedItem().toString(),
+						nuevo = new Obrero(identificador, cedula, nombre, apellido, email, direccion,
+								sexComboBox.getSelectedItem().toString(),
 								telefono, pais, rutaImagen, fechaNacim, dispViajar, dispResidencia,
 								profesionField.getText());
 					}
@@ -217,7 +260,9 @@ public class RegPersona extends JDialog {
 
 					JOptionPane.showMessageDialog(null, "Candidato Registrado Exitosamente",
 							"Registro", JOptionPane.INFORMATION_MESSAGE);
-					JOptionPane.showMessageDialog(null, "Nombre Usuario: " + user.getNombre() + "   " + "Contraseña: " + user.getPassword(),"Credenciales de Usuario", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null,
+							"Nombre Usuario: " + user.getNombre() + "   " + "Contraseña: " + user.getPassword(),
+							"Credenciales de Usuario", JOptionPane.INFORMATION_MESSAGE);
 
 				} else {
 
@@ -228,13 +273,12 @@ public class RegPersona extends JDialog {
 					myPersona.setDireccion(textField_4.getText());
 					myPersona.setEmail(textField_5.getText());
 					myPersona.setPais((String) paisComboBox.getSelectedItem());
-					myPersona.setRutaImagen(rutaFotoSeleccionada); 
+					myPersona.setRutaImagen(rutaFotoSeleccionada);
 					myPersona.setFechaNacim(
 							((Date) fechaSpinner.getValue())
 									.toInstant()
 									.atZone(ZoneId.systemDefault())
-									.toLocalDate()
-					);
+									.toLocalDate());
 					myPersona.setDispViajar("SI".equals(paisComboBox_1.getSelectedItem()));
 					myPersona.setDispResidencia("SI".equals(paisComboBox_1_1.getSelectedItem()));
 					myPersona.setEmpleado("SI".equals(paisComboBox_1_1_1.getSelectedItem()));
@@ -321,28 +365,23 @@ public class RegPersona extends JDialog {
 		lblFoto.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if ( myPersona == null )
-				{
-					if ( nombreField.getText().trim().isEmpty() && cedulaField.getText().trim().isEmpty() )
-					{
-						JOptionPane.showMessageDialog(null, "Error debe ingresar un Nombre y una Cedula", "Error", JOptionPane.INFORMATION_MESSAGE);
+				if (myPersona == null) {
+					if (nombreField.getText().trim().isEmpty() && cedulaField.getText().trim().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "Error debe ingresar un Nombre y una Cedula", "Error",
+								JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						rutaFotoSeleccionada = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(),
+								cedulaField.getText());
+						cargarFoto();
 					}
-					else
-					{
-						rutaFotoSeleccionada = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), cedulaField.getText());
+				} else {
+					BolsaTrabajo.getInstance().eliminarArchivoP(persona);
+					String rutaNueva = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), cedulaField.getText());
+					if (rutaNueva != null) {
+						rutaFotoSeleccionada = rutaNueva;
 						cargarFoto();
 					}
 				}
-				else
-				{
-					BolsaTrabajo.getInstance().eliminarArchivoP(persona);
-                    String rutaNueva = BolsaTrabajo.getInstance().buscarImagen(nombreField.getText(), cedulaField.getText());
-                    if ( rutaNueva != null)
-                    {
-                        rutaFotoSeleccionada = rutaNueva;
-                        cargarFoto();
-                    }
-                }
 			}
 		});
 		panel.add(lblFoto);
@@ -393,7 +432,7 @@ public class RegPersona extends JDialog {
 		panel.add(lblPais);
 
 		paisComboBox = new JComboBox();
-		paisComboBox.setModel(new DefaultComboBoxModel(new String[] {"Republica Dominicana", "Estados Unidos"}));
+		paisComboBox.setModel(new DefaultComboBoxModel(new String[] { "Republica Dominicana", "Estados Unidos" }));
 		paisComboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		paisComboBox.setBackground(new Color(102, 255, 255));
 		paisComboBox.setBounds(425, 527, 259, 42);
@@ -435,7 +474,7 @@ public class RegPersona extends JDialog {
 		panel.add(lblpuedeViajar);
 
 		paisComboBox_1 = new JComboBox();
-		paisComboBox_1.setModel(new DefaultComboBoxModel(new String[] {"SI", "NO"}));
+		paisComboBox_1.setModel(new DefaultComboBoxModel(new String[] { "SI", "NO" }));
 		paisComboBox_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		paisComboBox_1.setBackground(new Color(102, 255, 255));
 		paisComboBox_1.setBounds(42, 527, 135, 42);
@@ -448,7 +487,7 @@ public class RegPersona extends JDialog {
 		panel.add(lblpuedeMudarse);
 
 		paisComboBox_1_1 = new JComboBox();
-		paisComboBox_1_1.setModel(new DefaultComboBoxModel(new String[] {"SI", "NO"}));
+		paisComboBox_1_1.setModel(new DefaultComboBoxModel(new String[] { "SI", "NO" }));
 		paisComboBox_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		paisComboBox_1_1.setBackground(new Color(102, 255, 255));
 		paisComboBox_1_1.setBounds(42, 624, 190, 42);
@@ -461,7 +500,7 @@ public class RegPersona extends JDialog {
 		panel.add(lblestaEmpleado);
 
 		paisComboBox_1_1_1 = new JComboBox();
-		paisComboBox_1_1_1.setModel(new DefaultComboBoxModel(new String[] {"NO", "SI"}));
+		paisComboBox_1_1_1.setModel(new DefaultComboBoxModel(new String[] { "NO", "SI" }));
 		paisComboBox_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		paisComboBox_1_1_1.setBackground(new Color(102, 255, 255));
 		paisComboBox_1_1_1.setBounds(277, 624, 190, 42);
@@ -612,15 +651,15 @@ public class RegPersona extends JDialog {
 		aplicarMascaraCedula(cedulaField);
 		aplicarMascaraTelefono(telefonoField);
 		aplicarPlaceholder(textField_5, "ejemplo@correo.com");
-		
+
 		JLabel lblSexo = new JLabel("SEXO:");
 		lblSexo.setForeground(Color.WHITE);
 		lblSexo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblSexo.setBounds(494, 595, 166, 19);
 		panel.add(lblSexo);
-		
+
 		sexComboBox = new JComboBox();
-		sexComboBox.setModel(new DefaultComboBoxModel(new String[] {"MASCULINO", "FEMENINO"}));
+		sexComboBox.setModel(new DefaultComboBoxModel(new String[] { "MASCULINO", "FEMENINO" }));
 		sexComboBox.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		sexComboBox.setBackground(new Color(102, 255, 255));
 		sexComboBox.setBounds(494, 624, 190, 42);
@@ -636,7 +675,7 @@ public class RegPersona extends JDialog {
 
 		lblFoto.setIcon(new ImageIcon(escalada));
 		lblFoto.setText("");
-		
+
 	}
 
 	private void inicializarVentana() {
@@ -664,8 +703,7 @@ public class RegPersona extends JDialog {
 				Date fecha = Date.from(
 						myPersona.getFechaNacim()
 								.atStartOfDay(ZoneId.systemDefault())
-								.toInstant()
-				);
+								.toInstant());
 				fechaSpinner.setValue(fecha);
 			}
 
@@ -736,8 +774,7 @@ public class RegPersona extends JDialog {
 					if (digitos.length() > posicion) {
 						resultado.insert(
 								posicion + guionesAgregados,
-								"-"
-						);
+								"-");
 
 						guionesAgregados++;
 					}
@@ -759,8 +796,7 @@ public class RegPersona extends JDialog {
 						offset,
 						0,
 						texto,
-						atributos
-				);
+						atributos);
 			}
 
 			@Override
@@ -774,26 +810,22 @@ public class RegPersona extends JDialog {
 
 				String actual = fb.getDocument().getText(
 						0,
-						fb.getDocument().getLength()
-				);
+						fb.getDocument().getLength());
 
 				StringBuilder nuevoTexto = new StringBuilder(actual);
 
 				nuevoTexto.replace(
 						offset,
 						offset + length,
-						texto == null ? "" : texto
-				);
+						texto == null ? "" : texto);
 
-				String textoFormateado =
-						formatear(nuevoTexto.toString());
+				String textoFormateado = formatear(nuevoTexto.toString());
 
 				fb.replace(
 						0,
 						fb.getDocument().getLength(),
 						textoFormateado,
-						atributos
-				);
+						atributos);
 			}
 
 			@Override
@@ -808,8 +840,7 @@ public class RegPersona extends JDialog {
 						offset,
 						length,
 						"",
-						null
-				);
+						null);
 			}
 		});
 	}
