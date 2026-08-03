@@ -19,6 +19,7 @@ import java.awt.FileDialog;
 import java.awt.Frame;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.net.Socket;
 
 public class BolsaTrabajo implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -559,7 +560,22 @@ public class BolsaTrabajo implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		BolsaTrabajo.getInstance().enviarDatosServer();
 	}
+	
+    public synchronized void enviarDatosServer() {
+        try {
+            Socket sc = new Socket("127.0.0.1", 7000);
+
+            ObjectOutputStream send = new ObjectOutputStream(sc.getOutputStream());
+            send.writeObject(BolsaTrabajo.getInstance());
+            send.flush();
+
+            sc.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 	public Oferta getOfertaById(String id) {
 		boolean encontrado = false;

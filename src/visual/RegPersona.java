@@ -254,6 +254,7 @@ public class RegPersona extends JDialog {
 							"Modificacion", JOptionPane.INFORMATION_MESSAGE);
 				}
 
+				BolsaTrabajo.getInstance().guardarDatos();
 				dispose();
 			}
 		});

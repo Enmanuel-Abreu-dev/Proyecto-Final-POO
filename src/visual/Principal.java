@@ -114,7 +114,7 @@ public class Principal extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 BolsaTrabajo.getInstance().setUsuarioActual(null);
-                saveData();
+                BolsaTrabajo.getInstance().guardarDatos();
                 System.exit(0);
             }
         });

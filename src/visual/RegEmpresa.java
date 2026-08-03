@@ -215,6 +215,7 @@ public class RegEmpresa extends JDialog {
                             "Modificacion", JOptionPane.INFORMATION_MESSAGE);
                 }
 
+                BolsaTrabajo.getInstance().guardarDatos();
                 dispose();
             }
         });
