@@ -165,7 +165,7 @@ public class RegPersona extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 
 				// --- Validacion basica ---
-				if (carreraField.getText().isEmpty() || apellidoField.getText().isEmpty()
+				if (apellidoField.getText().isEmpty()
 						|| telefonoField.getText().isEmpty() || textField_4.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null,
 							"Existen datos sin ingresar.",

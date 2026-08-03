@@ -235,6 +235,7 @@ public class ListSolicitudesRecibidasCentro extends JDialog {
 					JOptionPane.showMessageDialog(null, "La solicitud de " + soliActual.getCentro().getNombre() + " ha sido aceptada",
 							"Solicitud Aceptada", JOptionPane.INFORMATION_MESSAGE);
 
+					soliActual.getPersona().setEmpleado(true);
 					cargarSolicitud();
 					soliActual = null;
 				}

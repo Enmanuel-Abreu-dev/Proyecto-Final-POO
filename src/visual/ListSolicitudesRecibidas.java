@@ -248,6 +248,7 @@ public class ListSolicitudesRecibidas extends JDialog {
 						soliActual.getOferta().setEstado(false);
 						JOptionPane.showMessageDialog(null, "La oferta se ha cerrado, ya tiene las vacantes llenas", "Estado Oferta", JOptionPane.INFORMATION_MESSAGE);
 					}
+					soliActual.getPersona().setEmpleado(true);
 					cargarSolicitudes(solicitudesEmp());
 					soliActual = null;
 				}

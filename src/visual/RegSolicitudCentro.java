@@ -188,9 +188,7 @@ public class RegSolicitudCentro extends JDialog {
                 centro.getMySolicitudes().add(soli);
                 BolsaTrabajo.getInstance().actulizarCantOferta(oferta);
 
-                if (ventanaOrigen != null) {
-                    ventanaOrigen.eliminarCandidato(personaSeleccionada);
-                }
+               
 
                 JOptionPane.showMessageDialog(null, "Solicitud Registrada Exitosamente",
                         "Solicitud", JOptionPane.INFORMATION_MESSAGE);
