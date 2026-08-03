@@ -166,7 +166,7 @@ public class BolsaTrabajo implements Serializable {
 	 */
 	public boolean iniciarSesion(String usuario, String pass) {
 		for (Usuario user : usuarios) {
-			if (user.getNombre().equals(usuario) && user.getPassword().equals(pass)) {
+			if (user.getNombre().trim().equals(usuario) && user.getPassword().trim().equals(pass)) {
 				setUsuarioActual(user);
 				return true;
 			}

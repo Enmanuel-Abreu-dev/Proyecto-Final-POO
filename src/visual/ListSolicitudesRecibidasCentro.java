@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
@@ -61,6 +62,7 @@ public class ListSolicitudesRecibidasCentro extends JDialog {
 	private JTextArea txtMensaje;
 
 	private Oferta seleccionado = null;
+	private SolicitudCentro soliActual;
 
 	private final Persona candidato;
 
@@ -221,8 +223,48 @@ public class ListSolicitudesRecibidasCentro extends JDialog {
 		txtMensaje.setEditable(false);
 		txtMensaje.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtMensaje.setBackground(new Color(204, 204, 204));
-		txtMensaje.setBounds(20, 370, 590, 325);
+		txtMensaje.setBounds(20, 370, 590, 240);
 		panelDetalle.add(txtMensaje);
+
+		JButton btnAceptar = new JButton("ACEPTAR");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if ( soliActual != null )
+				{
+					soliActual.setEstado(EstadoSolicutud.ACEPTADA);
+					JOptionPane.showMessageDialog(null, "La solicitud de " + soliActual.getCentro().getNombre() + " ha sido aceptada",
+							"Solicitud Aceptada", JOptionPane.INFORMATION_MESSAGE);
+
+					cargarSolicitud();
+					soliActual = null;
+				}
+			}
+		});
+		btnAceptar.setForeground(Color.WHITE);
+		btnAceptar.setBackground(VERDE_AZULADO);
+		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnAceptar.setBounds(20, 620, 280, 42);
+		panelDetalle.add(btnAceptar);
+
+		JButton btnRechazar = new JButton("RECHAZAR");
+		btnRechazar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if ( soliActual != null )
+				{
+					soliActual.setEstado(EstadoSolicutud.RECHAZADA);
+					JOptionPane.showMessageDialog(null, "La solicitud de " + soliActual.getCentro().getNombre() + " ha sido rechazada",
+							"Solicitud Rechazada", JOptionPane.INFORMATION_MESSAGE);
+
+					cargarSolicitud();
+					soliActual = null;
+				}
+			}
+		});
+		btnRechazar.setForeground(Color.WHITE);
+		btnRechazar.setBackground(ROJO);
+		btnRechazar.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnRechazar.setBounds(330, 620, 280, 42);
+		panelDetalle.add(btnRechazar);
 
 		JLabel lblNewLabel_1 = new JLabel("Solicitudes de Empresas");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
@@ -280,10 +322,10 @@ public class ListSolicitudesRecibidasCentro extends JDialog {
 		lblEstado.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblEstado.setForeground(
 				s.getEstado() == EstadoSolicutud.ACEPTADA ? VERDE_AZULADO :
-				s.getEstado() == EstadoSolicutud.RECHAZADA ? ROJO :
-				s.getEstado() == EstadoSolicutud.PENDIENTE ? NARANJA :
-				NARANJA
-			);
+						s.getEstado() == EstadoSolicutud.RECHAZADA ? ROJO :
+						s.getEstado() == EstadoSolicutud.PENDIENTE ? NARANJA :
+						NARANJA
+		);
 		lblEstado.setBorder(new EmptyBorder(2, 12, 2, 12));
 		lblEstado.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -302,6 +344,7 @@ public class ListSolicitudesRecibidasCentro extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				mostrarDetalle(s);
+				soliActual = s;
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -356,10 +399,10 @@ public class ListSolicitudesRecibidasCentro extends JDialog {
 		estadoTxt.setText(estadoSolicitud(s.getEstado()));
 		estadoTxt.setForeground(
 				s.getEstado() == EstadoSolicutud.ACEPTADA ? VERDE_AZULADO :
-				s.getEstado() == EstadoSolicutud.RECHAZADA ? ROJO :
-				s.getEstado() == EstadoSolicutud.PENDIENTE ? NARANJA :
-				NARANJA
-			);
+						s.getEstado() == EstadoSolicutud.RECHAZADA ? ROJO :
+						s.getEstado() == EstadoSolicutud.PENDIENTE ? NARANJA :
+						NARANJA
+		);
 
 		fechaSolicitudTxt.setText(s.getFecha() != null ? s.getFecha().toString() : "");
 		txtMensaje.setText(s.getMensaje());
