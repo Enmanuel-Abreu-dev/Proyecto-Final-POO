@@ -251,6 +251,7 @@ public class ListSolicitudesRecibidas extends JDialog {
 					soliActual.getPersona().setEmpleado(true);
 					cargarSolicitudes(solicitudesEmp());
 					soliActual = null;
+					BolsaTrabajo.guardarDatos();
 				}
 			
 			}

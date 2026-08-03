@@ -238,6 +238,7 @@ public class ListSolicitudesRecibidasCentro extends JDialog {
 					soliActual.getPersona().setEmpleado(true);
 					cargarSolicitud();
 					soliActual = null;
+					BolsaTrabajo.guardarDatos();
 				}
 			}
 		});
