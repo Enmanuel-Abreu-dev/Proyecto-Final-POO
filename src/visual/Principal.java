@@ -621,6 +621,21 @@ public class Principal extends JFrame {
             btnMisExperiencias.setBackground(new Color(0, 0, 102));
             btnMisExperiencias.setBounds(10, 532, 200, 128);
             panel_2.add(btnMisExperiencias);
+
+            RoundedButton btnSolicitudCentro = new RoundedButton("Solicitud Centro", 40);
+            btnSolicitudCentro.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    ListSolicitudesRecibidasCentro listSoli = new ListSolicitudesRecibidasCentro(usuarioActual.getMyPersona());
+                    listSoli.setModal(true);
+                    listSoli.setVisible(true);
+                    listSoli.setVisible(true);
+                }
+            });
+            btnSolicitudCentro.setForeground(Color.WHITE);
+            btnSolicitudCentro.setBackground(new Color(0, 0, 102));
+            btnSolicitudCentro.setFont(new Font("Tw Cen MT", Font.PLAIN, 26));
+            btnSolicitudCentro.setBounds(10, 862, 200, 128);
+            panel_2.add(btnSolicitudCentro);
         }
 
         RoundedButton btnVerMiPerfil = new RoundedButton("Ver Mi Perfil", 40);
