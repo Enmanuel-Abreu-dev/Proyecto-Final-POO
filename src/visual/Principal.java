@@ -87,6 +87,7 @@ public class Principal extends JFrame {
 
     private final Usuario usuarioActual;
     private final boolean esEmpresa;
+    private String busqueda = null;
 
     /**
      * Launch the application.
@@ -163,7 +164,11 @@ public class Principal extends JFrame {
         RoundedButton btnBuscar = new RoundedButton("BUSCAR EMPLEOS", 80);
         btnBuscar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ListOfertas verOfertas = new ListOfertas();
+                busqueda = textField.getText().trim();
+                if (busqueda.isEmpty()) {
+                    busqueda = null;
+                }
+                ListOfertas verOfertas = new ListOfertas(busqueda);
                 verOfertas.setEnabled(true);
                 verOfertas.setVisible(true);
             }
@@ -556,7 +561,11 @@ public class Principal extends JFrame {
             RoundedButton btnBuscarOfertas = new RoundedButton("Buscar Ofertas", 40);
             btnBuscarOfertas.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    ListOfertas myOfertas = new ListOfertas();
+                    busqueda = textField.getText().trim();
+                    if (busqueda.isEmpty()) {
+                        busqueda = null;
+                    }
+                    ListOfertas myOfertas = new ListOfertas(busqueda);
                     myOfertas.setModal(true);
                     myOfertas.setVisible(true);
                     panelInicio.setVisible(true);

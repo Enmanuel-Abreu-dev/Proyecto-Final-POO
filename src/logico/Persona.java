@@ -22,6 +22,7 @@ public abstract class Persona implements Serializable {
     protected LocalDate fechaNacim;
     protected ArrayList<Experiencia> experiencia;
     protected ArrayList<SolicitudEmp> solicitudEmps;
+    protected ArrayList<SolicitudCentro> solicitudCentro;
     protected boolean dispViajar;
     protected boolean dispResidencia;
     protected boolean empleado;
@@ -46,6 +47,7 @@ public abstract class Persona implements Serializable {
         usuario = null;
         experiencia = new ArrayList<>();
         solicitudEmps = new ArrayList<>();
+        solicitudCentro = new ArrayList<>();
     }
 
     public String getCedula() {
@@ -202,6 +204,15 @@ public abstract class Persona implements Serializable {
     	this.solicitudEmps.add(s);
     }
     
+    
+    public ArrayList<SolicitudCentro> getSolicitudCentro() {
+        return solicitudCentro;
+    }
+
+    public void setSolicitudCentro(ArrayList<SolicitudCentro> solicitudCentro) {
+        this.solicitudCentro = solicitudCentro;
+    }
+
     public ArrayList<SolicitudEmp> getSolicitudesActivas() {
     	return this.solicitudEmps.stream().filter(x -> x.getEstado() == EstadoSolicutud.ACEPTADA).collect(Collectors.toCollection(ArrayList::new));
     }

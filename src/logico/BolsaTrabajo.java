@@ -606,7 +606,6 @@ public class BolsaTrabajo implements Serializable {
 
 	public void actulizarCantOferta ( Oferta o )
 	{
-		
 		o.setCantVacante( o.getCantVacante() - 1 );
 	}
 }

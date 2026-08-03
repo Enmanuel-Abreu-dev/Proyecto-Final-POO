@@ -53,6 +53,7 @@ public class VentanaMatcheo extends JDialog {
 	private Oferta ofertaActual;
 	private JButton btnSalir;
 	private Persona personaActual;
+	private ArrayList<Coincidencia> listaCoincidencias;
 
 	/**
 	 * Launch the application.
@@ -259,7 +260,9 @@ public class VentanaMatcheo extends JDialog {
 			public void actionPerformed(ActionEvent arg0) {
 				if ( personaActual != null )
 				{
-					
+					RegSolicitudCentro solicitudCentro = new RegSolicitudCentro(oferta, personaActual, VentanaMatcheo.this);
+					solicitudCentro.setModal(true);
+					solicitudCentro.setVisible(true);
 				}
 			}
 		});
@@ -297,8 +300,9 @@ public class VentanaMatcheo extends JDialog {
 		layeredPane.add(btnSalir);
 
 		try {
-			cargarPodio(BolsaTrabajo.getInstance().calcularCoincidencia(ofertaActual.getPuesto()));	
-    		cargarListado(BolsaTrabajo.getInstance().calcularCoincidencia(ofertaActual.getPuesto()));
+			listaCoincidencias = BolsaTrabajo.getInstance().calcularCoincidencia(ofertaActual.getPuesto());
+			cargarPodio(listaCoincidencias);	
+    		cargarListado(listaCoincidencias);
 		} catch (NullPointerException npe) {
 			System.out.println("Error");
 		}
@@ -495,5 +499,18 @@ public class VentanaMatcheo extends JDialog {
 
 		dispResidenciaTxt.setText(p.isDispResidencia() ? "SI" : "NO");
 		dispResidenciaTxt.setForeground(p.isDispResidencia() ? VERDE : ROJO);
+	}
+
+	public void eliminarCandidato(Persona p) {
+		if (listaCoincidencias == null || p == null) return;
+
+		listaCoincidencias.removeIf(c -> c.getPersona() == p);
+
+		cargarPodio(listaCoincidencias);
+		cargarListado(listaCoincidencias);
+
+		if (p.equals(personaActual)) {
+			personaActual = null;
+		}
 	}
 }

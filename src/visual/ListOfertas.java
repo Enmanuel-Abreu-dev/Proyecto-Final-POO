@@ -33,6 +33,7 @@ import javax.swing.border.TitledBorder;
 
 import logico.BolsaTrabajo;
 import logico.Oferta;
+import javax.swing.JTextField;
 
 
 public class ListOfertas extends JDialog {
@@ -63,17 +64,17 @@ public class ListOfertas extends JDialog {
 	private RoundedTextField ubicacionTxt;
 	private JTextArea txtDescripcion;
 	private JTextArea txtRequisitos;
-
-	private JComboBox experienciaComboBox;
 	private JComboBox salarioComboBox;
 	private Oferta ofertaSeleccionada;
+	private JTextField buscarOferta;
+	private String busquedaExterna = null;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			ListOfertas dialog = new ListOfertas();
+			ListOfertas dialog = new ListOfertas(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -84,7 +85,8 @@ public class ListOfertas extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ListOfertas() {
+	public ListOfertas(String busqueda) {
+		busquedaExterna = busqueda;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListOfertas.class.getResource("/imagenes/iconoBuscarOferta.png")));
 		getContentPane().setBackground(new Color(0, 0, 102));
 
@@ -102,18 +104,11 @@ public class ListOfertas extends JDialog {
 		scrollPane.setViewportView(panelListado);
 		panelListado.setLayout(new BoxLayout(panelListado, BoxLayout.Y_AXIS));
 
-		experienciaComboBox = new JComboBox();
-		experienciaComboBox.setModel(new DefaultComboBoxModel(new String[] {"Experiencia", "Sin Experiencia ", "1 año", "2 años ", "3-4 años", "5-10 años"}));
-		experienciaComboBox.setFont(new Font("Tahoma", Font.ITALIC, 16));
-		experienciaComboBox.setBackground(new Color(255, 255, 255));
-		experienciaComboBox.setBounds(399, 98, 183, 42);
-		layeredPane.add(experienciaComboBox);
-
 		salarioComboBox = new JComboBox();
 		salarioComboBox.setModel(new DefaultComboBoxModel(new String[] {"Salario", "Menos de $15,000", "$15,000 - $25,000", "$25,000 - $35,000", "$35,000 - $50,000", "$50,000 - $70,000", "$70,000 - $100,000", "Más de $100,000"}));
 		salarioComboBox.setFont(new Font("Tahoma", Font.ITALIC, 16));
 		salarioComboBox.setBackground(new Color(255, 255, 255));
-		salarioComboBox.setBounds(690, 98, 183, 42);
+		salarioComboBox.setBounds(376, 99, 183, 42);
 		layeredPane.add(salarioComboBox);
 
 		JButton btnNewButton = new JButton("SALIR");
@@ -337,11 +332,34 @@ public class ListOfertas extends JDialog {
 		lblNewLabel_1.setFont(new Font("Lucida Handwriting", Font.PLAIN, 41));
 		lblNewLabel_1.setBounds(133, 16, 500, 72);
 		layeredPane.add(lblNewLabel_1);
+		
+		buscarOferta = new JTextField();
+		buscarOferta.setBounds(24, 98, 285, 46);
+		layeredPane.add(buscarOferta);
+		buscarOferta.setColumns(10);
+
+		buscarOferta.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+			public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrarOfertas(); }
+			public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrarOfertas(); }
+			public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrarOfertas(); }
+		});
+
+		salarioComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				filtrarOfertas();
+			}
+		});
 
 		setTitle("LISTADO DE OFERTAS");
 		setSize(1280, 720);
 		setLocationRelativeTo(null);
 		cargarOferta();
+
+		if ( busquedaExterna != null && !busquedaExterna.trim().isEmpty() )
+		{
+			buscarOferta.setText(busquedaExterna);
+			filtrarOfertas();
+		}
 	}
 
 	public void cargarOferta() {
@@ -360,6 +378,52 @@ public class ListOfertas extends JDialog {
 
 		if (!ofertas.isEmpty()) {
 			mostrarDetalle(ofertas.get(0));
+		}
+	}
+
+	private void filtrarOfertas() {
+		ArrayList<Oferta> todas = BolsaTrabajo.getInstance().getOfertas();
+		ArrayList<Oferta> filtradas = new ArrayList<>();
+
+		String texto = buscarOferta.getText().trim().toLowerCase();
+		int rangoSeleccionado = salarioComboBox.getSelectedIndex();
+
+		for (Oferta o : todas) {
+			if (!o.isEstado()) continue;
+
+			boolean cumpleTexto = texto.isEmpty() || o.getPuesto().toLowerCase().contains(texto);
+			boolean cumpleSalario = rangoSeleccionado == 0 || estaEnRangoSalario(o.getSalario(), rangoSeleccionado);
+
+			if (cumpleTexto && cumpleSalario) {
+				filtradas.add(o);
+			}
+		}
+
+		panelListado.removeAll();
+		for (final Oferta o : filtradas) {
+			if (o.isEstado()) {
+				panelListado.add(crearTarjeta(o));
+				panelListado.add(Box.createRigidArea(new Dimension(0, 10)));
+			}
+		}
+		panelListado.revalidate();
+		panelListado.repaint();
+
+		if (!filtradas.isEmpty()) {
+			mostrarDetalle(filtradas.get(0));
+		}
+	}
+
+	private boolean estaEnRangoSalario(double salario, int index) {
+		switch (index) {
+			case 1: return salario < 15000;
+			case 2: return salario >= 15000 && salario < 25000;
+			case 3: return salario >= 25000 && salario < 35000;
+			case 4: return salario >= 35000 && salario < 50000;
+			case 5: return salario >= 50000 && salario < 70000;
+			case 6: return salario >= 70000 && salario < 100000;
+			case 7: return salario >= 100000;
+			default: return true;
 		}
 	}
 
