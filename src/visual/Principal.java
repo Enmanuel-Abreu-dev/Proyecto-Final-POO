@@ -557,6 +557,22 @@ public class Principal extends JFrame {
             btnSolAceptadas.setBackground(new Color(0, 0, 102));
             btnSolAceptadas.setBounds(10, 532, 200, 128);
             panel_2.add(btnSolAceptadas);
+
+            RoundedButton btnSolicitudCentroEmp = new RoundedButton("Solicitud Empleado", 40);
+            btnSolicitudCentroEmp.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    listSolicitudCentroEmp listSolicitud = new listSolicitudCentroEmp(usuarioActual.getMyInstitucion());
+                    listSolicitud.setModal(true);
+                    listSolicitud.setVisible(true);
+                    panelInicio.setVisible(true);
+                }
+            });
+            btnSolicitudCentroEmp.setForeground(Color.WHITE);
+            btnSolicitudCentroEmp.setBackground(new Color(0, 0, 102));
+            btnSolicitudCentroEmp.setFont(new Font("Tw Cen MT", Font.PLAIN, 26));
+            btnSolicitudCentroEmp.setBounds(10, 697, 200, 128);
+            panel_2.add(btnSolicitudCentroEmp);
+
         } else {
             RoundedButton btnBuscarOfertas = new RoundedButton("Buscar Ofertas", 40);
             btnBuscarOfertas.addActionListener(new ActionListener() {
@@ -628,13 +644,13 @@ public class Principal extends JFrame {
                     ListSolicitudesRecibidasCentro listSoli = new ListSolicitudesRecibidasCentro(usuarioActual.getMyPersona());
                     listSoli.setModal(true);
                     listSoli.setVisible(true);
-                    listSoli.setVisible(true);
+                    panelInicio.setVisible(true);
                 }
             });
             btnSolicitudCentro.setForeground(Color.WHITE);
             btnSolicitudCentro.setBackground(new Color(0, 0, 102));
             btnSolicitudCentro.setFont(new Font("Tw Cen MT", Font.PLAIN, 26));
-            btnSolicitudCentro.setBounds(10, 862, 200, 128);
+            btnSolicitudCentro.setBounds(10, 697, 200, 128);
             panel_2.add(btnSolicitudCentro);
         }
 
@@ -643,7 +659,7 @@ public class Principal extends JFrame {
         btnVerMiPerfil.setForeground(Color.WHITE);
         btnVerMiPerfil.setFont(new Font("Tw Cen MT", Font.PLAIN, 22));
         btnVerMiPerfil.setBackground(new Color(0, 0, 102));
-        btnVerMiPerfil.setBounds(10, 697, 200, 128);
+        btnVerMiPerfil.setBounds(10, 862, 200, 128);
         btnVerMiPerfil.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 panelInicio.setVisible(false);
