@@ -6,7 +6,6 @@ import logico.Institucion;
 import logico.Persona;
 
 import java.awt.*;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -741,6 +740,7 @@ public class Principal extends JFrame {
         try {
             ObjectOutputStream io = new ObjectOutputStream(new FileOutputStream("save.bin"));
             io.writeObject(BolsaTrabajo.getInstance());
+            io.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -843,23 +843,12 @@ public class Principal extends JFrame {
     public void enviarDatosServer() {
         try {
             Socket sc = new Socket("127.0.0.1", 7000);
-            File archivo = new File("save.bin");
 
-            DataOutputStream send = new DataOutputStream(sc.getOutputStream());
-
-            send.writeUTF(archivo.getName());
-            send.writeLong(archivo.length());
-
-            FileInputStream entradaArchivo = new FileInputStream(archivo);
-            byte[] buffer = new byte[4096];
-            int leidos;
-            while ((leidos = entradaArchivo.read(buffer)) != -1) {
-                send.write(buffer, 0, leidos);
-            }
-
+            ObjectOutputStream send = new ObjectOutputStream(sc.getOutputStream());
+            send.writeObject(BolsaTrabajo.getInstance());
             send.flush();
+
             sc.close();
-            entradaArchivo.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
